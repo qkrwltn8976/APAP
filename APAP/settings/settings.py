@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount', # new 소셜 미디어 아이디로 로그인
     'allauth.socialaccount.providers.github', # new 깃 아이디로 로그인
     'main',
+    'authservice',
+    'models',
 ]
 
 MIDDLEWARE = [
