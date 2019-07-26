@@ -1,6 +1,40 @@
 {% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
-어푸어푸
+<section class="hero-area-fix">
+    <div class="hero-area" id="water">
+        <div class="container">
+            <div class="row">
+                <div class="hero-text">
+                    <h1>APAP</h1>
+                    <div id="typed-strings">
+                        <h3>동국대 멋쟁이 사자처럼</h3>
+                        <h3>어푸어푸</h3>
+                        <h3>으쌰으쌰</h3>
+                    </div>
+                    <h3><span id="typed"></span></h3>
+                    <h4>A Complete Landing Page and Multipurpose Package</h4>
+                    <a href="{% url 'signup' %}" class="btn view-demo"> 회원가입 </a>
+                    <a href="#" class="btn buy-now">Buy Drimo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product-landing pro_d" data-scroll-index="1">
+    <div class="container">
+        <div class="row">
+            <h2 class="title">Home onepage Demos</h2>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <a href="{% static 'drimo/index.html' %}" target="_blank">
+                    <div class="item-imag">
+                        <img src="{% static 'image/product/index-1.png' %}" class="img-responsive radius" alt="">
+                        <p class="product-title">OnePage - 01</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}  
  
