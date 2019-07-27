@@ -25,7 +25,7 @@ SECRET_KEY = 's3)&usud6h)9rc5a1md-#hmggjmt41053zp7j6p)av8(%(mdy)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount', # new 소셜 미디어 아이디로 로그인
     'allauth.socialaccount.providers.github', # new 깃 아이디로 로그인
     'main',
-    'authservice',
-    'models',
 ]
 
 MIDDLEWARE = [
