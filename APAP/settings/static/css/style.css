@@ -162,7 +162,7 @@ body {
     position: relative;
     width: 100%;
     content: '';
-    background: url(../image/header/base_BGI.jpg) no-repeat scroll center center;
+    background: url(../image/header/slider-1.png) no-repeat scroll center center;
     background-size: cover;
     min-height: 900px;
     z-index: 1;
