@@ -8,14 +8,44 @@
                 <div class="hero-text">
                     <h1>APAP</h1>
                     <div id="typed-strings">
-                        <h3>동국대 멋쟁이 사자처럼</h3>
+                        <h3>대리 프린트 서비스의 시작</h3>
                         <h3>어푸어푸</h3>
-                        <h3>으쌰으쌰</h3>
+                        <h3>동국대 멋쟁이 사자처럼</h3>
                     </div>
                     <h3><span id="typed"></span></h3>
-                    <h4>A Complete Landing Page and Multipurpose Package</h4>
-                    <a href="{% url 'signup' %}" class="btn view-demo"> 회원가입 </a>
-                    <a href="#" class="btn buy-now">Buy Drimo</a>
+                    <h4>계정이 없으시다면, <a href="{% url 'signup' %}">회원가입</a>을 먼저 해주세요 :)</h4>
+                    <form class="login" method="POST" action="{% url 'signin' %}">
+                    
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                            <input
+                                name="username"
+                                class="form-control"
+                                placeholder="Your Name"
+                                required=""
+                                autofocus="autofocus"
+                                id="username"
+                                type="text"
+                            />
+                            </div>
+                            <br>
+                            <div class="form-group col-md-12">
+                            <input
+                                name="password"
+                                class="form-control"
+                                placeholder="Password"
+                                required=""
+                                type="password"
+                                id="id_password1"
+                            />
+                        </div>
+                        <br><br><br>
+                        <div class="form-group col-md-12">
+                            <button class="btn buy-now">Sign In</button>
+                        </div>
+                        </form>
+                    
                 </div>
             </div>
         </div>
