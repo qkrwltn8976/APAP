@@ -2,9 +2,10 @@ from django.db import models
 
 
 from django.contrib.auth.models import AbstractUser
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 # from django.contrib.postgres.fields import ArrayField
 
-class User(AbstractUser):
+class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	university = models.CharField(max_length=100)
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
@@ -14,14 +15,16 @@ class University(models.Model):
 	
 class Lecture(models.Model):
 	name = models.CharField(max_length=100)
-	code = models.IntegerField()
+	code = models.CharField(max_length=100)
 	day_time = models.CharField(max_length=100)
 
+	#user = models.ForeignKey(User, on_delete = models.CASCADE)
 	university = models.ForeignKey(
 		University,
 		on_delete = models.CASCADE,
 		related_name = 'university',
 	)
+
 
 
 
