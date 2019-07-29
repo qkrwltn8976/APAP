@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'main',
     'authservice',
     'models',
+    'django_openid_auth', #BACKEND 오류 해결
 ]
 
 MIDDLEWARE = [
@@ -145,7 +146,10 @@ AUTHENTICATION_BACKENDS = (
     
     # 이메일 등으로 로그인 가능
     "allauth.account.auth_backends.AuthenticationBackend",
+
+    'django_openid_auth.auth.OpenIDBackend',
 )
+
 SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
