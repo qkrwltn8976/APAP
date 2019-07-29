@@ -30,17 +30,20 @@ def request(request, username):
 def detail(request, username, id):
 	return render(request, 'main/detail.html')
 
+def selected_lectures(request):
+	if request.method == 'POST':
+		lecture_id = request.POST.get('lecures')
+		lecture_id1 = request.POST.get('lecures_id')
+		print("================="+lecture_id)
+		print("================="+lecture_id1)
+		return redirect('home')
+	return render(request, 'main/mypage.html')
+
 
 def mypage(request, username):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	#user = request.user
 	username = user.username
-
 	lectures = Lecture.objects.all()
-	# if user.verified == True:
-	# 	#
-	# else:
-	# 	#
-
 	return render(request, 'main/mypage.html', {'lectures' : lectures})
-# Create your views here.
+
