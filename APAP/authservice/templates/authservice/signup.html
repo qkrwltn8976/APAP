@@ -1,42 +1,74 @@
 {% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
-<div class="col-md-8 col-xs-12">
-    <aside class="f_widget contact_widget">
-        <div class="f_title">
-            <h3>Contact Us</h3>
+
+<section class="hero-area-fix">
+<div class="hero-area" id="water">
+    <div class="container">
+        
+        <div class="hero-text">
+            {% comment %} <div class="col-md-8 col-xs-12"> {% endcomment %}
+                <aside class="f_widget contact_widget">
+                    <div class="f_title">
+                        <h1>Sign Up</h1>
+                    </div>
+                    <form class="row contact_widget_form" action="{% url 'signup' %}" method="post" id="contactForm"
+                        novalidate="novalidate">
+                        {% csrf_token %}
+                        <h4><br>아래 정보를 입력해 회원 가입을 진행해주세요.<br>계정이 있다면, <a href="{% url 'signin' %}">로그인하세요</a>.</h4>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input
+                                        name="username"
+                                        class="form-control"
+                                        placeholder="Your Name"
+                                        required=""
+                                        autofocus="autofocus"
+                                        id="username"
+                                        type="text"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="E-mail"
+                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                                        required=""
+                                        id="email"
+                                        type="email"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input
+                                        name="password1"
+                                        class="form-control"
+                                        placeholder="Password"
+                                        required=""
+                                        type="password"
+                                        id="password1"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input
+                                        name="password2"
+                                        class="form-control"
+                                        placeholder="Password Confirm"
+                                        required=""
+                                        type="password"
+                                        id="password2"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button class="btn buy-now">Sign Up</button>
+                            </div>
+                        </form>
+                    
+                </aside>
+             </div>
         </div>
-        <form class="row contact_widget_form" action="contact_process.php" method="post" id="contactForm"
-            novalidate="novalidate">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <textarea class="form-control" name="message" id="message" rows="1"
-                            placeholder="Your Message......."></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-md-12">
-                <button type="submit" value="submit your quote" class="btn submint_btn form-control">SEND NOW</button>
-            </div>
-        </form>
-    </aside>
-</div>
+    </div>
+</section>
 
 {% endblock %}  
