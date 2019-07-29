@@ -10,6 +10,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
 
+	
 class University(models.Model):
 	name = models.CharField(max_length=100)
 	
@@ -18,7 +19,6 @@ class Lecture(models.Model):
 	code = models.CharField(max_length=100)
 	day_time = models.CharField(max_length=100)
 
-	#user = models.ForeignKey(User, on_delete = models.CASCADE)
 	university = models.ForeignKey(
 		University,
 		on_delete = models.CASCADE,
