@@ -1,30 +1,6 @@
-{% extends 'base.html' %}
-<!-- base.html의 내용을 가져오겠다. -->
+{% extends 'base_index.html' %}
 {% load staticfiles %}
 {% block content %}
-
-<head>
-    <title>Drimo - App Landing Page Template</title>
-    <link rel="icon" href="{% static 'image/fav-icon.png' %}" type="image/x-icon" />
-    <!-- Icon css link -->
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/index/icofont.css' %}" rel="stylesheet">
-
-    <!-- Rev slider css -->
-    <link href="{% static 'vendors/revolution/css/settings.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/revolution/css/layers.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/revolution/css/navigation.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/animate-css/animate.css' %}" rel="stylesheet">
-
-    <!-- Extra plugin css -->
-    <link href="{% static 'vendors/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/owl-carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-
-    <link href="{% static 'css/index/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/index/responsive.css' %}" rel="stylesheet">
-</head>
-
-
 <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="120">
 
 
@@ -53,13 +29,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><img src="{% static 'image/logo.png' %}" alt=""></a>
+                        <a class="navbar-brand" href="#"><img src="{% static 'image/index/logo.png' %}" alt=""></a>
+
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                            <li class="active"><a href="index.html">Home</a></li>
                             <li><a href="#feature">FETURES</a></li>
                             <li><a href="#about">About</a></li>
                             <li><a href="#screenshot">SCREENSHOT</a></li>
@@ -81,7 +58,7 @@
             <ul>
                 <li data-index="rs-2972" data-transition="slidingoverlayhorizontal" data-slotamount="default"
                     data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default"
-                    data-masterspeed="default" data-thumb="{% static 'image/header/base_BGI'}" data-rotate="0"
+                    data-masterspeed="default" data-thumb="../../settings/static/image/header/base_BGI.png" data-rotate="0"
                     data-saveperformance="off" data-title="Web Show" data-param1="" data-param2="" data-param3=""
                     data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9=""
                     data-param10="" data-description="">
@@ -112,7 +89,7 @@
                 </li>
                 <li data-index="rs-2973" data-transition="slidingoverlayhorizontal" data-slotamount="default"
                     data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default"
-                    data-masterspeed="default" data-thumb="{% static 'image/header/base_BGI'}" data-rotate="0"
+                    data-masterspeed="default" data-thumb="../../settings/static/image/header/base_BGI.png" data-rotate="0"
                     data-saveperformance="off" data-title="Web Show" data-param1="" data-param2="" data-param3=""
                     data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9=""
                     data-param10="" data-description="">
@@ -181,44 +158,44 @@
                 <div class="col-md-6">
                     <div class="app_round_image">
                         <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
-                    <img class="app_mobile" src="{% static 'image/index/app-mobile.png' %}" alt="">
-        </div>
-        <div class="app_feature_item app_middle">
-            <div class="round_icon">
-                <i class="fa fa-bar-chart"></i>
-            </div>
-            <a href="#">
-                <h4>Unique Design</h4>
-            </a>
-            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                suffered alteration .</p>
-        </div>
-        </div>
-        <div class="col-md-3">
-            <div class="app_feature_item_inner left_feature">
-                <div class="app_feature_item">
-                    <div class="round_icon">
-                        <i class="fa fa-cloud-download"></i>
+                        <img class="app_mobile" src="{% static 'image/index/app-mobile.png' %}" alt="">
                     </div>
-                    <a href="#">
-                        <h4>Unique Design</h4>
-                    </a>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                        suffered.</p>
-                </div>
-                <div class="app_feature_item">
-                    <div class="round_icon">
-                        <i class="fa fa-comments-o"></i>
+                    <div class="app_feature_item app_middle">
+                        <div class="round_icon">
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                        <a href="#">
+                            <h4>Unique Design</h4>
+                        </a>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration .</p>
                     </div>
-                    <a href="#">
-                        <h4>Unique Design</h4>
-                    </a>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                        suffered.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="app_feature_item_inner left_feature">
+                        <div class="app_feature_item">
+                            <div class="round_icon">
+                                <i class="fa fa-cloud-download"></i>
+                            </div>
+                            <a href="#">
+                                <h4>Unique Design</h4>
+                            </a>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                                suffered.</p>
+                        </div>
+                        <div class="app_feature_item">
+                            <div class="round_icon">
+                                <i class="fa fa-comments-o"></i>
+                            </div>
+                            <a href="#">
+                                <h4>Unique Design</h4>
+                            </a>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                                suffered.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
         </div>
     </section>
     <!--================End App Feature Area =================-->
@@ -229,19 +206,13 @@
             <div class="row left_choose_image">
                 <ul>
                     <li><img src="{% static 'image/index/m-image-1.png' %}" alt=""></li>
-                    <li><img src="{% static 'image/index/m-image-2.png' %}" alt="" data-parallax='{"x": 25, "y": -50}'>
-                    </li>
-                    <li><img src="{% static 'image/index/m-image-3.png' %}" alt="" data-parallax='{"x": 50, "y": -100}'>
-                    </li>
-                    <li><img src="{% static 'image/index/m-image-4.png' %}" alt="" data-parallax='{"x": 90, "y": -180}'>
-                    </li>
-                    <li><img src="{% static 'image/index/m-image-5.png' %}" alt="" data-parallax='{"x": 20, "y": -30}'>
-                    </li>
-                    <li><img src="{% static 'image/index/m-image-6.png' %}" alt="" data-parallax='{"x": 90, "y": -100}'>
-                    </li>
+                    <li><img src="{% static 'image/index/m-image-2.png' %}" alt="" data-parallax='{"x": 25, "y": -50}'></li>
+                    <li><img src="{% static 'image/index/m-image-3.png' %}" alt="" data-parallax='{"x": 50, "y": -100}'></li>
+                    <li><img src="{% static 'image/index/m-image-4.png' %}" alt="" data-parallax='{"x": 90, "y": -180}'></li>
+                    <li><img src="{% static 'image/index/m-image-5.png' %}" alt="" data-parallax='{"x": 20, "y": -30}'></li>
+                    <li><img src="{% static 'image/index/m-image-6.png' %}" alt="" data-parallax='{"x": 90, "y": -100}'></li>
                     <li><img src="{% static 'image/index/m-image-7.png' %}" alt=""></li>
-                    <li><img src="{% static 'image/index/m-image-8.png' %}" alt="" data-parallax='{"x": 90, "y": -180}'>
-                    </li>
+                    <li><img src="{% static 'image/index/m-image-8.png' %}" alt="" data-parallax='{"x": 90, "y": -180}'></li>
                 </ul>
             </div>
         </div>
@@ -944,5 +915,7 @@
             </div>
         </div>
     </footer>
+    <!--================End Footer Area =================-->
+
 </body>
 {% endblock %}

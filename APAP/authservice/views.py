@@ -48,6 +48,11 @@ def signup(request):
 			return redirect('home')
 	return render(request, 'authservice/signup.html')
 
+
+def index(request):
+	return render(request, 'index.html')
+
+
 # def logout(request):
 # 	absuth.logout(request):
 # 	return redirect('signin')
