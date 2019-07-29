@@ -26,5 +26,14 @@ class Lecture(models.Model):
 	)
 
 
+class Print(models.Model):
+	# 요청 추가해야함!
+	color = models.BooleanField(default=True)
+	side = models.BooleanField(default=True)
+	gather = models.IntegerField(default=1)
+	direction = models.BooleanField(default=True)
+	order = models.BooleanField(default=True)
+	price = models.IntegerField(default=2500)
+	cnt = models.IntegerField(default=0)
 
 
