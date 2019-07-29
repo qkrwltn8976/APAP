@@ -36,10 +36,11 @@ def mypage(request, username):
 	#user = request.user
 	username = user.username
 
+	lectures = Lecture.objects.all()
 	# if user.verified == True:
 	# 	#
 	# else:
 	# 	#
 
-	return render(request, 'main/mypage.html')
+	return render(request, 'main/mypage.html', {'lectures' : lectures})
 # Create your views here.
