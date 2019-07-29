@@ -12,29 +12,11 @@
                         <h3>어푸어푸</h3>
                         <h3>으쌰으쌰</h3>
                     </div>
-                    <h3><span id="typed"></span></h3>
-                    <form class="login" method="POST" action="{% url 'signin' %}">
-                        {% csrf_token %}
-                        <a class="button secondaryAction" href=""></a>
-                        <button class="primaryAction btn btn-primary" type="submit"></button>
-                    </form>
-                    <a href="{% url 'signup' %}" class="btn view-demo">회원가입</a>
+                    <h3><span id="typed"></span></h3><br>
+                    <h4>나랏말쌈이 듕극에 달아</h4>
+                    <a href="{% url 'signup' %}" class="btn view-demo"> 회원가입 </a>
+                    <a href="{% url 'index' %}" class="btn buy-now">로그인</a>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="product-landing pro_d" data-scroll-index="1">
-    <div class="container">
-        <div class="row">
-            <h2 class="title">Home onepage Demos</h2>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <a href="{% static 'drimo/index.html' %}" target="_blank">
-                    <div class="item-imag">
-                        <img src="{% static 'image/product/index-1.png' %}" class="img-responsive radius" alt="">
-                        <p class="product-title">OnePage - 01</p>
-                    </div>
-                </a>
             </div>
         </div>
     </div>
