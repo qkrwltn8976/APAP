@@ -1,5 +1,13 @@
 {% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
-
-{% endblock %}   
+    <div style="font-color: black; text-align:center; margin-top: 30px; ">
+        <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
+    </div>
+    <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
+        <!--알림-->
+        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <!--프로필사진을 누르면 mypage.html으로-->
+        <a href = "mypage"><img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
+    </div>
+{% endblock %}  

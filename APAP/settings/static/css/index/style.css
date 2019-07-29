@@ -1927,12 +1927,12 @@ iframe {
 /* Main slider Area css
 ============================================================================================ */
 .main_slider_area #main_slider {
-  background: url(../../image/header/base_BGI.jpg) no-repeat scroll center center;
+  background: url(../../image/header/base_BGI.png) no-repeat scroll center center;
   background-size: cover;
 }
 
 .main_slider_area #dash_slider {
-  background: url(../../image/header/base_BGI.jpg) no-repeat scroll center center;
+  background: url(../../image/header/base_BGI.png) no-repeat scroll center center;
   background-size: cover;
 }
 

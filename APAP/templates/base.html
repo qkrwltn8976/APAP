@@ -14,15 +14,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>어푸어푸</title>
-    <!--여기부터 drimo안에 있는 css-->
-    <link href="{% static 'drimo/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'drimo/css/bootstrap-theme.min.css' %}" rel="stylesheet">
-    <link href="{% static 'drimo/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'drimo/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'drimo/css/animate.css' %}">
+    {% comment %} <!--여기부터 index폴더 안에 있는 css-->
+    <link href="{% static 'image/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/index/bootstrap-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index/font-awesome.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/animate.css' %}">
     <!--css-->
-    <link rel="stylesheet" href="{% static 'drimo/css/style.css' %}">
-    <!--end drimo css-->    
+    <link rel="stylesheet" href="{% static 'css/index/style.css' %}">
+    <!--end index 폴더 css-->     {% endcomment %}
     <!--    favicon-->
     <link rel="shortcut icon" href="{% static 'image/rubber-duck.png' %}" type="image/x-icon">
     <!-- Bootstrap -->
@@ -41,18 +41,9 @@
         <![endif]-->
 </head>
 
-    <body>'/'
+    <body>
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
-        <div style="font-color: black; text-align:center; margin-top: 30px; ">
-            <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
-        </div>
-        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
-            <!--알림-->
-            <a href="#"><img src="{% static 'drimo/img/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
-            <!--프로필사진을 누르면 mypage.html으로-->
-            <a href = "mypage"><img src="{% static 'drimo/img/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
-           
-        </div>
+
         {% block content %}
 
         {% endblock %}
