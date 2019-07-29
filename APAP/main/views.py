@@ -5,8 +5,13 @@ def home(request, username):
 	return render(request, 'main/home.html')
 
 
-def request(request, username):
-	return render(request, 'main/request.html')
+def upload(request, username):
+	return render(request, 'main/upload.html')
+
+
+def popup(request, username):
+    	return render(request, 'main/popup.html')
+
 
 
 def detail(request, username, id):
