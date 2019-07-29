@@ -2,4 +2,78 @@
 {% load staticfiles %}
 {% block content %}
 
-{% endblock %}   
+<!-- Stylesheet -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="dist/js/BsMultiSelect.js"></script>
+
+ㅇㅁㄴㅇㄹㅁ
+
+<select name="states" id="example" class="form-control"  multiple="multiple" style="display: none;">
+  <option value="AL">Alabama</option>
+  <option value="AK">Alaska</option>
+  <option value="AZ">Arizona</option>
+  <option value="AR">Arkansas</option>
+  <option selected value="CA">California</option>
+</select>
+
+<script>
+$(function(){
+  $("select").dashboardCodeBsMultiSelect();
+});
+
+$("select").bsMultiSelect({
+  selectedPanelDefMinHeight: 'calc(2.25rem + 2px)',
+  selectedPanelLgMinHeight: 'calc(2.875rem + 2px)',
+  selectedPanelSmMinHeight: 'calc(1.8125rem + 2px)',
+  selectedPanelDisabledBackgroundColor: '#e9ecef',
+  selectedPanelFocusBorderColor: '#80bdff',
+  selectedPanelFocusBoxShadow: '0 0 0 0.2rem rgba(0, 123, 255, 0.25)',
+  selectedPanelFocusValidBoxShadow: '0 0 0 0.2rem rgba(40, 167, 69, 0.25)',
+  selectedPanelFocusInvalidBoxShadow: '0 0 0 0.2rem rgba(220, 53, 69, 0.25)',
+  filterInputColor: '#495057',
+  selectedItemContentDisabledOpacity: '.65',
+  dropdDownLabelDisabledColor: '#6c757d',
+  containerClass: 'dashboardcode-bsmultiselect',
+  dropDown<a href="https://www.jqueryscript.net/menu/">Menu</a>Class: 'dropdown-menu',
+  dropDownItemClass: 'px-2',
+  dropDownItemHoverClass: 'text-primary bg-light',
+  selectedPanelClass: 'form-control',
+  selectedItemClass: 'badge',
+  removeSelectedItemButtonClass: 'close',
+  filterInputItemClass: '',
+  filterInputClass: ''
+});
+</script>
+
+
+
+{% endblock %}
+
+<!-- <script>
+$(function () {
+    var loadForm = function () {
+        var btn = $(this);
+        $.ajax({
+            url: btn.attr("data-url"),
+            type: 'get',
+            dataType: 'json',
+            beforeSend: function () {
+                $('#id_lecture').djangoSelect2({multiple: true});
+                $("#modal").modal("show");
+            },
+            success: function (data) {
+                $("#modal .modal-content").html(data.html_product_form);
+            }
+        });
+    };
+
+    $("#product-add-button").click(loadForm);
+});
+</script>
+ -->
