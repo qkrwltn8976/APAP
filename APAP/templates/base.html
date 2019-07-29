@@ -2,12 +2,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>어푸어푸</title>
+    <!--여기부터 drimo안에 있는 css-->
+    <link href="{% static 'drimo/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'drimo/css/bootstrap-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'drimo/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'drimo/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'drimo/css/animate.css' %}">
+    <!--css-->
+    <link rel="stylesheet" href="{% static 'drimo/css/style.css' %}">
+    <!--end drimo css-->    
     <!--    favicon-->
     <link rel="shortcut icon" href="{% static 'image/rubber-duck.png' %}" type="image/x-icon">
     <!-- Bootstrap -->
@@ -28,7 +38,7 @@
 
     <body>
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
-        <!--<a href = "home"></a>-->
+        <a style = "font-size: 15px" href = "home">Afford to Print: 어푸어푸</a>
         <!--알림-->
         {% comment %} <a img = "https://b.kisscc0.com/20180705/iiw/kisscc0-alarm-device-alarm-clocks-security-alarms-system-alarm-bell-5b3db22fb2f4a0.063019161530769967733.png"></a> {% endcomment %}
         <!--프로필사진을 누르면 mypage.html으로-->
