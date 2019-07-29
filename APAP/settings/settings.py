@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account', # new
     'allauth.socialaccount', # new 소셜 미디어 아이디로 로그인
     'allauth.socialaccount.providers.github', # new 깃 아이디로 로그인
+    'simple_email_confirmation', # email 인증
     'main',
     'authservice',
     'models',
