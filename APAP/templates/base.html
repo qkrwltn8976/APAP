@@ -7,6 +7,7 @@
     <style>
         @font-face { font-family: 'Malssami815'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Malssami815.woff') format('woff'); font-weight: normal; font-style: normal; }
         @font-face { font-family: 'BBTreeGL'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); font-weight: normal; font-style: normal; }
+        @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }    
     </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,17 +41,16 @@
         <![endif]-->
 </head>
 
-    <body>
-
+    <body>'/'
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
         <div style="font-color: black; text-align:center; margin-top: 30px; ">
             <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
         </div>
-        <div style ="text-align: right; font-family: 'BBTreeGL'; font-size:10px; margin-right: 20px;">
+        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
             <!--알림-->
-            <a href="#"><img src="{% static 'drimo/img/bell.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+            <a href="#"><img src="{% static 'drimo/img/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
             <!--프로필사진을 누르면 mypage.html으로-->
-            <a href = "mypage"><img src="{% static 'drimo/img/stupid.png'  %}" style = "width: 30px; height: 30px;">안녕하세요 님!</a><br><br>
+            <a href = "mypage"><img src="{% static 'drimo/img/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
            
         </div>
         {% block content %}
