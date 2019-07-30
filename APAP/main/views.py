@@ -34,13 +34,11 @@ def selected_lectures(request, id):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
 	if request.method == 'POST':
-		lectures_id = request.POST.getlist('lectures[]')
-		lec = request.POST.get('lec')
-		lectures = Lecture.objects.filter(pk=lectures_id)
-		print("================="+str(lecture_id))
-		print("================="+str(lectures_id.count()))
-		print("================="+str(lec))
-		return redirect('home')
+		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
+		print("================="+str(lectures_id))
+		for id in lectures_id:
+			lecture = get_object_or_404(Lecture, pk=id)
+			Schedule.objects.create(user=user, lecture=lecture)
 	return render(request, 'main/mypage.html')
 
 
