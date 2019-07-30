@@ -30,6 +30,7 @@ def request(request, username):
 def detail(request, username, id):
 	return render(request, 'main/detail.html')
 
+
 def selected_lectures(request, id):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
@@ -39,7 +40,7 @@ def selected_lectures(request, id):
 		for id in lectures_id:
 			lecture = get_object_or_404(Lecture, pk=id)
 			Schedule.objects.create(user=user, lecture=lecture)
-	return render(request, 'main/mypage.html')
+	return redirect('main:mypage', username = user)
 
 
 def mypage(request, username):
@@ -47,5 +48,9 @@ def mypage(request, username):
 	#user = request.user
 	username = user.username
 	lectures = Lecture.objects.all()
-	return render(request, 'main/mypage.html', {'lectures' : lectures})
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+	print("====="+str(schedule.count()))
+	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
