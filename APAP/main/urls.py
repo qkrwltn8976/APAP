@@ -10,5 +10,5 @@ urlpatterns = [
 	path('<str:username>/request', views.request, name="request"),
 	path('<str:username>/request/<int:id>', views.detail, name="detail"),
 	path('<str:username>/mypage/', views.mypage, name="mypage"),
-	path('selected_lectures/', views.selected_lectures, name="selected_lectures"),
+	path('selected_lectures/<int:id>', views.selected_lectures, name="selected_lectures"),
 ] 

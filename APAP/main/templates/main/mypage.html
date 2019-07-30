@@ -37,7 +37,7 @@ google_ad_height = 90;
 
 <div class="container">
   <h1><center>시간표 선택</center></h1>
-  <form action="{% url 'main:selected_lectures' %}" method="POST"> 
+  <form action="{% url 'main:selected_lectures' 1 %}" method="POST"> 
     {% csrf_token %}
     <select name="lectures" id="lectures_id" class="form-control" multiple="multiple" style="display: none;">
       {% for lecture in lectures %}
