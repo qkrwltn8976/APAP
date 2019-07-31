@@ -7,6 +7,8 @@ verify_ssl = true
 
 [packages]
 django-allauth = "*"
+simple-email-confirmation = "*"
+django-simple-email-confirmation = "*"
 
 [requires]
 python_version = "3.7"
