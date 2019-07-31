@@ -10,10 +10,11 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
 
-	
+
 class University(models.Model):
 	name = models.CharField(max_length=100)
 	
+
 class Lecture(models.Model):
 	name = models.CharField(max_length=100)
 	code = models.CharField(max_length=100)
@@ -25,7 +26,6 @@ class Lecture(models.Model):
 		related_name = 'university',
 	)
 
-
 class Print(models.Model):
 	# 요청 추가해야함!
 	color = models.BooleanField(default=True)
@@ -35,5 +35,19 @@ class Print(models.Model):
 	order = models.BooleanField(default=True)
 	price = models.IntegerField(default=2500)
 	cnt = models.IntegerField(default=0)
+
+class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
+	user = models.ForeignKey(
+		User,
+		on_delete = models.CASCADE,
+		related_name = 'user',
+	)
+	lecture = models.ForeignKey(
+		Lecture,
+		on_delete = models.PROTECT,
+		related_name = 'lecture',
+	)
+
+
 
 

@@ -11,4 +11,5 @@ urlpatterns = [
 	path('<str:username>/mypage', views.mypage, name="mypage"),
 	path('<str:username>/upload', views.upload, name="upload"),
 	path('<str:username>/upload/popup', views.popup, name="popup"),
+	path('selected_lectures/<int:id>', views.selected_lectures, name="selected_lectures"),
 ] 
