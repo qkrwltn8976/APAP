@@ -74,7 +74,7 @@ def mypage(request, username):
 
 
 def update(request, id):
-    pprint = get_object_or_404(Post, pk=id)
+	pprint = get_object_or_404(Post, pk=id)
 	if request.method == "POST":
 		color = request.POST.get('color')
 		gather = request.POST.get('gather')
