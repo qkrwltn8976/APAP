@@ -7,6 +7,7 @@ verify_ssl = true
 
 [packages]
 django-allauth = "*"
+django-openid-auth = "*"
 
 [requires]
 python_version = "3.7"

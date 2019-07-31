@@ -37,12 +37,6 @@ def upload(request, username):
     return render(request, 'main/upload.html', {'form': form})
 
 
-def popup(request, username):
-    	return render(request, 'main/popup.html')
-
-
-
-
 def detail(request, username, id):
     pprint = get_object_or_404(Post, pk=id)	
 	return render(request, 'main/detail.html', {"pprint" : pprint})
