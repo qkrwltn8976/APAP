@@ -2,6 +2,16 @@
 {% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
+    <div style="font-color: black; text-align:center; margin-top: 50px; ">
+        <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
+    </div>
+    <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
+        <!--알림-->
+        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <!--프로필사진을 누르면 mypage.html으로-->
+        <a href = "mypage"><img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
+    </div>
+
     <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         과목명 ▼
@@ -14,4 +24,22 @@
     </div>
     <a img = "https://banner2.kisspng.com/20180717/vjx/kisspng-arrow-computer-icons-clip-art-next-icon-5b4ddd72766330.0331188915318296184849.jpg"
     alt = "next icon for selecting various conditions"></a>
+    <!--새글작성-->
+       <h3 style = "font-family: 'yg-jalnan'">새글 작성하기</h3>
+        
+        <form action="{% url 'posts:create' %}" method="POST">
+            {% csrf_token %}
+            <labe style = "font-family: 'S-CoreDream-3Light'">글의 제목</labe><br>
+            <input style = "font-family: 'S-CoreDream-3Light'" type="text" name="title"><br>
+ 
+            <label style = "font-family: 'S-CoreDream-3Light'">글의 내용</label><br>
+            <textarea style = "font-family: 'S-CoreDream-3Light'" name="content"></textarea><br>
+            
+            <input style = "font-family: 'S-CoreDream-3Light'" type="submit" value="글쓰기">
+        </form>
+
+
+    
+
+
 {% endblock %}   
