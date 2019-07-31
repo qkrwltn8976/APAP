@@ -5,9 +5,9 @@ from .forms import Printform
 
 
 
-def home(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
+def home(request, id):
+	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
+	user = request.user
 	username = user.username
 	return render(request, 'main/home.html')
 	
