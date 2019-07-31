@@ -6,6 +6,7 @@ def home(request, username):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	#user = request.user
 	username = user.username
+	return render(request, 'main/home.html')
 	
 	# if user.verified == True: #인증을 한 유저인 경우 
 	# 	return render(request, 'main/home.html')
@@ -20,8 +21,6 @@ def home(request, username):
 	# 	# user.confirm_email(user.password)
 	# 	# user.is_confirmed # True
 	# 	return render(request, 'main/verify.html')
-
-	return render(request, 'main/home.html')
 
 
 

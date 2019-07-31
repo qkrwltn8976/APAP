@@ -10,6 +10,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
 
+	
 class University(models.Model):
 	name = models.CharField(max_length=100)
 	
@@ -18,7 +19,6 @@ class Lecture(models.Model):
 	code = models.CharField(max_length=100)
 	day_time = models.CharField(max_length=100)
 
-	#user = models.ForeignKey(User, on_delete = models.CASCADE)
 	university = models.ForeignKey(
 		University,
 		on_delete = models.CASCADE,
@@ -26,5 +26,14 @@ class Lecture(models.Model):
 	)
 
 
+class Print(models.Model):
+	# 요청 추가해야함!
+	color = models.BooleanField(default=True)
+	side = models.BooleanField(default=True)
+	gather = models.IntegerField(default=1)
+	direction = models.BooleanField(default=True)
+	order = models.BooleanField(default=True)
+	price = models.IntegerField(default=2500)
+	cnt = models.IntegerField(default=0)
 
 
