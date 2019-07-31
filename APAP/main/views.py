@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
+from .forms import Printform
 
 def home(request, username):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
@@ -25,7 +26,15 @@ def home(request, username):
 
 
 def upload(request, username):
-	return render(request, 'main/upload.html')
+    form = Printform()
+    if request.method == "POST":
+        form = Printform(request.Print)
+        if form.is_valid():
+            form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
+            form.user = request.user
+            form.save()
+            return redirect('home')
+    return render(request, 'main/upload.html', {'form': form})
 
 
 def popup(request, username):
@@ -33,8 +42,10 @@ def popup(request, username):
 
 
 
+
 def detail(request, username, id):
-	return render(request, 'main/detail.html')
+    pprint = get_object_or_404(Post, pk=id)	
+	return render(request, 'main/detail.html', {"pprint" : pprint})
 
 
 def mypage(request, username):
@@ -48,4 +59,33 @@ def mypage(request, username):
 	# 	#
 
 	return render(request, 'main/mypage.html')
-# Create your views here.
+
+
+def update(request, id):
+    pprint = get_object_or_404(Post, pk=id)
+    if request.method == "POST":
+        color = request.POST.get('color')
+        gather = request.POST.get('gather')
+		side = request.POST.get('side')
+        direction = request.POST.get('direction')
+        order = request.POST.get('order')
+		price = request.POST.get('price')
+		cnt = request.POST.get('cnt')
+		pprint.color = color
+		pprint.gather = gather
+		pprint.side = side
+		pprint.direction = direction
+		pprint.order = order
+		pprint.price = price
+		pprint.cnt = cnt
+
+	
+        pprint.save()
+        return redirect('home', post.id)
+    return render(request, 'main/update.html', {"pprint": pprint})
+
+
+def delete(request, id):
+    pprint = get_object_or_404(Print, pk=id)
+	pprint.delete()
+    return redirect('home')

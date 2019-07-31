@@ -11,4 +11,6 @@ urlpatterns = [
 	path('<str:username>/mypage', views.mypage, name="mypage"),
 	path('<str:username>/upload', views.upload, name="upload"),
 	path('<str:username>/upload/popup', views.popup, name="popup"),
+	path('<str:username>/<int:id>/update', views.update, name = "update"),
+	
 ] 
