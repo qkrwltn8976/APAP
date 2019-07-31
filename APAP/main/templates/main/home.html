@@ -1,16 +1,66 @@
-{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+{% extends 'base_index.html' %}
 {% load staticfiles %}
 {% block content %}
 
+<body>
+    <div style="font-color: black; text-align:center; margin-top: 30px; ">
+        <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
+    </div>
+    <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
+        <!--알림-->
+        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <!--프로필사진을 누르면 mypage.html으로-->
+        <a href = "mypage"><img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
+    </div>
 <section></section>
 <!-- 카드는 나중에 다시 넣어보자 -->	
         <section class="price_table_area" id="price">
             <div class="container">
                 <div class="main_title">
-                    <h2>등록</h2>
+                    <h2>대리프린트 목록</h2>
                 </div>
                 <div class="price_table_inner">
- 
+                    <div class="price_item">
+                        <div class="price_header">
+                            <h3>PREMIUM</h3>
+                            <h2>$50</h2>
+                            <h6>/month</h6>
+                        </div>
+                        <ul>
+                            <li><a href="#">Free Useable</a></li>
+                            <li><a href="#">Easily Can Useable 10GB</a></li>
+                            <li><a href="#">Free Secuirity Service</a></li>
+                            <li><a href="#">Dedicated Useable Account</a></li>
+                        </ul>
+                        <a class="price_btn" href="#">PURCHASE NOW</a>
+                    </div>
+                    <div class="price_item">
+                        <div class="price_header">
+                            <h3>프로필</h3>
+                            <h2>강의명</h2>
+                         
+                        </div>
+                        <ul>
+
+                            <li>배송비: </li>
+                            <li>타이며</li>                            
+                        </ul>
+                        <a class="price_btn" href="#">PURCHASE NOW</a>
+                    </div>
+                    <div class="price_item">
+                    <div class="price_header">
+                        <h3>PREMIUM</h3>
+                        <h2>$50</h2>
+                        <h6>/month</h6>
+                    </div>
+                    <ul>
+                        <li><a href="#">Free Useable</a></li>
+                        <li><a href="#">Easily Can Useable 10GB</a></li>
+                        <li><a href="#">Free Secuirity Service</a></li>
+                        <li><a href="#">Dedicated Useable Account</a></li>
+                    </ul>
+                    <a class="price_btn" href="#">PURCHASE NOW</a>
+                    </div>
                     <div class="price_item">
                         <div class="price_header">
                             <h3>PREMIUM</h3>
@@ -28,6 +78,6 @@
 
                 </div>
             </div>
-        </section>				
-
-{% endblock %} 
+        </section>
+    </body>
+    {% endblock %}
