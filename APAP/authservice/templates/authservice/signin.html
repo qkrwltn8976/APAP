@@ -13,7 +13,7 @@
                         <h3>동국대 멋쟁이 사자처럼</h3>
                     </div>
                     <h3><span id="typed"></span></h3>
-                    <h4>계정이 없으시다면, <a href="{% url 'authservice:signup' %}">회원가입</a>을 먼저 해주세요 :)</h4>
+                    <h4>계정이 없으시다면, <a href="{% url 'authservice:register' %}">회원가입</a>을 먼저 해주세요 :)</h4>
                     <form class="login" method="POST" action="{% url 'authservice:login' %}">
                     
                     {% csrf_token %}
@@ -42,7 +42,7 @@
                         </div>
                         <br><br><br>
                         <div class="form-group col-md-12">
-                            <button class="btn buy-now">Sign In</button>
+                            <input type = "submit" class="btn buy-now" value="Sign In">
                         </div>
                         </form>
                 </div>
