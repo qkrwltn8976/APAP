@@ -3,6 +3,8 @@ from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
 
+
+
 def home(request, username):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	#user = request.user
@@ -26,21 +28,19 @@ def home(request, username):
 
 
 def upload(request, username):
-    form = Printform()
-    if request.method == "POST":
-        form = Printform(request.Print)
-        if form.is_valid():
-            form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-            form.user = request.user
-            form.save()
-            return redirect('home')
-    return render(request, 'main/upload.html', {'form': form})
-
+	form = Printform()
+	if request.method == "POST":
+		form = Printform(request.Print,username)
+		if form.is_valid():
+			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
+			form.user = request.user
+			form.save()
+			return redirect('home')
+	return render(request, 'main/upload.html', {'form': form})
 
 def detail(request, username, id):
-    pprint = get_object_or_404(Post, pk=id)	
-	return render(request, 'main/detail.html', {"pprint" : pprint})
-
+	pprint = get_object_or_404(Post,username,pk=id)
+	return render(request, 'main/detail.html', {'pprint': pprint})
 
 def selected_lectures(request, id):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
@@ -75,12 +75,12 @@ def mypage(request, username):
 
 def update(request, id):
     pprint = get_object_or_404(Post, pk=id)
-    if request.method == "POST":
-        color = request.POST.get('color')
-        gather = request.POST.get('gather')
+	if request.method == "POST":
+		color = request.POST.get('color')
+		gather = request.POST.get('gather')
 		side = request.POST.get('side')
-        direction = request.POST.get('direction')
-        order = request.POST.get('order')
+		direction = request.POST.get('direction')
+		order = request.POST.get('order')
 		price = request.POST.get('price')
 		cnt = request.POST.get('cnt')
 		pprint.color = color
@@ -90,15 +90,12 @@ def update(request, id):
 		pprint.order = order
 		pprint.price = price
 		pprint.cnt = cnt
-
-	
-        pprint.save()
-        return redirect('home', post.id)
-    return render(request, 'main/update.html', {"pprint": pprint})
+		pprint.save()
+		return redirect('home', pprint.id)
+	return render(request, 'main/update.html', {"pprint": pprint})
 
 
 def delete(request, id):
-    pprint = get_object_or_404(Print, pk=id)
+	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
-    return redirect('home')
-
+	return redirect('home', pprint.id)
