@@ -37,7 +37,7 @@ def detail(request, username, id):
 	return render(request, 'main/detail.html')
 
 
-def selected_lectures(request, id):
+def selected_lectures(request):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
 	if request.method == 'POST':
@@ -57,6 +57,6 @@ def mypage(request, username):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	print("====="+str(schedule.count()))
+	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
