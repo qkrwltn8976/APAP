@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
 from main import views as m_views
-
-
-
 User = get_user_model()
 
 
@@ -29,18 +26,19 @@ User = get_user_model()
 #     return _get_backends(return_tuples=False)
 
 def signin(request):
-    	return render(request, 'authservice/signin.html')
+    return render(request, 'authservice/signin.html')
+
 
 def login(request):
 	if request.method == "POST":
-			username = request.POST["username"]
-			password = request.POST["password"]
-			user = auth.authenticate(request, username=username, password=password)
-			if user is not None:
-				auth.login(request, user)
-				return redirect('main:home')
-			else:
-				return render(request, 'authservice/signin.html', {'error' : 'incorrect'})
+		username = request.POST["username"]
+		password = request.POST["password"]
+		user = auth.authenticate(request, username=username, password=password)
+		if user is not None:
+			auth.login(request, user)
+			return redirect('main:home')
+		else:
+			return render(request, 'authservice/signin.html', {'error' : 'incorrect'})
 	else:
 		return render(request, 'authservice/signin.html')
 
