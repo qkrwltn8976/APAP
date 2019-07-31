@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 
 def home(request, id):
 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
-	#user = request.user
+	user = request.user
 	username = user.username
 	return render(request, 'main/home.html')
 	
