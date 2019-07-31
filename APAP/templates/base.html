@@ -14,6 +14,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>어푸어푸</title>
+    {% comment %} <!--여기부터 index폴더 안에 있는 css-->
+    <link href="{% static 'image/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static '/index/bootstrap-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index/font-awesome.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/animate.css' %}">
+    <!--css-->
+    <link rel="stylesheet" href="{% static 'css/index/style.css' %}">
+    <!--end index 폴더 css-->     {% endcomment %}
     <!--    favicon-->
     <link rel="shortcut icon" href="{% static 'image/rubber-duck.png' %}" type="image/x-icon">
     <!-- Bootstrap -->

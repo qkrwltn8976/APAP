@@ -39,12 +39,17 @@ def login(request):
 			return redirect('main:home')
 		else:
 			return render(request, 'authservice/signin.html', {'error' : 'incorrect'})
+
 	else:
 		return render(request, 'authservice/signin.html')
 
 # def gotosignup(request):
 #     	return render(requst, 'authservice/signup.html')
 
+
+def register(request):
+    	return render(request, 'authservice/signup.html')
+        
 
 def signup(request):
 	if request.method == "POST":
@@ -54,7 +59,8 @@ def signup(request):
 			user = User.objects.create_user(username = request.POST["username"], password=request.POST["password1"])
 			user = auth.authenticate(username=username, password=password1)
 			auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-			return redirect('home')
+			return redirect('main:home')
+
 	return render(request, 'authservice/signup.html')
 
 
