@@ -81,6 +81,9 @@ def signup(request):
 def index(request):
 	return render(request, 'index.html')
 
+def logout(request):
+	auth.logout(request)
+	return redirect('authservice:signin')
 
 # def logout(request):
 # 	absuth.logout(request):
