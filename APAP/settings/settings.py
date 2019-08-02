@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'authservice',
     'models',
     'django_openid_auth', #BACKEND 오류 해결
+    'bootstrap_datepicker_plus',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -158,3 +160,7 @@ AUTH_USER_MODEL = 'models.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

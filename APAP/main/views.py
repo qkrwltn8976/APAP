@@ -36,7 +36,7 @@ def upload(request, username):
 		user = user
 	)
 
-	form = Printform(request.Print, request.Files or None)
+	form = Printform(request.POST, request.FILES or None)
 	if request.method == "POST":
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
@@ -51,8 +51,6 @@ def upload(request, username):
 
 def popup(request, username):
     	return render(request, 'main/popup.html')
-
-
 
 
 def detail(request, username, id):
@@ -81,13 +79,6 @@ def mypage(request, username):
 	)
 	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
-
-	# if user.verified == True:
-	# 	#
-	# else:
-	# 	#
-
-	return render(request, 'main/mypage.html')
 
 
 def update(request, id):
