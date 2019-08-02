@@ -30,22 +30,24 @@ def home(request):
 
 
 def upload(request, username):
-
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	return render(request, 'main/upload.html', {'schedule' : schedule})
-# form = Printform()
-# 	if request.method == "POST":
-# 		form = Printform(request.Print,username)
-# 		if form.is_valid():
-# 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-# 			form.user = request.user
-# 			form.save()
-# 			return redirect('home')
-# 	return render(request, 'main/upload.html', {'form': form})
+
+	form = Printform(request.Print, request.Files or None)
+	if request.method == "POST":
+		if form.is_valid():
+			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
+			form.user = request.user
+			form.save()
+			return redirect('main:home')
+	else:
+		form = Printform()
+	return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
+
+	
 
 def popup(request, username):
     	return render(request, 'main/popup.html')

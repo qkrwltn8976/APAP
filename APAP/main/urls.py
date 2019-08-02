@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path
+from django.conf.urls.static import static
 
 from . import views
 
@@ -13,5 +15,5 @@ urlpatterns = [
 	path('<str:username>/username/<int:id>', views.update, name="update"),
 	path('<str:username>/upload/popup', views.popup, name="popup"),
 	path('selected_lectures/', views.selected_lectures, name="selected_lectures"),
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -27,7 +27,7 @@
     <!--새글작성-->
        <h3 style = "font-family: 'yg-jalnan'">새글 작성하기</h3>
         
-        <form action="{% url 'posts:create' %}" method="POST">
+        <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <labe style = "font-family: 'S-CoreDream-3Light'">글의 제목</labe><br>
             <input style = "font-family: 'S-CoreDream-3Light'" type="text" name="title"><br>
@@ -36,6 +36,7 @@
             <textarea style = "font-family: 'S-CoreDream-3Light'" name="content"></textarea><br>
             
             <input style = "font-family: 'S-CoreDream-3Light'" type="submit" value="글쓰기">
+            <button type="submit"> UPLOAD </button>
         </form>
 
 

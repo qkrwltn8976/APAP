@@ -34,6 +34,7 @@ class Print(models.Model):
 	price = models.IntegerField(default=2500)
 	cnt = models.IntegerField(default=0)
 	time = models.IntegerField(default=0)
+	file = models.FileField(null=True)
 
 class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
 	user = models.ForeignKey(

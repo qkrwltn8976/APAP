@@ -1,7 +1,6 @@
 from django import forms
 from models.models import Lecture, User, Print
 
-
 class Printform(forms.ModelForm):
     class Meta:
         model = Print
@@ -12,7 +11,8 @@ class Printform(forms.ModelForm):
             'direction',
             'order',
             'price',
-            'cnt'
+            'cnt',
+            'file'
         ]
         labels = {
             'color': "컬러/흑백",
@@ -21,7 +21,8 @@ class Printform(forms.ModelForm):
             'direction': "페이지 방향",
             'order': "넘기는 방향",
             'price': "배송비",
-            'cnt': "부수"            
+            'cnt': "부수",
+            'file': "인쇄 파일 업로드",            
         }
 
    
