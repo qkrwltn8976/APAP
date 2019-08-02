@@ -7,9 +7,9 @@
         과목명 ▼
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
+        {% for item in schedule %}
+        <button class="dropdown-item" type="button">{{item.lecture.name}}</button>
+        {% endfor %}
     </div>
     </div>
     <a img = "https://banner2.kisspng.com/20180717/vjx/kisspng-arrow-computer-icons-clip-art-next-icon-5b4ddd72766330.0331188915318296184849.jpg"

@@ -25,7 +25,12 @@ def home(request, username):
 
 
 def upload(request, username):
-	return render(request, 'main/upload.html')
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	username = user.username
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+	return render(request, 'main/upload.html', {'schedule' : schedule})
 
 
 def popup(request, username):
