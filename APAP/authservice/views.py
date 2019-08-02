@@ -40,29 +40,50 @@ def login(request):
 				auth.login(request, user)
 				return redirect('main:home')
 			else:
-				return render(request, 'authservice/signin.html', {'error' : 'incorrect'})
+				return render(request, 'authservice/signin.html', {'error' : 'username or password is incorrect.'})
 	else:
 		return render(request, 'authservice/signin.html')
 
 # def gotosignup(request):
 #     	return render(requst, 'authservice/signup.html')
 
+def register(request):
+    	return render(request, 'authservice/signup.html')
 
 def signup(request):
 	if request.method == "POST":
 		if request.POST["password1"] == request.POST["password2"]:
-			username=""
-			password1=""
-			user = User.objects.create_user(username = request.POST["username"], password=request.POST["password1"])
-			user = auth.authenticate(username=username, password=password1)
-			auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-			return redirect('home')
-	return render(request, 'authservice/signup.html')
+			try:
+				user = User.objects.get(username=request.POST['username'])
+				return render(request, 'authservice/signup.html', {'error': 'Username has already been taken'})
+			except User.DoesNotExist:
+				username=""
+				password1=""
+				user = User.objects.create_user(
+					request.POST['username'], password=request.POST['password1'],  email=request.POST["email"])
+				auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+				return redirect('main:home')
+		else:
+			return render(request, 'authservice/signup.html', {'error': 'Passwords must match'})
+	else:
+		# User wants to enter info
+		return render(request, 'authservice/signup.html')
+
+	# 		username=""
+	# 		password1=""
+	# 		user = User.objects.create_user(username = request.POST["username"], password=request.POST["password1"], email=request.POST["email"])
+	# 		user = auth.authenticate(username=username, password=password1)
+	# 		auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+	# 		return redirect('main:home', {'username' : username})
+	# return render(request, 'authservice/signup.html')
 
 
 def index(request):
 	return render(request, 'index.html')
 
+def logout(request):
+	auth.logout(request)
+	return redirect('authservice:signin')
 
 # def logout(request):
 # 	absuth.logout(request):
