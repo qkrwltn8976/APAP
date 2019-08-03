@@ -28,6 +28,21 @@ class Lecture(models.Model):
 		related_name = 'university',
 	)
 
+
+class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
+	objects = models.Manager()
+	user = models.ForeignKey(
+		User,
+		on_delete = models.CASCADE,
+		related_name = 'user',
+	)
+	lecture = models.ForeignKey(
+		Lecture,
+		on_delete = models.PROTECT,
+		related_name = 'lecture',
+	)
+
+	
 class Print(models.Model):
 	objects = models.Manager()
 	uploader = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -50,38 +65,26 @@ class Print(models.Model):
 	direction = models.CharField(max_length=10, choices=direction_choices)
 
 	price = models.IntegerField(default=2500)
-	cnt = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 	date = models.DateTimeField(default=datetime.now, blank=True) 
 	file = models.FileField(null=True)
 
-	lecture = models.ForeignKey(
-		Lecture,
+	schedule = models.ForeignKey(
+		Schedule,
 		on_delete = models.CASCADE,
-		related_name = 'p_lecture'
+		related_name = 'schedule'
 	)
 	requests = models.ManyToManyField(
 		User, 
 		related_name='requests'
 	)
-	
+
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
 	
 
 
-class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
-	objects = models.Manager()
-	user = models.ForeignKey(
-		User,
-		on_delete = models.CASCADE,
-		related_name = 'user',
-	)
-	lecture = models.ForeignKey(
-		Lecture,
-		on_delete = models.PROTECT,
-		related_name = 'lecture',
-	)
+
 
 
 

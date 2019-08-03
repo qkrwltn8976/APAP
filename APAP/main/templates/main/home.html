@@ -4,8 +4,40 @@
 {% block content %}
 
 <body>
+	<header class="main_header_area ak_menu navbar_fixed">
+            <div class="main_menu_area">
+                <div class="container">
+                    <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="img/logo-6.png" alt=""></a>
+                    </div>
 
-<section></section>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="#home">월</a></li>
+                            <li class=""><a href="#service">화</a></li>
+                            <li class=""><a href="#about">수</a></li>
+                            <li class=""><a href="#price">목</a></li>
+                            <li class=""><a href="#team">금</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a href="#">Afford To Print : 어푸어푸</a></li>
+            </ul>
+                    </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+            </div>
+</header>
+
+
 <!-- 카드는 나중에 다시 넣어보자 -->	
         <section class="price_table_area" id="price">
             <div class="container">
@@ -13,64 +45,60 @@
                     <h2>대리프린트 목록</h2>
                 </div>
                 <div class="price_table_inner">
+                	{% for item in prints %}
                     <div class="price_item">
                         <div class="price_header">
-                            <h3>PREMIUM</h3>
-                            <h2>$50</h2>
-                            <h6>/month</h6>
+                            <h3>{{item.schedule.lecture.name}}</h3>
+                            <h2>{{item.price}}</h2>
+                            <h6>{{item.uploader}}</h6>
                         </div>
                         <ul>
-                            <li><a href="#">Free Useable</a></li>
-                            <li><a href="#">Easily Can Useable 10GB</a></li>
-                            <li><a href="#">Free Secuirity Service</a></li>
-                            <li><a href="#">Dedicated Useable Account</a></li>
+                            <div id="time-elapsed{{forloop.counter}}"></div>
+                            <div id="print_count">{{forloop.counter}}</div>
+                            <li id="date{{forloop.counter}}"><a href="#">{{ item.date }}</a></li>   
+                            <input type="hidden" id="print_date" name="variable" value="{{ item.date }}">                    
                         </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
+                        <a class="price_btn" href="#">신청하기</a>
                     </div>
-                    <div class="price_item">
-                        <div class="price_header">
-                            <h3>프로필</h3>
-                            <h2>강의명</h2>
-                         
-                        </div>
-                        <ul>
-
-                            <li>배송비: </li>
-                            <li>타이며</li>                            
-                        </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-                    <div class="price_item">
-                    <div class="price_header">
-                        <h3>PREMIUM</h3>
-                        <h2>$50</h2>
-                        <h6>/month</h6>
-                    </div>
-                    <ul>
-                        <li><a href="#">Free Useable</a></li>
-                        <li><a href="#">Easily Can Useable 10GB</a></li>
-                        <li><a href="#">Free Secuirity Service</a></li>
-                        <li><a href="#">Dedicated Useable Account</a></li>
-                    </ul>
-                    <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-                    <div class="price_item">
-                        <div class="price_header">
-                            <h3>PREMIUM</h3>
-                            <h2>$50</h2>
-                            <h6>/month</h6>
-                        </div>
-                        <ul>
-                            <li><a href="#">Free Useable</a></li>
-                            <li><a href="#">Easily Can Useable 10GB</a></li>
-                            <li><a href="#">Free Secuirity Service</a></li>
-                            <li><a href="#">Dedicated Useable Account</a></li>
-                        </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </section>
+      
     </body>
+<script type="text/javascript">
+	var startDateTime = new Date(2019,8,26,2,1,0,0); // YYYY (M-1) D H m s (start time and date from DB)
+	var startStamp = startDateTime.getTime();
+
+	var newDate = new Date();
+	var newStamp = newDate.getTime();
+
+	var timer;
+	var cnt = document.getElementById("print_count")
+
+	console.log("{{print.count}}"+"================")
+	function updateClock() {
+	    newDate = new Date();
+	    newStamp = newDate.getTime();
+	    var diff = Math.round((startStamp-newStamp)/1000);
+	    
+	    var d = Math.floor(diff/(24*60*60));
+	    diff = diff-(d*24*60*60);
+	    var h = Math.floor(diff/(60*60));
+	    diff = diff-(h*60*60);
+	    var m = Math.floor(diff/(60));
+	    diff = diff-(m*60);
+	    var s = diff;
+	    
+	   
+	    //for(int i=1; i< cnt; i++)
+	   	 document.getElementById("time-elapsed" + cnt).innerHTML = d+" 일 "+h+" 시간 "+m+" 분 "+s+" 초";
+	   	 
+	    // document.getElementById("time-elapsed" + 2).innerHTML = d+" 일 "+h+" 시간 "+m+" 분 "+s+" 초";
+	    // document.getElementById("time-elapsed" + 3).innerHTML = d+" 일 "+h+" 시간 "+m+" 분 "+s+" 초";
+	    // document.getElementById("time-elapsed" + 4).innerHTML = d+" 일 "+h+" 시간 "+m+" 분 "+s+" 초";
+	}
+
+	setInterval(updateClock, 1000);
+</script>
     {% endblock %}

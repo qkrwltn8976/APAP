@@ -2,11 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
-
+import time
 
 
 def home(request):
-	return render(request, 'main/home.html')
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	username = user.username
+	prints = Print.objects.all()
+	timer = ""
+	while timer:
+		mins, secs = divmod(t, 60)
+		timeformat = '{:02d}:{:02d}'.format(mins, secs)
+		print(timeformat, end='\r')
+		timer.sleep(1)
+		timer -= 1
+	print('Goodbye!\n\n\n\n\n')
+
+	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 
 # def home(request, id):
 # 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
@@ -80,6 +92,16 @@ def mypage(request, username):
 	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
+def detail(request, username):
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	#user = request.user
+	username = user.username
+	lectures = Lecture.objects.all()
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+	#print("====="+str(schedule.count()))
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
 def update(request, id):
 	pprint = get_object_or_404(Post, pk=id)

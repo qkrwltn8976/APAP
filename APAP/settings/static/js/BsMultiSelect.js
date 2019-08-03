@@ -95,9 +95,9 @@
         "align-items": "center",
         "margin-bottom": "0px"
       },
-      selectedPanelReadonlyStyle: {
-        "background-color": "#e9ecef"
-      },
+      // selectedPanelReadonlyStyle: {
+      //   "background-color": "#e9ecef"
+      // },
       selectedItemClass: "badge",
       selectedItemStyle: {
         "padding-left": "0px"
