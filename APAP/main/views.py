@@ -40,7 +40,7 @@ def upload(request, username):
 	if request.method == "POST":
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-			form.user = request.user
+			form.uploader = request.user
 			form.save()
 			return redirect('main:home')
 	else:

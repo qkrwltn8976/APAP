@@ -6,6 +6,7 @@ class Printform(forms.ModelForm):
     class Meta:
         model = Print
         fields = [
+        	'lecture',
             'color',
             'side',
             'gather',
@@ -16,6 +17,7 @@ class Printform(forms.ModelForm):
             'file'
         ]
         labels = {
+        	'lecture' : "강의",
             'color': "색상",
             'side': "양면 인쇄",
             'gather': "용지당 페이지 수",
