@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
-from .forms import Printform
+from . import forms
 
 
 

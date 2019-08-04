@@ -10,18 +10,15 @@ class Printform(forms.ModelForm):
             'side',
             'gather',
             'direction',
-            'order',
-            'price',
-            'cnt'
+            'price'
+
         ]
         labels = {
             'color': "컬러/흑백",
             'side': "양면/단면",
             'gather': "다중인쇄",
             'direction': "페이지 방향",
-            'order': "넘기는 방향",
-            'price': "배송비",
-            'cnt': "부수"            
+            'price': "배송비"
         }
 
    
