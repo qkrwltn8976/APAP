@@ -4,9 +4,7 @@ from django.core.mail import send_mail
 from . import forms
 
 
-
 def home(request):
-
 	user = request.user
 	username = user.username
 	prints = Print.objects.all()
@@ -44,7 +42,6 @@ def home(request):
 
 
 def upload(request, username):
-
 	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	schedule = Schedule.objects.filter(
@@ -69,7 +66,6 @@ def detail(request, username, id):
 
 def selected_lectures(request):
 	user = request.user 
-
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
@@ -81,7 +77,8 @@ def selected_lectures(request):
 
 
 def mypage(request, username):
-	user = request.user
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	#user = request.user
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
@@ -92,7 +89,8 @@ def mypage(request, username):
 
 
 def detail(request, username):
-	user = request.user 
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	#user = request.user
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
@@ -132,7 +130,7 @@ def delete(request, id):
 
 
 def requests(request, id):
-	user = request.user
+	user = get_object_or_404(User, pk=2) ##
 	print = get_object_or_404(Print, pk=id)
 	if request.method == 'POST':
 		if print.requests.filter(id = user.id).exists():
