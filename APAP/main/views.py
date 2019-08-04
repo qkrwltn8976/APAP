@@ -5,11 +5,13 @@ from . import forms
 
 
 
-def home(request, id):
-	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
-	user = request.user
-	username = user.username
+def home(request):
 	return render(request, 'main/home.html')
+
+# def home(request, id):
+# 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
+# 	username = user.username
+# 	return render(request, 'main/home.html', {'username': username})
 	
 	# if user.verified == True: #인증을 한 유저인 경우 
 	# 	return render(request, 'main/home.html')

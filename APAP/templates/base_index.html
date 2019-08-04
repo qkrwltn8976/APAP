@@ -11,9 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="{% static 'image/index/fav-icon.png' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'image/rubber-duck.png' %}" type="image/x-icon" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Drimo - App Landing Page Template</title>
+    <title>어푸어푸</title>
 
     <!-- Icon css link -->
     <link href="{% static 'css/index/font-awesome.min.css' %}" rel="stylesheet">
@@ -45,6 +45,20 @@
 
     <body>
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
+        {% if user.is_active %}
+        <div style="font-color: black; text-align:center; margin-top: 30px; ">
+            <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸</a>
+        </div>
+        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
+        <!--프로필사진을 누르면 mypage.html으로-->
+        <a href = "mypage">안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <!--알림-->
+        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <!--로그아웃-->
+        <a href="{% url 'authservice:logout' %}"> 로그아웃</a><br><br>
+        </div>
+        {% else %}
+        {% endif %}
 
         {% block content %}
 
