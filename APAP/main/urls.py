@@ -16,5 +16,6 @@ urlpatterns = [
 	path('<str:username>/username/<int:id>', views.update, name="update"),
 	path('<str:username>/upload/popup', views.popup, name="popup"),
 	path('selected_lectures/', views.selected_lectures, name="selected_lectures"),
+	path('<int:id>/requests/', views.requests, name="requests"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

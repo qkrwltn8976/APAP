@@ -16,7 +16,7 @@ def home(request):
 		print(timeformat, end='\r')
 		timer.sleep(1)
 		timer -= 1
-	print('Goodbye!\n\n\n\n\n')
+	# print('Goodbye!\n\n\n\n\n')
 
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 
@@ -129,3 +129,14 @@ def delete(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
 	return redirect('home', pprint.id)
+
+
+def requests(request, id):
+	user = get_object_or_404(User, pk=2) ##
+	print = get_object_or_404(Print, pk=id)
+	if request.method == 'POST':
+		if print.requests.filter(id = user.id).exists():
+			print.requests.remove(user)
+		else:
+			print.requests.add(user)
+		return redirect('home', print.id)
