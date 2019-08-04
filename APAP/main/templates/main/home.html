@@ -4,16 +4,40 @@
 {% block content %}
 
 <body>
-    <div style="font-color: black; text-align:center; margin-top: 30px; ">
-        <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
-    </div>
-    <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
-        <!--알림-->
-        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
-        <!--프로필사진을 누르면 mypage.html으로-->
-        <a href = "mypage"><img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
-    </div>
-<section></section>
+	<header class="main_header_area ak_menu navbar_fixed">
+            <div class="main_menu_area">
+                <div class="container">
+                    <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="img/logo-6.png" alt=""></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="#home">월</a></li>
+                            <li class=""><a href="#service">화</a></li>
+                            <li class=""><a href="#about">수</a></li>
+                            <li class=""><a href="#price">목</a></li>
+                            <li class=""><a href="#team">금</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a href="#">Afford To Print : 어푸어푸</a></li>
+            </ul>
+                    </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+            </div>
+</header>
+
+
 <!-- 카드는 나중에 다시 넣어보자 -->	
         <section class="price_table_area" id="price">
             <div class="container">
@@ -21,64 +45,73 @@
                     <h2>대리프린트 목록</h2>
                 </div>
                 <div class="price_table_inner">
+                	{% for item in prints %}
                     <div class="price_item">
                         <div class="price_header">
-                            <h3>PREMIUM</h3>
-                            <h2>$50</h2>
-                            <h6>/month</h6>
+                            <h3>{{item.schedule.lecture.name}}</h3>
+                            <h2>{{item.price}}</h2>
+                            <h6>{{item.uploader}}</h6>
                         </div>
                         <ul>
-                            <li><a href="#">Free Useable</a></li>
-                            <li><a href="#">Easily Can Useable 10GB</a></li>
-                            <li><a href="#">Free Secuirity Service</a></li>
-                            <li><a href="#">Dedicated Useable Account</a></li>
+                            <div class="time-elapsed"></div>
+                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
                         </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
+                        <a class="price_btn" href="#">신청하기</a>
                     </div>
-                    <div class="price_item">
-                        <div class="price_header">
-                            <h3>프로필</h3>
-                            <h2>강의명</h2>
-                         
-                        </div>
-                        <ul>
-
-                            <li>배송비: </li>
-                            <li>타이며</li>                            
-                        </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-                    <div class="price_item">
-                    <div class="price_header">
-                        <h3>PREMIUM</h3>
-                        <h2>$50</h2>
-                        <h6>/month</h6>
-                    </div>
-                    <ul>
-                        <li><a href="#">Free Useable</a></li>
-                        <li><a href="#">Easily Can Useable 10GB</a></li>
-                        <li><a href="#">Free Secuirity Service</a></li>
-                        <li><a href="#">Dedicated Useable Account</a></li>
-                    </ul>
-                    <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-                    <div class="price_item">
-                        <div class="price_header">
-                            <h3>PREMIUM</h3>
-                            <h2>$50</h2>
-                            <h6>/month</h6>
-                        </div>
-                        <ul>
-                            <li><a href="#">Free Useable</a></li>
-                            <li><a href="#">Easily Can Useable 10GB</a></li>
-                            <li><a href="#">Free Secuirity Service</a></li>
-                            <li><a href="#">Dedicated Useable Account</a></li>
-                        </ul>
-                        <a class="price_btn" href="#">PURCHASE NOW</a>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </section>
+      
     </body>
+<script type="text/javascript">
+	var getDate = document.getElementsByClassName("date");
+	var startDateTime = new Array();
+	var startStamp = new Array();
+
+	for (var i = 0; i < getDate.length; i++) {
+    	// getDate[i].innerHTML = getDate[i].textContent;
+	    startDateTime[i] = new Date(getDate[i].textContent)
+	    startStamp[i] = startDateTime[i].getTime();
+    	// startStamp = getDate[i].textContent.getTime();
+	}
+	// var startDateTime = new Date(2019,7,10,2,1,0,0); // YYYY (M-1) D H m s (start time and date from DB)
+	// var startStamp = startDateTime.getTime();
+
+	var newDate = new Date();
+	var newStamp = newDate.getTime();
+
+	var timer;
+	var cnt = getDate.length
+
+	function updateClock() {
+	    newDate = new Date();
+	    newStamp = newDate.getTime();
+	    var diff = new Array();
+	    var d = new Array();
+	    var h = new Array();
+	    var m = new Array();
+	    var s = new Array();
+
+	    // var diff = Math.round((startStamp-newStamp)/1000);
+		for (var i = 0; i < cnt ; i++) {
+	    	diff[i] = Math.round((startStamp[i]-newStamp)/1000);
+	    	d[i] = Math.floor(diff[i]/(24*60*60));
+		    diff[i] = diff[i]-(d[i]*24*60*60);
+		    h[i] = Math.floor(diff[i]/(60*60));
+		    diff[i] = diff[i]-(h[i]*60*60);
+		    m[i] = Math.floor(diff[i]/(60));
+		    diff[i] = diff[i]-(m[i]*60);
+		    s[i] = diff[i];
+		}
+
+		var elements = document.getElementsByClassName("time-elapsed");
+    	for (var i = 0; i < cnt; i++) {
+        	elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
+   		}
+	    
+	}
+
+	setInterval(updateClock, 1000);
+</script>
     {% endblock %}
