@@ -54,8 +54,7 @@
                         </div>
                         <ul>
                             <div class="time-elapsed"></div>
-                            <li class="date"><a href="#">{{ item.date }}</a></li>   
-                            <input type="hidden" class="print_date" name="variable" value="{{ item.date }}">                    
+                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
                         </ul>
                         <a class="price_btn" href="#">신청하기</a>
                     </div>
@@ -66,41 +65,49 @@
       
     </body>
 <script type="text/javascript">
-	var startDateTime = new Date(2019,7,10,2,1,0,0); // YYYY (M-1) D H m s (start time and date from DB)
+	var getDate = document.getElementsByClassName("date");
+	var startDateTime = new Array();
+	var startStamp = new Array();
 
-	// var getDates = document.getElementsByClassName("print_date");
-	// for(var i=0; i<getDates.length; i++) {
-	// 	startDateTime = getDates[i]
-	// }
-	var startStamp = startDateTime.getTime();
+	for (var i = 0; i < getDate.length; i++) {
+    	// getDate[i].innerHTML = getDate[i].textContent;
+	    startDateTime[i] = new Date(getDate[i].textContent)
+	    startStamp[i] = startDateTime[i].getTime();
+    	// startStamp = getDate[i].textContent.getTime();
+	}
+	// var startDateTime = new Date(2019,7,10,2,1,0,0); // YYYY (M-1) D H m s (start time and date from DB)
+	// var startStamp = startDateTime.getTime();
 
 	var newDate = new Date();
 	var newStamp = newDate.getTime();
 
 	var timer;
-	var cnt = document.getElementById("print_count")
+	var cnt = getDate.length
 
 	function updateClock() {
-		var getDate = document.getElementsByClassName("date");
-		for (var i = 0; i < getDate.length; i++) {
-        	getDate[i].innerHTML = getDate[i].textContent;
-   		}
-
 	    newDate = new Date();
 	    newStamp = newDate.getTime();
-	    var diff = Math.round((startStamp-newStamp)/1000);
-	    
-	    var d = Math.floor(diff/(24*60*60));
-	    diff = diff-(d*24*60*60);
-	    var h = Math.floor(diff/(60*60));
-	    diff = diff-(h*60*60);
-	    var m = Math.floor(diff/(60));
-	    diff = diff-(m*60);
-	    var s = diff;
-	    
+	    var diff = new Array();
+	    var d = new Array();
+	    var h = new Array();
+	    var m = new Array();
+	    var s = new Array();
+
+	    // var diff = Math.round((startStamp-newStamp)/1000);
+		for (var i = 0; i < cnt ; i++) {
+	    	diff[i] = Math.round((startStamp[i]-newStamp)/1000);
+	    	d[i] = Math.floor(diff[i]/(24*60*60));
+		    diff[i] = diff[i]-(d[i]*24*60*60);
+		    h[i] = Math.floor(diff[i]/(60*60));
+		    diff[i] = diff[i]-(h[i]*60*60);
+		    m[i] = Math.floor(diff[i]/(60));
+		    diff[i] = diff[i]-(m[i]*60);
+		    s[i] = diff[i];
+		}
+
 		var elements = document.getElementsByClassName("time-elapsed");
-    	for (var i = 0; i < elements.length; i++) {
-        	elements[i].innerHTML = d+" 일 "+h+" 시간 "+m+" 분 "+s+" 초";
+    	for (var i = 0; i < cnt; i++) {
+        	elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
    		}
 	    
 	}
