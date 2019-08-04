@@ -27,6 +27,7 @@ class Printform(forms.ModelForm):
             'date',
             'file',
         }
+
         labels = {
         	'schedule' : "강의",
             'color': "색상",

@@ -5,6 +5,7 @@ from .forms import Printform
 import time
 
 
+
 def home(request):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
