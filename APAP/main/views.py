@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
-from .forms import Printform
-import time
+from . import forms
 
 
 
 def home(request):
+
 	user = request.user
 	username = user.username
 	prints = Print.objects.all()
@@ -20,6 +20,7 @@ def home(request):
 	# print('Goodbye!\n\n\n\n\n')
 
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+
 
 # def home(request, id):
 # 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
@@ -43,6 +44,7 @@ def home(request):
 
 
 def upload(request, username):
+
 	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	schedule = Schedule.objects.filter(
@@ -50,28 +52,24 @@ def upload(request, username):
 	)
 
 	form = Printform(request.POST, request.FILES or None)
+
 	if request.method == "POST":
+		form = Printform(request.Print,username)
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-			form.uploader = request.user
+			form.user = request.user
 			form.save()
-			return redirect('main:home')
-	else:
-		form = Printform()
-	return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
-
-	
-
-def popup(request, username):
-    	return render(request, 'main/popup.html')
-
+			return redirect('home')
+	return render(request, 'main/upload.html', {'form': form})
 
 def detail(request, username, id):
 	pprint = get_object_or_404(Post,username,pk=id)
 	return render(request, 'main/detail.html', {'pprint': pprint})
 
+
 def selected_lectures(request):
 	user = request.user 
+
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
@@ -89,8 +87,9 @@ def mypage(request, username):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	#print("====="+str(schedule.count()))
+	print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
+
 
 def detail(request, username):
 	user = request.user 
@@ -101,6 +100,7 @@ def detail(request, username):
 	)
 	#print("====="+str(schedule.count()))
 	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
+
 
 def update(request, id):
 	pprint = get_object_or_404(Post, pk=id)
@@ -127,6 +127,7 @@ def update(request, id):
 def delete(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
+
 	return redirect('home', pprint.id)
 
 
