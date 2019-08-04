@@ -1,79 +1,102 @@
-{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+<!--mypage-->
+{% extends 'base_index.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
 
-<!-- Stylesheet -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/flatly/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!doctype html>
+<html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/materia/bootstrap.min.css">
+<style>
+body { min-height: 100vh;  font-family: 'Roboto'; }
+.container { margin: 150px auto; max-width: 640px; }
+.domain_search_area {
+    
+    background-size: cover;
+   
+    }
+</style>
+<link rel="preload" href="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net" as="script"><script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script><script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script><script type="text/javascript" src="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net"></script><link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net"></script><link rel="preload" href="https://pagead2.googlesyndication.com/pagead/js/r20190724/r20190131/show_ads_impl.js" as="script">
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="dist/js/BsMultiSelect.js"></script>
+<body>
 
-ㅇㅁㄴㅇㄹㅁ
+<section class = "domain_search_area p_100" id="about">
+<div class="container">
+  <div class="main_title color_white">
+  <h2><center>시간표 선택</center></h2>
+  </div>
+  <div class="domain_inner">
+    
+    <form action="{% url 'main:selected_lectures' %}" method="POST"> 
+      {% csrf_token %}
+      <select name="lectures" id="lectures_id" class="form-control" multiple="multiple" style="display: none;">
+        {% for lecture in lectures %}
+          <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
+        {% endfor %}
+      </select><br><br>
 
-<select name="states" id="example" class="form-control"  multiple="multiple" style="display: none;">
-  <option value="AL">Alabama</option>
-  <option value="AK">Alaska</option>
-  <option value="AZ">Arizona</option>
-  <option value="AR">Arkansas</option>
-  <option selected value="CA">California</option>
-</select>
+      <center><input type="submit" value="submit"/><center>
+   
+    
+  </div>
+  </form>
 
-<script>
-$(function(){
-  $("select").dashboardCodeBsMultiSelect();
-});
 
-$("select").bsMultiSelect({
-  selectedPanelDefMinHeight: 'calc(2.25rem + 2px)',
-  selectedPanelLgMinHeight: 'calc(2.875rem + 2px)',
-  selectedPanelSmMinHeight: 'calc(1.8125rem + 2px)',
-  selectedPanelDisabledBackgroundColor: '#e9ecef',
-  selectedPanelFocusBorderColor: '#80bdff',
-  selectedPanelFocusBoxShadow: '0 0 0 0.2rem rgba(0, 123, 255, 0.25)',
-  selectedPanelFocusValidBoxShadow: '0 0 0 0.2rem rgba(40, 167, 69, 0.25)',
-  selectedPanelFocusInvalidBoxShadow: '0 0 0 0.2rem rgba(220, 53, 69, 0.25)',
-  filterInputColor: '#495057',
-  selectedItemContentDisabledOpacity: '.65',
-  dropdDownLabelDisabledColor: '#6c757d',
-  containerClass: 'dashboardcode-bsmultiselect',
-  dropDown<a href="https://www.jqueryscript.net/menu/">Menu</a>Class: 'dropdown-menu',
-  dropDownItemClass: 'px-2',
-  dropDownItemHoverClass: 'text-primary bg-light',
-  selectedPanelClass: 'form-control',
-  selectedItemClass: 'badge',
-  removeSelectedItemButtonClass: 'close',
-  filterInputItemClass: '',
-  filterInputClass: ''
-});
+<div class="domain_price_list">
+
+                  <ul>
+                    {% for item in schedule %}
+                    
+                    <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
+                    
+                     {% endfor %}
+                  </ul>
+                </div>
+ 
+</div>
+</section>
+
+
+  <iframe id="google_osd_static_frame_2812223392877" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="{% static 'js/BsMultiSelect.js' %}"></script>
+<script>$("select").dashboardCodeBsMultiSelect();</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>
 
+</body>
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>
 
 {% endblock %}
 
-<!-- <script>
-$(function () {
-    var loadForm = function () {
-        var btn = $(this);
-        $.ajax({
-            url: btn.attr("data-url"),
-            type: 'get',
-            dataType: 'json',
-            beforeSend: function () {
-                $('#id_lecture').djangoSelect2({multiple: true});
-                $("#modal").modal("show");
-            },
-            success: function (data) {
-                $("#modal .modal-content").html(data.html_product_form);
-            }
-        });
-    };
-
-    $("#product-add-button").click(loadForm);
-});
-</script>
- -->
+<!-- https://www.jqueryscript.net/demo/Bootstrap-4-Multi-Select-BsMultiSelect/ -->

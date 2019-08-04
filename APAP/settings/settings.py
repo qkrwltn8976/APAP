@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'main',
     'authservice',
     'models',
+    'django_openid_auth', #BACKEND 오류 해결
+    'bootstrap_datepicker_plus',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -145,9 +148,19 @@ AUTHENTICATION_BACKENDS = (
     
     # 이메일 등으로 로그인 가능
     "allauth.account.auth_backends.AuthenticationBackend",
+
+    'django_openid_auth.auth.OpenIDBackend',
 )
+
 SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'models.User'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
