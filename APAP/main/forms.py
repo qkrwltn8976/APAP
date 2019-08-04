@@ -10,9 +10,11 @@ class Printform(forms.ModelForm):
             'side',
             'gather',
             'direction',
-            'price'
+            'price',
+            'date',
+            'file',
+        }
 
-        ]
         labels = {
             'color': "컬러/흑백",
             'side': "양면/단면",
