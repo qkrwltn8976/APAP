@@ -1,12 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
-from . import forms
+from .forms import Printform
+import time
 
 
 
 def home(request):
-	return render(request, 'main/home.html')
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	username = user.username
+	prints = Print.objects.all()
+	timer = ""
+	while timer:
+		mins, secs = divmod(t, 60)
+		timeformat = '{:02d}:{:02d}'.format(mins, secs)
+		print(timeformat, end='\r')
+		timer.sleep(1)
+		timer -= 1
+	# print('Goodbye!\n\n\n\n\n')
+
+	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 
 # def home(request, id):
 # 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
@@ -30,21 +43,34 @@ def home(request):
 
 
 def upload(request, username):
-	form = Printform()
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	username = user.username
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+
+	form = Printform(request.POST, request.FILES or None)
 	if request.method == "POST":
-		form = Printform(request.Print,username)
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-			form.user = request.user
+			form.uploader = request.user
 			form.save()
-			return redirect('home')
-	return render(request, 'main/upload.html', {'form': form})
+			return redirect('main:home')
+	else:
+		form = Printform()
+	return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
+
+	
+
+def popup(request, username):
+    	return render(request, 'main/popup.html')
+
 
 def detail(request, username, id):
 	pprint = get_object_or_404(Post,username,pk=id)
 	return render(request, 'main/detail.html', {'pprint': pprint})
 
-def selected_lectures(request, id):
+def selected_lectures(request):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
 	if request.method == 'POST':
@@ -64,16 +90,19 @@ def mypage(request, username):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	print("====="+str(schedule.count()))
+	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
-	# if user.verified == True:
-	# 	#
-	# else:
-	# 	#
-
-	return render(request, 'main/mypage.html')
-
+def detail(request, username):
+	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	#user = request.user
+	username = user.username
+	lectures = Lecture.objects.all()
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+	#print("====="+str(schedule.count()))
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
 def update(request, id):
 	pprint = get_object_or_404(Post, pk=id)
@@ -101,3 +130,14 @@ def delete(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
 	return redirect('home', pprint.id)
+
+
+def requests(request, id):
+	user = get_object_or_404(User, pk=2) ##
+	print = get_object_or_404(Print, pk=id)
+	if request.method == 'POST':
+		if print.requests.filter(id = user.id).exists():
+			print.requests.remove(user)
+		else:
+			print.requests.add(user)
+		return redirect('home', print.id)
