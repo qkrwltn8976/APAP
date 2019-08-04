@@ -140,3 +140,30 @@ def requests(request, id):
 		else:
 			print.requests.add(user)
 		return redirect('home', print.id)
+
+
+def filter(request):
+	user = request.user
+	prints = Print.objects.all()
+	if request.method == "POST":
+		filter_type = request.POST['action']
+		if filter_type == '모두':
+			posts = Post.objects.all()
+		else:	
+			if filter_type == 'friend':
+				t='f'
+			elif filter_type == 'acquaintance':
+				t='a'
+			elif filter_type == 'celebrity':
+				t='c'
+
+			ulist_pk = user.relations_by_from_user.filter(type=t).values_list('to_user') ##사용자가 친구로 설정한 유저 pk 리스트
+			ulist = User.objects.filter(pk__in=ulist_pk)
+			for u in ulist:
+				print(u.username)
+			posts = Post.objects.exclude(
+				user = request.user
+			).filter(
+				user__in=[u for u in ulist]
+			)
+	return render(request, 'main/home.html', {'posts': posts})

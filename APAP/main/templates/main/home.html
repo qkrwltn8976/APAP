@@ -21,13 +21,18 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    	<form action="{% url 'main:filter' %}" method="POST">
+                    	{% csrf_token %}
                         <ul class="nav navbar-nav">
-                            <li class=""><a href="#home">월</a></li>
-                            <li class=""><a href="#service">화</a></li>
-                            <li class=""><a href="#about">수</a></li>
-                            <li class=""><a href="#price">목</a></li>
-                            <li class=""><a href="#team">금</a></li>
+                        	<li class="" type="submit" name="action" value="모두"><a href="#home">모두</a></li>
+                            <li class="" type="submit" name="action" value="월"><a href="#home">월</a></li>
+                            <li class="" type="submit" name="action" value="화"><a href="#service">화</a></li>
+                            <li class="" type="submit" name="action" value="수"><a href="#about">수</a></li>
+                            <li class="" type="submit" name="action" value="목"><a href="#price">목</a></li>
+                            <li class="" type="submit" name="action" value="금"><a href="#team">금</a></li>
+                            <li class=""><a href="{% url 'main:upload' user%}">추가하기</a></li>
                         </ul>
+                        <form action="{% url 'main:filter' %}" method="POST">
                         <ul class="nav navbar-nav navbar-right">
                           <li><a href="#">Afford To Print : 어푸어푸</a></li>
             </ul>
@@ -93,7 +98,6 @@
 	    var m = new Array();
 	    var s = new Array();
 
-	    // var diff = Math.round((startStamp-newStamp)/1000);
 		for (var i = 0; i < cnt ; i++) {
 	    	diff[i] = Math.round((startStamp[i]-newStamp)/1000);
 	    	d[i] = Math.floor(diff[i]/(24*60*60));
@@ -107,7 +111,10 @@
 
 		var elements = document.getElementsByClassName("time-elapsed");
     	for (var i = 0; i < cnt; i++) {
-        	elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
+    		if(d[i]>=0)
+        		elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
+        	else
+        		elements[i].innerHTML = "--";
    		}
 	    
 	}

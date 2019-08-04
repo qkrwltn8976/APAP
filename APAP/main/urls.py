@@ -17,5 +17,6 @@ urlpatterns = [
 	path('<str:username>/upload/popup', views.popup, name="popup"),
 	path('selected_lectures/', views.selected_lectures, name="selected_lectures"),
 	path('<int:id>/requests/', views.requests, name="requests"),
+	path('filter/', views.filter, name="filter"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

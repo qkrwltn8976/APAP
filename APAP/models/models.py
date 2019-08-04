@@ -68,6 +68,7 @@ class Print(models.Model):
 	date = models.DateTimeField(default=datetime.now, blank=True) 
 	file = models.FileField(null=True)
 
+	valid = models.BooleanField(default=True)
 	schedule = models.ForeignKey(
 		Schedule,
 		on_delete = models.CASCADE,
