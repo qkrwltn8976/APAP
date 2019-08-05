@@ -70,7 +70,7 @@ def detail(request, username, id):
 	return render(request, 'main/detail.html', {'pprint': pprint})
 
 def selected_lectures(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user 
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
@@ -82,13 +82,14 @@ def selected_lectures(request):
 
 
 def mypage(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
+	# user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
 		user = user
 	)
+	
 	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
