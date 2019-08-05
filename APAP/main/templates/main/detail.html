@@ -3,7 +3,15 @@
 {% block content %}
   <div class = "box" style = "width: 500px; height: 500px;">
     <table class = "box" style = "text-align:left">
-        {{ form.as_table }}
+    <p>강의명: {{schedule.lectures.name}}</p><br>
+    <p>색상: {{pprint.color}}</p><br>
+    <p>양면 인쇄: {{pprint.side}}</p><br>
+    <p>용지당 페이지 수: {{pprint.gather}}</p><br>
+    <p>페이지 방향: {{pprint.direction}}</p><br>
+    <p>배송비: {{pprint.price}}</p><br>
+    <p>종료일시: {{pprint.date}}</p><br>
+    <p>인쇄 파일 업로드: {{pprint.file}}}</p><br>
+  
     </table>
   </div>
   <div>

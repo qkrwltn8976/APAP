@@ -12,7 +12,7 @@
         <h2>인쇄 설정</h2>
     </div>
     
-        <form action="#" method="POST" enctype="multipart/form-data" novalidate>
+        <form action="{% url 'main:upload' user.id%}" method="POST" enctype="multipart/form-data" novalidate>
             <div class="control-group">
             {% bootstrap_form form %}
             {% csrf_token %}

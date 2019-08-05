@@ -62,7 +62,6 @@ def selected_lectures(request):
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
-		print("================="+str(lectures_id))
 		for id in lectures_id:
 			lecture = get_object_or_404(Lecture, pk=id)
 			Schedule.objects.create(user=user, lecture=lecture)
@@ -76,7 +75,6 @@ def mypage(request):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
 def detail(request, id):
@@ -99,16 +97,12 @@ def update(request, id):
 		gather = request.POST.get('gather')
 		side = request.POST.get('side')
 		direction = request.POST.get('direction')
-		order = request.POST.get('order')
 		price = request.POST.get('price')
-		cnt = request.POST.get('cnt')
 		pprint.color = color
 		pprint.gather = gather
 		pprint.side = side
 		pprint.direction = direction
-		pprint.order = order
 		pprint.price = price
-		pprint.cnt = cnt
 		pprint.save()
 		return redirect('main:home')
 	return render(request, 'main/update.html', {"pprint": pprint, "form":form})
@@ -129,4 +123,4 @@ def requests(request, id):
 			prints.requests.remove(user)
 		else:
 			prints.requests.add(user)
-		return redirect('home')
+		return redirect('main:home')
