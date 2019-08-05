@@ -4,10 +4,9 @@ from django.core.mail import send_mail
 from .forms import Printform
 import time
 
-
 def home(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	username = user.username
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk   # username = get_object_or_404(username = request.user.get_username())
 	prints = Print.objects.all()
 	timer = ""
 	while timer:
@@ -16,10 +15,7 @@ def home(request):
 		print(timeformat, end='\r')
 		timer.sleep(1)
 		timer -= 1
-	# print('Goodbye!\n\n\n\n\n')
-
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
-
 # def home(request, id):
 # 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
 # 	username = user.username
@@ -41,9 +37,9 @@ def home(request):
 
 
 
-def upload(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	username = user.username
+def upload(request):
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
 	schedule = Schedule.objects.filter(
 		user = user
 	)
@@ -59,18 +55,10 @@ def upload(request, username):
 		form = Printform()
 	return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
 
-	
-
-def popup(request, username):
-    	return render(request, 'main/popup.html')
-
-
-def detail(request, username, id):
-	pprint = get_object_or_404(Post,username,pk=id)
-	return render(request, 'main/detail.html', {'pprint': pprint})
 
 def selected_lectures(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
@@ -81,9 +69,8 @@ def selected_lectures(request):
 	return redirect('main:mypage', username = user)
 
 
-def mypage(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
+def mypage(request):
+	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
@@ -92,19 +79,21 @@ def mypage(request, username):
 	#print("====="+str(schedule.count()))
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
-def detail(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
+def detail(request, id):
+	form = Printform()
+	pprint = get_object_or_404(Print, pk=id)
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	#print("====="+str(schedule.count()))
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'pprint': pprint, 'form':form})
 
 def update(request, id):
-	pprint = get_object_or_404(Post, pk=id)
+	form = Printform() 
+	pprint = get_object_or_404(Print, pk=id)
 	if request.method == "POST":
 		color = request.POST.get('color')
 		gather = request.POST.get('gather')
@@ -121,22 +110,23 @@ def update(request, id):
 		pprint.price = price
 		pprint.cnt = cnt
 		pprint.save()
-		return redirect('home', pprint.id)
-	return render(request, 'main/update.html', {"pprint": pprint})
+		return redirect('main:home')
+	return render(request, 'main/update.html', {"pprint": pprint, "form":form})
 
 
 def delete(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
-	return redirect('home', pprint.id)
+	return redirect('main:home')
 
 
 def requests(request, id):
-	user = get_object_or_404(User, pk=2) ##
-	print = get_object_or_404(Print, pk=id)
+	user = request.user
+	id = user.pk
+	prints = get_object_or_404(Print, pk=id)
 	if request.method == 'POST':
-		if print.requests.filter(id = user.id).exists():
-			print.requests.remove(user)
+		if prints.requests.filter(id = user.id).exists():
+			prints.requests.remove(user)
 		else:
-			print.requests.add(user)
-		return redirect('home', print.id)
+			prints.requests.add(user)
+		return redirect('home')
