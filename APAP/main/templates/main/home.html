@@ -23,13 +23,13 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     	<form action="{% url 'main:filter' %}" method="POST">
                     	{% csrf_token %}
-                        <ul class="nav navbar-nav">
-                        	<li class="" type="submit" name="action" value="모두"><a href="#home">모두</a></li>
-                            <li class="" type="submit" name="action" value="월"><a href="#home">월</a></li>
-                            <li class="" type="submit" name="action" value="화"><a href="#service">화</a></li>
-                            <li class="" type="submit" name="action" value="수"><a href="#about">수</a></li>
-                            <li class="" type="submit" name="action" value="목"><a href="#price">목</a></li>
-                            <li class="" type="submit" name="action" value="금"><a href="#team">금</a></li>
+                        <ul class="nav navbar-nav tabs">
+                        	<li><input type="submit" name="action" value="모두"></li>
+                            <li><input type="submit" name="action" value="월"></li>
+                            <li><input type="submit" name="action" value="화"></li>
+                            <li><input type="submit" name="action" value="수"></li>
+                            <li><input type="submit" name="action" value="목"></li>
+                            <li><input type="submit" name="action" value="금"></li>
                             <li class=""><a href="{% url 'main:upload' user%}">추가하기</a></li>
                         </ul>
                         <form action="{% url 'main:filter' %}" method="POST">

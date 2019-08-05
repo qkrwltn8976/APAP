@@ -145,25 +145,30 @@ def requests(request, id):
 def filter(request):
 	user = request.user
 	prints = Print.objects.all()
+	# lecture_list = Lecture.objects.all()
 	if request.method == "POST":
 		filter_type = request.POST['action']
 		if filter_type == '모두':
-			posts = Post.objects.all()
+			lecture_pks = user.lectures.all()
+			for l in lecture_pks:
+				print("=========="+l)
+			prints = Print.objects.all()
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			for l in lecture_list:
+				print("=========="+l.name)
+			# prints = Print.objects.filter(
+			# 	schedule__lecture__in=[l for l in lecture_list]
+			# )
 		else:	
-			if filter_type == 'friend':
-				t='f'
-			elif filter_type == 'acquaintance':
-				t='a'
-			elif filter_type == 'celebrity':
-				t='c'
-
-			ulist_pk = user.relations_by_from_user.filter(type=t).values_list('to_user') ##사용자가 친구로 설정한 유저 pk 리스트
-			ulist = User.objects.filter(pk__in=ulist_pk)
-			for u in ulist:
-				print(u.username)
-			posts = Post.objects.exclude(
-				user = request.user
-			).filter(
-				user__in=[u for u in ulist]
+			print("++++++"+filter_type)
+			lecture_pks = user.lectures.filter(day_time__icontains=filter_type)
+			# lec = user.get_lecture.all()
+			# print(lec)
+			print(lecture_pks)
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			for l in lecture_list:
+				print("=========="+l.name)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
 			)
-	return render(request, 'main/home.html', {'posts': posts})
+	return render(request, 'main/home.html', {'prints': prints})

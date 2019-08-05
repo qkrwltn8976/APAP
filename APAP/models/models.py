@@ -5,12 +5,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 # from django.contrib.postgres.fields import ArrayField
 
-class User(SimpleEmailConfirmationUserMixin, AbstractUser):
-	university = models.CharField(max_length=100)
-	level = models.IntegerField(default=1)
-	verified = models.BooleanField(default=False)
-
-
 class University(models.Model):
 	objects = models.Manager()
 	name = models.CharField(max_length=100)
@@ -27,6 +21,13 @@ class Lecture(models.Model):
 		on_delete = models.CASCADE,
 		related_name = 'university',
 	)
+
+
+class User(SimpleEmailConfirmationUserMixin, AbstractUser):
+	university = models.CharField(max_length=100)
+	level = models.IntegerField(default=1)
+	verified = models.BooleanField(default=False)
+	lectures = models.ManyToManyField(Lecture, related_name = 'lectures', through='Schedule')
 
 
 class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
