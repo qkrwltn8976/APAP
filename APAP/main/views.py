@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
+# from django.utils.simplejson import dumps, loads, JSONEncoder
 import time
 
 
 def home(request):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
 	username = user.username
-	prints = Print.objects.all()
+	prints = Print.objects.filter( valid = True )
 	timer = ""
 	while timer:
 		mins, secs = divmod(t, 60)
@@ -16,7 +17,12 @@ def home(request):
 		print(timeformat, end='\r')
 		timer.sleep(1)
 		timer -= 1
+	# prints.update(valid=False)
 	# print('Goodbye!\n\n\n\n\n')
+
+	# if 'value' in request.POST:
+	# 	time = request.POST['value']
+		
 
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 

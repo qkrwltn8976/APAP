@@ -87,7 +87,8 @@
 	var newStamp = newDate.getTime();
 
 	var timer;
-	var cnt = getDate.length
+	var cnt = getDate.length;
+	// var self = this;
 
 	function updateClock() {
 	    newDate = new Date();
@@ -110,15 +111,24 @@
 		}
 
 		var elements = document.getElementsByClassName("time-elapsed");
+		var header = document.getElementsByClassName("price_header");
+		var btn = document.getElementsByClassName("price_btn");
     	for (var i = 0; i < cnt; i++) {
     		if(d[i]>=0)
         		elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
-        	else
+        	else{
         		elements[i].innerHTML = "--";
+        		header[i].style.backgroundColor = "gray"
+        		btn[i].style.backgroundColor = "gray"
+        	}
+        		
+        	
+        	// header[i].style.backgroundColor = "gray"
    		}
 	    
 	}
 
 	setInterval(updateClock, 1000);
+
 </script>
     {% endblock %}
