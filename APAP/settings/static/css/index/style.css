@@ -2978,7 +2978,8 @@ iframe {
 
 .app_round_image .round_c {
   -webkit-animation: 10s round_image infinite linear;
-  animation: 10s round_image infinite linear;
+  animation: 18s round_image infinite linear;
+  transform: rotate( -270deg );
 }
 
 .app_round_image .app_mobile {
