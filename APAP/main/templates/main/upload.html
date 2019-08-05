@@ -1,17 +1,28 @@
 <!--등록-->
-{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+{% extends 'base_index.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
-    <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        과목명 ▼
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<section class="question_area">
+    <div class="container">
+    <div class="main_title">
+        <h2>인쇄 설정</h2>
     </div>
+    
+        <form action="#" method="POST" enctype="multipart/form-data" novalidate>
+            <div class="control-group">
+            {% bootstrap_form form %}
+            {% csrf_token %}
+            {{form.media}}
+
+            </div>
+                 <button type="submit"> UPLOAD </button>
+             </div>
+        </form>
     </div>
-    <a img = "https://banner2.kisspng.com/20180717/vjx/kisspng-arrow-computer-icons-clip-art-next-icon-5b4ddd72766330.0331188915318296184849.jpg"
-    alt = "next icon for selecting various conditions"></a>
+</div>
+</section>
 {% endblock %}   

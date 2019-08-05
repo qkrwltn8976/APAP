@@ -1,13 +1,123 @@
-{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+{% extends 'base_index.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
-    <div style="font-color: black; text-align:center; margin-top: 30px; ">
-        <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "home">Afford to Print: 어푸어푸</a>
-    </div>
-    <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
-        <!--알림-->
-        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
-        <!--프로필사진을 누르면 mypage.html으로-->
-        <a href = "mypage"><img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;">      안녕하세요 님!</a><br><br>
-    </div>
-{% endblock %}  
+
+
+<!doctype html>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="90" style="overflow: visible;">
+       
+       <div id="preloader" style="display: none;">
+            <div id="preloader_spinner" style="display: none;">
+        <div class="pre_inner">
+          <div class="dot dot-1"></div>
+          <div class="dot dot-2"></div>
+          <div class="dot dot-3"></div>
+        </div>
+            </div>
+        </div>
+       
+        <!--================Header Area =================-->
+        <header class="main_header_area ak_menu navbar_fixed">
+            <div class="main_menu_area">
+                <div class="container">
+                    <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="img/logo-6.png" alt=""></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="#home">Home</a></li>
+                            <li class=""><a href="#service">Service</a></li>
+                            <li class=""><a href="#about">About</a></li>
+                            <li class=""><a href="#price">Price</a></li>
+                            <li class=""><a href="#team">Team</a></li>
+                            <li class=""><a href="#news">News</a></li>
+                            <li class="active"><a href="#contact">Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a href="#">Sign In</a></li>
+            </ul>
+                    </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!--================End Header Area =================-->
+        
+        <!--================Server Banner Area =================-->
+       
+        <!--================End Server Banner Area =================-->
+        
+        <!--================Service Six Area =================-->
+        
+        <!--================Domain Search Area =================-->
+        <section class="domain_search_area p_100" id="about">
+          <div class="container">
+            <div class="main_title color_white">
+                    <h2>시간표 선택</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim.</p>
+                </div>
+                <div class="domain_inner">
+                  <div class="domain_search_box">
+            <input type="text" class="form-control" placeholder="Search Domain Name">
+           
+                 
+            <select name="lectures" id="lectures_id" class="select_dropdown" multiple="multiple" style="display: none;">
+              {% for lecture in lectures %}
+                <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
+              {% endfor %}
+            </select><div class="nice-select select_dropdown" tabindex="0"><span class="current">Com</span><ul class="list"><li data-value="Com" data-display="Com" class="option selected focus">Com</li><li data-value="1" class="option">Net</li><li data-value="2" class="option">org</li><li data-value="3" class="option">info</li><li data-value="3" class="option">bd</li><li data-value="3" class="option">us</li></ul></div>
+            <button class="btn btn-default" type="button">Search Now</button>
+                  </div>
+                </div>
+                <div class="domain_price_list">
+                  <ul>
+                    <li><a class="red" href="#"> <span>.com</span>$5/year</a></li>
+                    <li><a class="pest" href="#"> <span>.net</span>$5/year</a></li>
+                    <li><a class="yellow" href="#"> <span>.org</span>$5/year</a></li>
+                    <li><a class="blue" href="#"> <span>.info</span>$5/year</a></li>
+                    <li><a class="green" href="#"> <span>.bd</span>$5/year</a></li>
+                    <li><a class="pink" href="#"> <span>.us</span>$5/year</a></li>
+                  </ul>
+                </div>
+          </div>
+        </section>
+        <!--================End Domain Search Area =================-->
+        <section class = "domain_search_area p_100" id="about">
+      <div class="container">
+        <div class="main_title color_white">
+        <h1><center>시간표 선택</center></h1>
+        </div>
+        <div class="domain_inner">
+          <div class="domain_search_box">
+          <form action="{% url 'main:selected_lectures' %}" method="POST"> 
+            {% csrf_token %}
+            <select name="lectures" id="lectures_id" class="select_dropdown" multiple="multiple" style="display: none;">
+              {% for lecture in lectures %}
+                <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
+              {% endfor %}
+            </select>
+            <br> <br>
+            <center><input type="submit" value="submit"/></center>
+          </div>
+        </div>
+        </form>
+
+        <h1><center>{{user.username}}의 시간표<center></h1>
+        {% for item in schedule %}
+          <h2><center><b>{{item.lecture.name}}</b> {{item.lecture.code}}</center></h2>
+        {% endfor %}
+      </div>
+    </section>
+            
+</body>
+{% endblock %}
