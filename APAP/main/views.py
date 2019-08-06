@@ -9,7 +9,17 @@ import time
 def home(request):
 	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
-	prints = Print.objects.filter( valid = True )
+	lecture_pks = user.lectures.all()
+	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
+	
+	for l in lecture_list:
+		print("=========="+l.name)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
 	timer = ""
 	while timer:
 		mins, secs = divmod(t, 60)

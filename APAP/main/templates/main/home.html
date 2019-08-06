@@ -24,12 +24,12 @@
                     	<form action="{% url 'main:filter' %}" method="POST">
                     	{% csrf_token %}
                         <ul class="nav navbar-nav tabs">
-                        	<li><input type="submit" name="action" value="모두"></li>
-                            <li><input type="submit" name="action" value="월"></li>
-                            <li><input type="submit" name="action" value="화"></li>
-                            <li><input type="submit" name="action" value="수"></li>
-                            <li><input type="submit" name="action" value="목"></li>
-                            <li><input type="submit" name="action" value="금"></li>
+                        	<li><input type="submit" name="action" value="모두" class="transparent-input"></li>
+                            <li><input type="submit" name="action" value="월" class="transparent-input"></li>
+                            <li><input type="submit" name="action" value="화" class="transparent-input"></li>
+                            <li><input type="submit" name="action" value="수" class="transparent-input"></li>
+                            <li><input type="submit" name="action" value="목" class="transparent-input"></li>
+                            <li><input type="submit" name="action" value="금" class="transparent-input"></li>
                             <li class=""><a href="{% url 'main:upload' user%}">추가하기</a></li>
                         </ul>
                         <form action="{% url 'main:filter' %}" method="POST">
@@ -132,4 +132,11 @@
 	setInterval(updateClock, 1000);
 
 </script>
+<style>
+    input.transparent-input{
+       background-color:transparent !important;
+       border:none !important;
+       box-shadow:none !important;
+    }
+</style>
     {% endblock %}
