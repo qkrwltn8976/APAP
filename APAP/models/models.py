@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
-# from django.contrib.postgres.fields import ArrayField
+from pusherable.mixins import PusherDetailMixin, PusherUpdateMixin
 
 class University(models.Model):
 	objects = models.Manager()
