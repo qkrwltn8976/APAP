@@ -88,7 +88,7 @@ def selected_lectures(request):
 	return redirect('main:mypage', username = user)
 
 
-def mypage(request):
+def mypage(request, username):
 	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	lectures = Lecture.objects.all()
