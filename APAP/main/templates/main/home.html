@@ -61,7 +61,7 @@
                             <div class="time-elapsed"></div>
                             <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
                         </ul>
-                        <a class="price_btn" href="#">신청하기</a>
+                        <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
                     </div>
                     {% endfor %}
                 </div>
