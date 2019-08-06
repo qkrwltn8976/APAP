@@ -88,7 +88,7 @@ def selected_lectures(request):
 	return redirect('main:mypage', username = user)
 
 
-def mypage(request):
+def mypage(request, username):
 	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	lectures = Lecture.objects.all()
@@ -159,7 +159,7 @@ def filter(request):
 			)
 			
 			for l in lecture_list:
-				print("=========="+l.name+"/"+str(l.id))
+				print("=========="+l.name+l.day_time)
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
 			)
@@ -169,7 +169,7 @@ def filter(request):
 			print(lecture_pks)
 			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
 			for l in lecture_list:
-				print("=========="+l.name+"/"+str(l.id))
+				print("=========="+l.name+"/"+str(l.pk)+l.day_time)
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
 				# schedule__lecture__in=l
