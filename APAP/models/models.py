@@ -42,6 +42,12 @@ class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 �
 		on_delete = models.PROTECT,
 		related_name = 'lecture',
 	)
+	req_print = models.ForeignKey(
+		'Print',
+		on_delete = models.PROTECT,
+		related_name = 'req_print',
+		null=True,
+	)
 
 	
 class Print(models.Model):

@@ -156,23 +156,26 @@ def filter(request):
 		filter_type = request.POST['action']
 		if filter_type == '모두':
 			lecture_pks = user.lectures.all()
-			for l in lecture_pks:
-				print("=========="+l)
-			prints = Print.objects.all()
 			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			)
+			
 			for l in lecture_list:
 				print("=========="+l.name)
-			# prints = Print.objects.filter(
-			# 	schedule__lecture__in=[l for l in lecture_list]
-			# )
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			)
 		else:	
 			print("++++++"+filter_type)
 			lecture_pks = user.lectures.filter(day_time__icontains=filter_type)
 			print(lecture_pks)
 			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
 			for l in lecture_list:
-				print("=========="+l.name)
+				print("=========="+l.name+"/"+str(l.pk))
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
+				# schedule__lecture__in=l
 			)
-	return render(request, 'main/home.html', {'prints': prints})
+			print("+++++++++"+str(prints.count()))
+		return render(request, 'main/home.html', {'prints': prints})
