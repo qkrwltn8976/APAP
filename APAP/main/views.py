@@ -123,4 +123,4 @@ def requests(request, id):
 			prints.requests.remove(user)
 		else:
 			prints.requests.add(user)
-		return redirect('main:home')
+	return redirect('main:home')
