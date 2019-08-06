@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'models',
     'django_openid_auth', #BACKEND 오류 해결
     'bootstrap_datepicker_plus',
-    'bootstrap4'
+    'bootstrap4',
+    'pusherable',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +165,8 @@ MEDIA_URL = '/media/'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+PUSHER_APP_ID = u""
+PUSHER_KEY = u""
+PUSHER_SECRET = u""
+PUSHER_CLUSTER = u""
