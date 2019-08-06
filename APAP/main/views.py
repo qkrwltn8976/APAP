@@ -6,9 +6,19 @@ import time
 
 
 def home(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
-	prints = Print.objects.all()
+	lecture_pks = user.lectures.all()
+	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
+	
+	for l in lecture_list:
+		print("=========="+l.name)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
 	timer = ""
 	while timer:
 		mins, secs = divmod(t, 60)
@@ -16,7 +26,12 @@ def home(request):
 		print(timeformat, end='\r')
 		timer.sleep(1)
 		timer -= 1
+	# prints.update(valid=False)
 	# print('Goodbye!\n\n\n\n\n')
+
+	# if 'value' in request.POST:
+	# 	time = request.POST['value']
+
 
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 
@@ -42,7 +57,7 @@ def home(request):
 
 
 def upload(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	schedule = Schedule.objects.filter(
 		user = user
@@ -70,7 +85,7 @@ def detail(request, username, id):
 	return render(request, 'main/detail.html', {'pprint': pprint})
 
 def selected_lectures(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
@@ -82,7 +97,7 @@ def selected_lectures(request):
 
 
 def mypage(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
 	#user = request.user
 	username = user.username
 	lectures = Lecture.objects.all()
@@ -132,7 +147,7 @@ def delete(request, id):
 
 
 def requests(request, id):
-	user = get_object_or_404(User, pk=2) ##
+	user = request.user
 	print = get_object_or_404(Print, pk=id)
 	if request.method == 'POST':
 		if print.requests.filter(id = user.id).exists():
@@ -140,3 +155,36 @@ def requests(request, id):
 		else:
 			print.requests.add(user)
 		return redirect('home', print.id)
+
+
+def filter(request):
+	user = request.user
+	prints = Print.objects.all()
+	# lecture_list = Lecture.objects.all()
+	if request.method == "POST":
+		filter_type = request.POST['action']
+		if filter_type == '모두':
+			lecture_pks = user.lectures.all()
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			)
+			
+			for l in lecture_list:
+				print("=========="+l.name)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			)
+		else:	
+			print("++++++"+filter_type)
+			lecture_pks = user.lectures.filter(day_time__icontains=filter_type)
+			print(lecture_pks)
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			for l in lecture_list:
+				print("=========="+l.name+"/"+str(l.pk))
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+				# schedule__lecture__in=l
+			)
+			print("+++++++++"+str(prints.count()))
+		return render(request, 'main/home.html', {'prints': prints})
