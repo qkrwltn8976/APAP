@@ -171,7 +171,7 @@ def filter(request):
 			)
 			
 			for l in lecture_list:
-				print("=========="+l.name)
+				print("=========="+l.name+"/"+str(l.id))
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
 			)
@@ -181,7 +181,7 @@ def filter(request):
 			print(lecture_pks)
 			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
 			for l in lecture_list:
-				print("=========="+l.name+"/"+str(l.pk))
+				print("=========="+l.name+"/"+str(l.id))
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
 				# schedule__lecture__in=l
