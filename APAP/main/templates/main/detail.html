@@ -17,7 +17,7 @@
     <div>
       <button class="btn btn-link" type="button" onclick="location.href='{% url 'main:requests' print.id %}'">신청하기</button>   
     </div>
-    {% if valid == true %}
+    {% if valid == True %}
       <p> {{ cnt }}</p>
       <a href = "{% url 'main:update' print.id %}">수정하기</a>
       <a href = "{% url 'main:delete' print.id %}" data-method="POST">삭제하기</a>

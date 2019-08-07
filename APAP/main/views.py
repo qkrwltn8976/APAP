@@ -104,8 +104,10 @@ def detail(request, id):
 
 	if user == pprint.uploader:
 		valid = True
+		print("일치")
 	else:
 		valid = False
+		print("불일치")
 
 	username = user.username
 	lectures = Lecture.objects.all()
