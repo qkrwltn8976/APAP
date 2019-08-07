@@ -65,15 +65,17 @@ def upload(request, username):
       user = user
    )
 
-   form = Printform(request.POST, request.FILES or None)
+   form = Printform(request.user, request.POST)
    if request.method == "POST":
       if form.is_valid():
          form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
          form.uploader = request.user
+         form.fields["schedule"].queryset = Schedule.objects.filter(user=user).values_list('lecture__code').distinct()
+         print(form.fields["schedule"].queryset)
          form.save()
          return redirect('main:home')
    else:
-      form = Printform()
+      form = Printform(request.user, request.POST)
    return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
 
 
