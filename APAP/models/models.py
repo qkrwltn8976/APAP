@@ -22,6 +22,9 @@ class Lecture(models.Model):
 		related_name = 'university',
 	)
 
+	def __str__(self):
+		return self.name
+
 
 class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	university = models.CharField(max_length=100)
@@ -49,6 +52,10 @@ class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 �
 		related_name = 'req_print',
 		null=True,
 	)
+
+	def __str__(self):
+		return "{}:{}".format(self.lecture.name, self.lecture.code)
+
 
 	
 class Print(models.Model):
