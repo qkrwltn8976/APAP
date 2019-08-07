@@ -110,13 +110,19 @@ def mypage(request, username):
    return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints})
 
 def detail(request, id):
-   pprint = get_object_or_404(Print, pk=id)
-   user = request.user #로그인 구현 전 임시 설정
-   id = user.pk
-   username = user.username
-   lectures = Lecture.objects.all()
+	pprint = get_object_or_404(Print, pk=id)
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
 
-   return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint,})
+	if user == pprint.uploader:
+		valid = True
+	else:
+		valid = False
+
+	username = user.username
+	lectures = Lecture.objects.all()
+	cnt = pprint.requests.count()
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt})
 
 def update(request, id):
    form = Printform()
