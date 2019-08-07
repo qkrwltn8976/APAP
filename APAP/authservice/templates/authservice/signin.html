@@ -6,6 +6,10 @@
         <div class="container">
             <div class="row">
                 <div class="hero-text">
+                    {% if user.is_active %}
+                        <h2>잘못된 접근입니다.<br>로그아웃 후 다시 로그인 해주세요!</h2><br><br>
+                        <a class="btn buy-now" href="{% url 'authservice:logout' %}">LogOut</a><br><br>
+                    {% else %}
                     <h1>APAP</h1>
                     <div id="typed-strings">
                         <h3>대리 프린트 서비스의 시작</h3>
@@ -48,6 +52,8 @@
                 </div>
             </div>
         </div>
+    {% endif %}
     </div>
 </section>
+
 {% endblock %}
