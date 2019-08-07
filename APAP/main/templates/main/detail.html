@@ -11,15 +11,17 @@
     <p>배송비: {{print.price}}</p><br>
     <p>종료일시: {{print.date}}</p><br>
     <p>인쇄 파일 업로드: {{print.file}}}</p><br>
-  
     </table>
   </div>
   <div>
     <div>
-      <button class="btn btn-link" type="button" onclick="location.href='{% url 'main:requests' print.id %}'">신청하기</button>
-      <p id="count{{ print.requests.count }}"></p>
+      <button class="btn btn-link" type="button" onclick="location.href='{% url 'main:requests' print.id %}'">신청하기</button>   
     </div>
-    <a href = "{% url 'main:update' print.id %}">수정하기</a>
-    <a href = "{% url 'main:delete' print.id %}" data-method="POST">삭제하기</a>
+    {% if valid == true %}
+      <p> {{ cnt }}</p>
+      <a href = "{% url 'main:update' print.id %}">수정하기</a>
+      <a href = "{% url 'main:delete' print.id %}" data-method="POST">삭제하기</a>
+    {% else %}
+    {% endif %}
   </div>
 {% endblock %}

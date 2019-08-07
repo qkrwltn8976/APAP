@@ -101,10 +101,16 @@ def detail(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	user = request.user #로그인 구현 전 임시 설정
 	id = user.pk
+
+	if user == pprint.uploader:
+		valid = True
+	else:
+		valid = False
+
 	username = user.username
 	lectures = Lecture.objects.all()
-	
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint,})
+	cnt = pprint.requests.count()
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt})
 
 def update(request, id):
 	form = Printform() 
