@@ -6,7 +6,6 @@
 
 <!doctype html>
 <html>
-
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/materia/bootstrap.min.css">
 <style>
@@ -18,48 +17,150 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
    
     }
 </style>
-<link rel="preload" href="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net" as="script"><script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script><script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script><script type="text/javascript" src="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net"></script><link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net"></script><link rel="preload" href="https://pagead2.googlesyndication.com/pagead/js/r20190724/r20190131/show_ads_impl.js" as="script">
+
+{% comment %} <link rel="preload" href="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net" as="script">
+<script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script>
+<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script>
+<script src="https://www.googletagservices.com/activeview/js/current/osd.js?cb=%2Fr20100101"></script>
+<script src="https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-2783044520727903.js"></script>
+<script type="text/javascript" src="https://adservice.google.co.kr/adsid/integrator.js?domain=www.jqueryscript.net"></script>
+<link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net" as="script">
+<script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.jqueryscript.net"></script>
+<link rel="preload" href="https://pagead2.googlesyndication.com/pagead/js/r20190724/r20190131/show_ads_impl.js" as="script"> {% endcomment %}
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>A Collection of Page Transitions</title>
+<meta name="description" content="A Collection of Page Transitions with CSS Animations" />
+<meta name="keywords" content="page transition, css animation, website, effect, css3, jquery" />
+<meta name="author" content="Codrops" />
+<link rel="shortcut icon" href="../favicon.ico"> 
+<link rel="stylesheet" type="text/css" href="{% static 'css/page/default.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/page/multilevelmenu.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/page/component.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/page/animations.css' %}" />
+<script src="{% static 'js/page/modernizr.custom.js' %}"></script>
 
 <body>
+  <div class="pt-triggers">
+    <button id="iterateEffects" class="pt-touch-button">next page</button>
+  </div><!-- /triggers -->
 
-<section class = "domain_search_area p_100" id="about">
-<div class="container">
-  <div class="main_title color_white">
-  <h2><center>시간표 선택</center></h2>
+  <div id="pt-main" class="pt-perspective">
+    <div class="pt-page pt-page-1">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2><center>시간표 선택</center></h2>
+        </div>
+
+        <div class="domain_inner">
+
+          <form action="{% url 'main:selected_lectures' %}" method="POST"> 
+          {% csrf_token %}
+            <select name="lectures" id="lectures_id" class="form-control" multiple="multiple" style="display: none;">
+              {% for lecture in lectures %}
+                <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
+              {% endfor %}
+            </select><br><br>
+
+            <center><input type="submit" value="submit"/><center>
+
+
+
+          </form>
+        </div>
+      </div> 
+    </div> <!--page-1 -->
+
+    <div class="pt-page pt-page-2">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2><center>선택한 시간표</center></h2>
+        </div>
+
+        <div class="domain_price_list">
+
+          <ul>
+            {% for item in schedule %}
+
+            <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
+
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div> <!-- page-2 -->
+
+    <div class="pt-page pt-page-3">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2>등록 목록</h2>
+        </div>
+
+        <div class="price_table_inner">
+          {% for print in prints %}
+          <div class="price_item">
+            <div class="price_header">
+              <h3>{{print.schedule.lecture.name}}</h3>
+              <h2>{{print.price}}</h2>
+              <h6>{{print.uploader}}</h6>
+            </div>
+            <ul>
+              <div class="time-elapsed"></div>
+              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
+            </ul>
+            <a class="price_btn" href="#">신청하기</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> <!-- page-3 -->
+
+    <div class="pt-page pt-page-4">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2>요청 목록</h2>
+        </div>
+        <div class="price_table_inner">
+          {% for pprint in pprints %}
+          <div class="price_item">
+            <div class="price_header">
+              <h3>{{pprint.schedule.lecture.name}}</h3>
+              <h2>{{pprint.price}}</h2>
+              <h6>{{pprint.uploader}}</h6>
+            </div>
+            <ul>
+              <div class="time-elapsed"></div>
+              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
+            </ul>
+            <a class="price_btn" href="#">신청하기</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> <!-- page-4 -->
+  </div> <!-- pt-main -->
+
+  <div class="pt-message">
+    <p>Your browser does not support CSS animations.</p>
   </div>
-  <div class="domain_inner">
-    
-    <form action="{% url 'main:selected_lectures' %}" method="POST"> 
-      {% csrf_token %}
-      <select name="lectures" id="lectures_id" class="form-control" multiple="multiple" style="display: none;">
-        {% for lecture in lectures %}
-          <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
-        {% endfor %}
-      </select><br><br>
 
-      <center><input type="submit" value="submit"/><center>
-   
-    
-  
-  </form>
-  </div>
 
-<div class="domain_price_list">
+{% comment %} <section class = "domain_search_area p_100" id="about">
 
-                  <ul>
-                    {% for item in schedule %}
-                    
-                    <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
-                    
-                     {% endfor %}
-                  </ul>
-                </div>
- 
-</div>
 </section>
 
+<section class="price_table_area" id="price">
+    
+</section>
 
-  <iframe id="google_osd_static_frame_2812223392877" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<section class="price_table_area" id="price">
+    
+</section> {% endcomment %}
+
+<iframe id="google_osd_static_frame_2812223392877" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <script src="{% static 'js/BsMultiSelect.js' %}"></script>
@@ -81,6 +182,9 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
 </script>
 
 </body>
+
+
+
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -95,6 +199,12 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
   })();
 
 </script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/page/jquery.dlmenu.js' %}"></script>
+<script src="{% static 'js/page/pagetransitions.js' %}"></script>
+
 </html>
 
 {% endblock %}

@@ -89,9 +89,14 @@ def mypage(request, username):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	
+	prints = Print.objects.filter(
+		uploader = user
+	)
+	pprints = Print.objects.filter(
+		requests = user
+	)
 	#print("====="+str(schedule.count()))
-	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
+	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints})
 
 def detail(request, username):
 	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
@@ -133,7 +138,7 @@ def delete(request, id):
 
 
 def requests(request, id):
-	user = get_object_or_404(User, pk=2) ##
+	user = get_object_or_404(User, pk=2)
 	print = get_object_or_404(Print, pk=id)
 	if request.method == 'POST':
 		if print.requests.filter(id = user.id).exists():
