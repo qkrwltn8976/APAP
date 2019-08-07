@@ -53,7 +53,8 @@ class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 �
 	)
 
 	def __str__(self):
-		return "{} : {}".format(self.user.username, self.lecture.name)
+		return "{}:{}".format(self.lecture.name, self.lecture.code)
+
 
 	
 class Print(models.Model):
