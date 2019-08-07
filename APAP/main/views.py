@@ -98,7 +98,6 @@ def mypage(request, username):
 	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
 def detail(request, id):
-	form = Printform()
 	pprint = get_object_or_404(Print, pk=id)
 	user = request.user #로그인 구현 전 임시 설정
 	id = user.pk
@@ -107,7 +106,7 @@ def detail(request, id):
 	schedule = Schedule.objects.filter(
 		user = user
 	)
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'pprint': pprint, 'form':form})
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'print': pprint,})
 
 def update(request, id):
 	form = Printform() 
@@ -135,14 +134,21 @@ def delete(request, id):
 
 
 def requests(request, id):
-	user = request.user
-	prints = get_object_or_404(Print, pk=id)
-	if request.method == 'POST':
-		if prints.requests.filter(id = user.id).exists():
-			prints.requests.remove(user)
+	if request.user.is_active:
+		user = request.user
+		pprint = get_object_or_404(Print, pk=id)
+
+		request_print = user.requests.filter(pk=id)
+		if request_print.exists():
+			user.requests.remove(pprint)
+			print("=======취소=======")
 		else:
-			prints.requests.add(user)
-	return redirect('main:home')
+			user.requests.add(pprint)
+			print("=======추가=======")
+		print("+++++++++"+str(pprint.requests.count()))
+		return redirect('main:detail', id)
+	else:
+		return redirect('main:home', username = user.username)
 
 
 def filter(request):
@@ -174,5 +180,5 @@ def filter(request):
 				schedule__lecture__in=[l for l in lecture_list]
 				# schedule__lecture__in=l
 			)
-			print("+++++++++"+str(prints.count()))
+			
 		return render(request, 'main/home.html', {'prints': prints})
