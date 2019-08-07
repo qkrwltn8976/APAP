@@ -72,7 +72,8 @@ class Print(models.Model):
 	direction_choices = (horizontal, '가로'), (vertical, '세로')
 	direction = models.CharField(max_length=10, choices=direction_choices)
 
-	price = models.IntegerField(default=2500)
+	price = models.IntegerField(default=2500) #배송비
+	# alpha = models.PositiveInteger()
 	date = models.DateTimeField(default=datetime.now, blank=True) 
 	file = models.FileField(null=True)
 
@@ -90,6 +91,19 @@ class Print(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+
+# class PrintRequest(models.Model):
+# 	from_user = models.ForeignKey(
+# 		User,
+# 		on_delete = models.CASCADE,
+# 		related_name = 'from_user',
+# 	)
+# 	to_user = models.ForeignKey(
+# 		User,
+# 		on_delete = models.CASCADE,
+# 		related_name = 'to_user',
+# 	)
+# 	point = models.PositiveInteger()
 	
 
 
