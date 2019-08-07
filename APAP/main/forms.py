@@ -13,9 +13,10 @@ class MyModelMultipleChoiceField(ModelMultipleChoiceField):
 class Printform(forms.ModelForm):	
     class Meta:
         model = Print
-        user = get_object_or_404(User, pk=2)
+        user = get_object_or_404(User, username="apap")
         schedule_set = Schedule.objects.filter(user=user).values('lecture')
-        schedule = MyModelMultipleChoiceField(queryset= Schedule.objects.filter(user=user).values('lecture'))
+
+        schedule = MyModelMultipleChoiceField(queryset= Schedule.objects.filter(user=user).values_list('lecture__code').distinct())
         # lecture = schedule_set.values('name')
         fields = {
            	'schedule',
