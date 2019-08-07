@@ -40,7 +40,7 @@
         </div>
         <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
         <!--프로필사진을 누르면 mypage.html으로-->
-        <a href = "mypage">안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <a href = "{% url 'main:mypage' user.username %}">안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
         <!--알림-->
         <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
         <!--로그아웃-->

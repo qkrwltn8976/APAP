@@ -36,7 +36,7 @@ def login(request):
 			user = auth.authenticate(request, username=username, password=password)
 			if user is not None:
 				auth.login(request, user)
-				return redirect('main:home')
+				return redirect('main:home' )
 			else:
 				return render(request, 'authservice/signin.html', {'error' : 'username or password is incorrect.'})
 
