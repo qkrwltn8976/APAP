@@ -103,10 +103,8 @@ def detail(request, id):
 	id = user.pk
 	username = user.username
 	lectures = Lecture.objects.all()
-	schedule = Schedule.objects.filter(
-		user = user
-	)
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'print': pprint,})
+	
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint,})
 
 def update(request, id):
 	form = Printform() 
