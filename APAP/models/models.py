@@ -31,6 +31,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
 	lectures = models.ManyToManyField(Lecture, related_name = 'lectures', through='Schedule')
+	# point = models.IntegerField(default=5000)
 
 
 class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
