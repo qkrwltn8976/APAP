@@ -22,7 +22,8 @@ class Printform(forms.ModelForm):
 			'side',
 			'gather',
 			'direction',
-			'price',
+			'delivery_price',
+			
 			'date',
 			'file',
 		}
@@ -32,12 +33,13 @@ class Printform(forms.ModelForm):
 			'side': "양면 인쇄",
 			'gather': "용지당 페이지 수",
 			'direction': "페이지 방향",
-			'price': "배송비",
+			'delivery_price': "배송비",
 			'date': "종료일시",
 			'file': "인쇄 파일 업로드",            
         }
 		widgets = {
-			'date' : DateTimePickerInput(format='%m/%d/%Y %H:%M:%S')
+			'date' : DateTimePickerInput(format='%m/%d/%Y %H:%M:%S'),
+
 		}
 
 	
