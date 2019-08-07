@@ -3,7 +3,7 @@
 {% block content %}
   <div class = "box" style = "width: 500px; height: 500px;">
     <table class = "box" style = "text-align:left">
-    <p>강의명: {{schedule.lectures.name}}</p><br>
+    <p>강의명: {{schedule.lecture.name}}</p><br>
     <p>색상: {{pprint.color}}</p><br>
     <p>양면 인쇄: {{pprint.side}}</p><br>
     <p>용지당 페이지 수: {{pprint.gather}}</p><br>
@@ -16,8 +16,11 @@
   </div>
   <div>
     <div>
-      <input type="button" class="like" name="{{ prints.id }}" value="요청하기">
-      <p id="count{{ prints.id }}"></p>
+    {% if user in prints.requests.all %}
+      <a href="{% url 'main:requests' pprint.id %}">요청 취소</a>
+    {% else %}
+      <a href="{% url 'main:requests' pprint.id %}">요청</a>
+    {% endif %}
     </div>
     <a href = "{% url 'main:update' pprint.id %}">수정하기</a>
     <a href = "{% url 'main:delete' pprint.id %}" data-method="POST">삭제하기</a>
