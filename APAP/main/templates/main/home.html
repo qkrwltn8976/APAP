@@ -43,7 +43,10 @@
 </header>
 
 
-<!-- 카드는 나중에 다시 넣어보자 -->	
+<!-- 카드는 나중에 다시 넣어보자 -->
+{% if prints == null %}
+<h1> 에휴 빨리 강의 넣자 </h1>
+{% else %}
         <section class="price_table_area" id="price">
             <div class="container">
                 <div class="main_title">
@@ -67,6 +70,7 @@
                 </div>
             </div>
         </section>
+        {% endif %}
       
     </body>
 <script type="text/javascript">

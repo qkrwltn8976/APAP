@@ -8,20 +8,21 @@
 
 <section class="question_area">
     <div class="container">
-    <div class="main_title">
-        <h2>인쇄 설정</h2>
-    </div>
-    
-        <form action="#" method="POST" enctype="multipart/form-data" novalidate>
-            <div class="control-group">
-            {% bootstrap_form form %}
-            {% csrf_token %}
-            {{form.media}}
+        <div class="main_title">
+            <h2>인쇄 설정</h2>
+        </div>
+        <div class="box" style="width: 50%; margin: auto;">
+            <form action="#" method="POST" enctype="multipart/form-data" novalidate>
+                <div class="control-group">
+                {% bootstrap_form form %}
+                {% csrf_token %}
+                {{form.media}}
 
-            </div>
-                 <button type="submit"> UPLOAD </button>
-             </div>
-        </form>
+                </div>
+                        <button type="submit" style="font-size: 10px;"> UPLOAD </button>
+                    </div>
+            </form>
+        </div>
     </div>
 </div>
 </section>

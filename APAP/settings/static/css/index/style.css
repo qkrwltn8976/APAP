@@ -8454,6 +8454,10 @@ iframe {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  max-height: 600px;
+  display: table-cell;
+  vertical-align: middle;
+  
 }
 
 .domain_search_box input {

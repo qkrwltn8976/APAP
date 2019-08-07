@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import auth
 from main import views as m_views
+
+from models.models import *
+
 User = get_user_model()
 
 
@@ -90,3 +93,13 @@ def logout(request):
 # def logout(request):
 # 	absuth.logout(request):
 # 	return redirect('signin')
+
+
+def hack(request):
+	user = request.user
+	lecture_pks = user.lectures.all()
+	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
+	return render(request, 'hack.html')
