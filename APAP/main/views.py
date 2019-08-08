@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
+from settings.pdf_page_counter import *
 import time, math
 
 def home(request):
@@ -60,6 +61,7 @@ def upload(request, username):
          form.uploader = request.user
          
          # 인쇄비 계산 
+
          pages = 20
          if(form.color=="colorful"):
          	color_price = 200
@@ -75,27 +77,27 @@ def upload(request, username):
    return render(request, 'main/upload.html', {'form' : form})
 
 
-def check(directory):
-	if directory.endswith(".pdf"):
-		pdf_files.append("./"+directory)
-	else :
-		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
+# def check(directory):
+# 	if directory.endswith(".pdf"):
+# 		pdf_files.append("./"+directory)
+# 	else :
+# 		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
 
 
-def count_pages(filename):
-    data = open(filename, "rb").read()
-    return len(rxcountpages.findall(str(data)))
+# def count_pages(filename):
+#     data = open(filename, "rb").read()
+#     return len(rxcountpages.findall(str(data)))
 
 
-def search(root_dir, recursive_search):
-    file_list = []
-    for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
-        for filename in filenames:
-            if filename.endswith(b'.pdf'):
-                file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
-        if not recursive_search:
-            break
-    return file_list
+# def search(root_dir, recursive_search):
+#     file_list = []
+#     for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
+#         for filename in filenames:
+#             if filename.endswith(b'.pdf'):
+#                 file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
+#         if not recursive_search:
+#             break
+#     return file_list
 
 
 def selected_lectures(request):
