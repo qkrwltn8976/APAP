@@ -40,8 +40,8 @@ def endtimer(request):
 		value = request.POST.get('valid')
 		print(str(value)+"*********")
 	return redirect('main:home') 
-	
-	
+
+
 def __getitem__(self, key):
 	 return self.var.get(key, key)
 # def home(request, id):
@@ -99,19 +99,19 @@ def check(directory):
 
 
 def count_pages(filename):
-	 data = open(filename, "rb").read()
-	 return len(rxcountpages.findall(str(data)))
+	data = open(filename, "rb").read()
+	return len(rxcountpages.findall(str(data)))
 
 
 def search(root_dir, recursive_search):
-	 file_list = []
-	 for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
-		  for filename in filenames:
+	file_list = []
+	for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
+		for filename in filenames:
 				if filename.endswith(b'.pdf'):
-					 file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
-		  if not recursive_search:
+					file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
+		if not recursive_search:
 				break
-	 return file_list
+	return file_list
 
 
 def selected_lectures(request):
