@@ -21,6 +21,10 @@ def home(request):
       schedule__lecture__in=[l for l in lecture_list]
    )
 
+   schedule = Schedule.objects.filter(
+      user = user
+   )
+
    timer = ""
    while timer:
       mins, secs = divmod(t, 60)
@@ -36,7 +40,7 @@ def home(request):
 
 
 
-   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer, 'schedule' : schedule})
 # def home(request, id):
 #    user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
 #    username = user.username
