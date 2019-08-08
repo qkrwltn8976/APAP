@@ -5,7 +5,7 @@
     <style>
         @font-face { font-family: 'Malssami815'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Malssami815.woff') format('woff'); font-weight: normal; font-style: normal; }
         @font-face { font-family: 'BBTreeGL'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); font-weight: normal; font-style: normal; }
-        @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }
+        @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }    
     </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
     <link href="{% static 'css/index/icofont.css' %}" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link href="{% static 'css/index/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Rev slider css -->
     <link href="{% static 'vendors/revolution/css/settings.css' %}" rel="stylesheet">
@@ -31,9 +31,7 @@
     <!-- Extra plugin css -->
     <link href="{% static 'vendors/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/owl-carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-
     <link href="{% static 'vendors/nice-selector/nice-select.css' %}" rel="stylesheet">
-
     <link href="{% static 'css/index/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/index/responsive.css' %}" rel="stylesheet">
 
@@ -51,7 +49,7 @@
         <div style="font-color: black; text-align:center; margin-top: 30px; ">
             <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸</a>
         </div>
-        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px; padding-top: 30px;">
+        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
         <!--프로필사진을 누르면 mypage.html으로-->
         <a href = "{% url 'main:mypage' user.username %}" >안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="마이페이지"></a>
         {% comment %} <!--알림-->

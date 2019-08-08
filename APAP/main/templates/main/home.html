@@ -32,10 +32,13 @@
                             <li><input type="submit" name="action" value="금" class="transparent-input"></li>
                             <li class=""><a href="{% url 'main:upload' user%}">추가하기</a></li>
                         </ul>
+                    	</form>
                         <form action="{% url 'main:filter' %}" method="POST">
+                        	{% csrf_token %}
                         <ul class="nav navbar-nav navbar-right">
                           <li><a href="#">Afford To Print : 어푸어푸</a></li>
             </ul>
+            </form>
                     </div><!-- /.navbar-collapse -->
                     </nav>
                 </div>
@@ -43,20 +46,7 @@
 </header>
 
 
-<!-- 카드는 나중에 다시 넣어보자 -->
-{% if schedule != null %}
-<section class="price_table_area" id="price">
-    <div class="container">
-    
-        <div class="app_round_image">
-            <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
-            
-            <a href="{% url 'main:mypage' user.username %}" class="app_mobile"><h1> 수강중인<br>강의가<br>없어요!! </h1></a>
-            
-        </div>          
-    </div>
-</section>
-{% else %}
+<!-- 카드는 나중에 다시 넣어보자 -->	
         <section class="price_table_area" id="price">
             <div class="container">
                 <div class="main_title">
@@ -69,10 +59,16 @@
                             <h3>{{item.schedule.lecture.name}}</h3>
                             <h2>{{item.price}}</h2>
                             <h6>{{item.uploader}}</h6>
+                           <!--  <h6>{{item.id}}</h6> -->
                         </div>
                         <ul>
                             <div class="time-elapsed"></div>
-                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
+                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>  
+                            <form action="{% url 'main:endtimer' %}" method='POST' class="f" id="f">
+                            {% csrf_token %}
+                            <div id="print_id" value="{{item.id}}">{{item.id}}</div>
+                            <div id="class"></div>
+                            </form>                
                         </ul>
                         <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
                     </div>
@@ -80,7 +76,6 @@
                 </div>
             </div>
         </section>
-        {% endif %}
       
     </body>
 <script type="text/javascript">
@@ -127,6 +122,7 @@
 		var elements = document.getElementsByClassName("time-elapsed");
 		var header = document.getElementsByClassName("price_header");
 		var btn = document.getElementsByClassName("price_btn");
+
     	for (var i = 0; i < cnt; i++) {
     		if(d[i]>=0)
         		elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
@@ -135,9 +131,16 @@
         		header[i].style.backgroundColor = "gray"
         		btn[i].style.backgroundColor = "gray"
         		btn[i].style.visibility = "hidden"
-        	}
+
+        		var pid = document.getElementById("print_id").value;
+        		var pid = $('#print_id').attr("value");
         		
-        	
+        		$('#class').html("<input name = 'valid' id = 'valid' value= "+pid+">")
+        		
+
+        		document.forms["f"].submit();
+        		
+        	}	
         	// header[i].style.backgroundColor = "gray"
    		}
 	    

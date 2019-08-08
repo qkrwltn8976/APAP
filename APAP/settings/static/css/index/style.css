@@ -2980,21 +2980,14 @@ iframe {
 
 .app_round_image {
   position: relative;
+  padding-top: 80px;
   text-align: center;
 }
 
 .app_round_image .round_c {
   -webkit-animation: 10s round_image infinite linear;
-  animation: 18s round_image infinite linear;
-  transform: rotate( -270deg );
-  width: auto;
-  height: auto;
-  /* display: block; */
-  /* margin: 0px auto; */
-  /* vertical-align: middle; */
-  /* position: absolute; */
+  animation: 10s round_image infinite linear;
 }
-
 
 .app_round_image .app_mobile {
   position: absolute;
@@ -3003,7 +2996,6 @@ iframe {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  padding-top: 200px;
 }
 
 .app_feature_item_inner {
@@ -8469,10 +8461,6 @@ iframe {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-height: 600px;
-  display: table-cell;
-  vertical-align: middle;
-  
 }
 
 .domain_search_box input {
