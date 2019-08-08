@@ -100,9 +100,9 @@ class Print(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
-	# def __str__(self):
-	# 	if self.date == timezone.localtime():
-	# 		self.valid = False
+	def __str__(self):
+		if self.date == timezone.localtime():
+			self.valid = False
 
 class PrintRequest(models.Model):
 	from_user = models.ForeignKey(
