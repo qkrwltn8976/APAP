@@ -66,45 +66,43 @@ class Print(models.Model):
 	colorful="colorful"
 	grayish="grayish"
 	color_choices = (colorful, '컬러'), (grayish, '흑백')
-	color = models.CharField(max_length=10, choices=color_choices, blank=True)
+	color = models.CharField(max_length=10, choices=color_choices)
 
 	single="single"
 	double="double"
 	side_choices = (single, '단면'), (double, '양면')
-	side = models.CharField(max_length=10, choices=side_choices, blank=True)
+	side = models.CharField(max_length=10, choices=side_choices)
 
-	gather = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(8)], blank=True)
+	gather = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(8)])
 
 	horizontal="horizontal"
 	vertical="vertical"
 	direction_choices = (horizontal, '가로'), (vertical, '세로')
-	direction = models.CharField(max_length=10, choices=direction_choices, blank=True)
+	direction = models.CharField(max_length=10, choices=direction_choices)
 
-	delivery_price = models.IntegerField(default=2500, blank=True) #배송비
-	print_price = models.IntegerField(default=0, blank=True) #인쇄비
+	delivery_price = models.IntegerField(default=2500) #배송비
+	print_price = models.IntegerField(default=0) #인쇄비
 
 	date = models.DateTimeField(default=datetime.now, blank=True) 
-	file = models.FileField(null=True, blank=True)
+	file = models.FileField(null=True)
 
 	valid = models.BooleanField(default=True)
 	schedule = models.ForeignKey(
 		Schedule,
 		on_delete = models.CASCADE,
-		related_name = 'schedule',
-		blank=True
+		related_name = 'schedule'
 	)
 	requests = models.ManyToManyField(
 		User, 
-		related_name='requests',
-		blank=True
+		related_name='requests'
 	)
 
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
-	# def __str__(self):
-	# 	if self.date == timezone.localtime():
-	# 		self.valid = False
+	def __str__(self):
+		if self.date == timezone.localtime():
+			self.valid = False
 
 class PrintRequest(models.Model):
 	from_user = models.ForeignKey(
