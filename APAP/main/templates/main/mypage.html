@@ -7,7 +7,7 @@
 <html>
 
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/materia/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 <style>
 body { min-height: 100vh;  font-family: 'Roboto'; }
 .container { margin: 150px auto; max-width: 640px; }
@@ -30,7 +30,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     
     <form action="{% url 'main:selected_lectures' %}" method="POST"> 
       {% csrf_token %}
-      <select name="lectures" id="lectures_id" class="form-control" multiple="multiple" style="display: none;">
+      <select name="lectures" id="lectures_id" class="form-control custom-select custom-select-sm" multiple="multiple" style="display: none;">
         {% for lecture in lectures %}
           <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
         {% endfor %}

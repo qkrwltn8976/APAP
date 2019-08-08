@@ -4,6 +4,7 @@ from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 from pusherable.mixins import PusherDetailMixin, PusherUpdateMixin
+from django.utils import timezone
 
 class University(models.Model):
 	objects = models.Manager()
@@ -81,7 +82,7 @@ class Print(models.Model):
 
 	delivery_price = models.IntegerField(default=2500) #배송비
 	print_price = models.IntegerField(default=0) #인쇄비
-	
+
 	date = models.DateTimeField(default=datetime.now, blank=True) 
 	file = models.FileField(null=True)
 
@@ -99,6 +100,9 @@ class Print(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		if self.date == timezone.localtime():
+			self.valid = False
 
 class PrintRequest(models.Model):
 	from_user = models.ForeignKey(
@@ -116,7 +120,10 @@ class PrintRequest(models.Model):
 		on_delete = models.CASCADE,
 		related_name = 'req_p',
 	)
-	point = models.IntegerField()
+	point = models.IntegerField(default=0, blank=True)
+
+	# def __str__(self):
+	# 	if self.req_p.date == 
 	
 
 

@@ -181,16 +181,17 @@ def requests(request, id):
       pprint = get_object_or_404(Print, pk=id)
 
       request_print = user.requests.filter(pk=id)
-      request = PrintRequest.requests.create(from_user=user, to_user=pprint.uploader)
-      if request_print.exists():
+      request_print_model = PrintRequest.objects.filter(from_user=user, req_p=pprint)
+      if request_print_model.exists():
          user.requests.remove(pprint)
-
+         request_print_model.delete()
          print("=======취소=======")
 
       else:
          user.requests.add(pprint)
+         request = PrintRequest.objects.create(from_user=user, to_user=pprint.uploader, req_p=pprint)
          print("=======추가=======")
-      print("+++++++++"+str(pprint.requests.count()))
+      print("+++++++++"+str(request_print_model.count()))
       return redirect('main:detail', id)
    else:
       return redirect('main:home', username = user.username)
