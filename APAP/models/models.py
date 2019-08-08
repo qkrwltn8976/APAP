@@ -66,35 +66,37 @@ class Print(models.Model):
 	colorful="colorful"
 	grayish="grayish"
 	color_choices = (colorful, '컬러'), (grayish, '흑백')
-	color = models.CharField(max_length=10, choices=color_choices)
+	color = models.CharField(max_length=10, choices=color_choices, blank=True)
 
 	single="single"
 	double="double"
 	side_choices = (single, '단면'), (double, '양면')
-	side = models.CharField(max_length=10, choices=side_choices)
+	side = models.CharField(max_length=10, choices=side_choices, blank=True)
 
-	gather = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(8)])
+	gather = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(8)], blank=True)
 
 	horizontal="horizontal"
 	vertical="vertical"
 	direction_choices = (horizontal, '가로'), (vertical, '세로')
-	direction = models.CharField(max_length=10, choices=direction_choices)
+	direction = models.CharField(max_length=10, choices=direction_choices, blank=True)
 
-	delivery_price = models.IntegerField(default=2500) #배송비
-	print_price = models.IntegerField(default=0) #인쇄비
+	delivery_price = models.IntegerField(default=2500, blank=True) #배송비
+	print_price = models.IntegerField(default=0, blank=True) #인쇄비
 
 	date = models.DateTimeField(default=datetime.now, blank=True) 
-	file = models.FileField(null=True)
+	file = models.FileField(null=True, blank=True)
 
 	valid = models.BooleanField(default=True)
 	schedule = models.ForeignKey(
 		Schedule,
 		on_delete = models.CASCADE,
-		related_name = 'schedule'
+		related_name = 'schedule',
+		blank=True
 	)
 	requests = models.ManyToManyField(
 		User, 
-		related_name='requests'
+		related_name='requests',
+		blank=True
 	)
 
 	created_at = models.DateTimeField(auto_now_add=True)
