@@ -4,6 +4,7 @@ from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 from pusherable.mixins import PusherDetailMixin, PusherUpdateMixin
+from django.utils import timezone
 
 class University(models.Model):
 	objects = models.Manager()
@@ -31,7 +32,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractUser):
 	level = models.IntegerField(default=1)
 	verified = models.BooleanField(default=False)
 	lectures = models.ManyToManyField(Lecture, related_name = 'lectures', through='Schedule')
-	# point = models.IntegerField(default=5000)
+	point = models.IntegerField(default=5000)
 
 
 class Schedule(models.Model): #User와 Lecture사이의 관계를 정의하는 중계모델
@@ -79,7 +80,9 @@ class Print(models.Model):
 	direction_choices = (horizontal, '가로'), (vertical, '세로')
 	direction = models.CharField(max_length=10, choices=direction_choices)
 
-	price = models.IntegerField(default=2500)
+	delivery_price = models.IntegerField(default=2500) #배송비
+	print_price = models.IntegerField(default=0) #인쇄비
+
 	date = models.DateTimeField(default=datetime.now, blank=True) 
 	file = models.FileField(null=True)
 
@@ -97,6 +100,30 @@ class Print(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		if self.date == timezone.localtime():
+			self.valid = False
+
+class PrintRequest(models.Model):
+	from_user = models.ForeignKey(
+		User,
+		on_delete = models.CASCADE,
+		related_name = 'from_user',
+	)
+	to_user = models.ForeignKey(
+		User,
+		on_delete = models.CASCADE,
+		related_name = 'to_user',
+	)
+	req_p = models.ForeignKey(
+		Print,
+		on_delete = models.CASCADE,
+		related_name = 'req_p',
+	)
+	point = models.IntegerField(default=0, blank=True)
+
+	# def __str__(self):
+	# 	if self.req_p.date == 
 	
 
 
