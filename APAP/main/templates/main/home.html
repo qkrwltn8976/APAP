@@ -51,7 +51,7 @@
         <div class="app_round_image">
             <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
             
-            <a href="mypage.html" class="app_mobile"><h1> 수강중인<br>강의가<br>없어요!! </h1></a>
+            <a href="{% url 'main:mypage' user.username %}" class="app_mobile"><h1> 수강중인<br>강의가<br>없어요!! </h1></a>
             
         </div>          
     </div>

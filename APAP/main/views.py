@@ -33,7 +33,7 @@ def home(request):
       timer.sleep(1)
       timer -= 1
 
-   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer, 'schedule' : schedule})
 
 # def home(request, id):
 #    user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정

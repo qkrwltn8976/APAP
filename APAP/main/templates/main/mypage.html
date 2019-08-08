@@ -49,94 +49,93 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
   </div><!-- /triggers -->
 
   <div id="pt-main" class="pt-perspective">
-    <section class = "domain_search_area p_100" id="about">
-      <div class="pt-page pt-page-1">
-        <div class="container">
-          <div class="main_title color_white">
-          <h2><center>시간표 선택</center></h2>
-          </div>
-          <div class="domain_inner">
-            <form action="{% url 'main:selected_lectures' %}" method="POST">
-              {% csrf_token %}
-              <select name="lectures" id="lectures_id" class="form-control custom-select custom-select-sm" multiple="multiple" style="display: none;">
-                {% for lecture in lectures %}
-                  <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
-                {% endfor %}
-              </select><br><br>
-
-              <center><input type="submit" value="submit"/><center>
-            </form>
-          </div>
+    <div class="pt-page pt-page-1">
+      <div class="container">
+        <div class="main_title color_white">
+        <h2><center>시간표 선택</center></h2>
         </div>
-      </div> <!--page-1 -->
-
-      <div class="pt-page pt-page-2">
-        <div class="container">
-          <div class="main_title color_white">
-            <h2><center>선택한 시간표</center></h2>
-          </div>
-
-          <div class="domain_price_list">
-
-            <ul>
-              {% for item in schedule %}
-
-              <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
-
+        <div class="domain_inner">
+          <form action="{% url 'main:selected_lectures' %}" method="POST">
+            {% csrf_token %}
+            <select name="lectures" id="lectures_id" class="form-control custom-select custom-select-sm" multiple="multiple" style="display: none;">
+              {% for lecture in lectures %}
+                <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
               {% endfor %}
-            </ul>
-          </div>
+            </select><br><br>
+
+            <center><input type="submit" value="submit"/><center>
+          </form>
         </div>
-      </div> <!-- page-2 -->
+      </div>
+    </div> <!--page-1 -->
 
-      <div class="pt-page pt-page-3">
-        <div class="container">
-          <div class="main_title color_white">
-            <h2>등록 목록</h2>
-          </div>
+    <div class="pt-page pt-page-2">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2><center>선택한 시간표</center></h2>
+        </div>
 
-          <div class="price_table_inner">
-            {% for print in prints %}
-            <div class="price_item">
-              <div class="price_header">
-                <h3>{{print.schedule.lecture.name}}</h3>
-                <h2>{{print.price}}</h2>
-                <h6>{{print.uploader}}</h6>
-              </div>
-              <ul>
-                <div class="time-elapsed"></div>
-                <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
-              </ul>
-              <a class="price_btn" href="#">신청하기</a>
+        <div class="domain_price_list">
+
+          <ul>
+            {% for item in schedule %}
+
+            <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
+
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div> <!-- page-2 -->
+
+    <div class="pt-page pt-page-3">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2>등록 목록</h2>
+        </div>
+
+        <div class="price_table_inner">
+          {% for print in prints %}
+          <div class="price_item">
+            <div class="price_header">
+              <h3>{{print.schedule.lecture.name}}</h3>
+              <h2>{{print.price}}</h2>
+              <h6>{{print.uploader}}</h6>
             </div>
-            {% endfor %}
+            <ul>
+              <div class="time-elapsed"></div>
+              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
+            </ul>
+            <a class="price_btn" href="#">신청하기</a>
           </div>
+          {% endfor %}
         </div>
-      </div> <!-- page-3 -->
+      </div>
+    </div> <!-- page-3 -->
 
-      <div class="pt-page pt-page-4">
-        <div class="container">
-          <div class="main_title color_white">
-            <h2>요청 목록</h2>
-          </div>
-          <div class="price_table_inner">
-            {% for pprint in pprints %}
-            <div class="price_item">
-              <div class="price_header">
-                <h3>{{pprint.schedule.lecture.name}}</h3>
-                <h2>{{pprint.price}}</h2>
-                <h6>{{pprint.uploader}}</h6>
-              </div>
-              <ul>
-                <div class="time-elapsed"></div>
-                <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
-              </ul>
-              <a class="price_btn" href="#">신청하기</a>
-              </div>
-            {% endfor %}
-          </div>
+    <div class="pt-page pt-page-4">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2>요청 목록</h2>
         </div>
-      </div> <!-- page-4 -->
+        <div class="price_table_inner">
+          {% for pprint in pprints %}
+          <div class="price_item">
+            <div class="price_header">
+              <h3>{{pprint.schedule.lecture.name}}</h3>
+              <h2>{{pprint.price}}</h2>
+              <h6>{{pprint.uploader}}</h6>
+            </div>
+            <ul>
+              <div class="time-elapsed"></div>
+              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
+            </ul>
+            <a class="price_btn" href="#">신청하기</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> <!-- page-4 -->
   </div> <!-- pt-main -->
 
   <div class="pt-message">
