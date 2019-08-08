@@ -1,6 +1,167 @@
 {% extends 'base_index.html' %} <!-- base.html의 내용을 가져오겠다. -->
 {% load staticfiles %}
 {% block content %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+<head>
+  <link href="{% static 'scss/_feature.scss' %}" rel="stylesheet">
+  <link href="{% static 'scss/_predefin.scss' %}" rel="stylesheet">
+  <style>
+    input[type=submit] { background-color:white !important; class="btn buy-now" !important; border:none !important; box-shadow:none !important; width:120px !important;
+    height:50px !important; text-align="center" !important; border: 1px solid grey !important;}
+  </style>
+</head>
+
+<section class="choose_us_area">
+
+                <div class="container" style="padding-right:300px; padding-left:300px">
+                <br><br>
+                    <div class="main_title">
+                        <h2>Detail</h2>
+                    </div><br>
+                    <div class="row choose_item_inner">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>강의명</h4>
+                                        <p>{{print.schedule.lecture.name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>색상</h4>
+                                        <p>{{print.get_color_display}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>양면 인쇄</h4>
+                                        <p>{{print.get_side_display}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>용지 당 페이지 수</h4>
+                                        <p>{{print.gather}}장</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>페이지 방향</h4>
+                                        <p>{{print.get_direction_display}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>배송비</h4>
+                                        <p>{{print.delivery_price}} / n 원</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>인쇄비</h4>
+                                        <p>{{print.print_price}}원</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>종료 일시</h4>
+                                        <p>{{print.date}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>프린트 파일</h4>
+                                        <p>{{print.file}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+              <div>
+<center>
+    {% if valid == True %}
+      <h4> {{ cnt }} 명이 신청했어요!</h4><br><br>
+      <div class="form-group col-md-12">
+        <div class="form-group col-md-12">
+          <a class="gradient_bg_btn" href="{% url 'main:update' print.id %}">수정하기</a>
+        </div>
+        <div class="form-group col-md-12">
+          <a class="gradient_bg_btn" href="{% url 'main:delete' print.id %}">삭제하기</a>
+          <a class="price_btn" href="{% url 'main:update' print.id %}">수정하기</a> 
+        </div>
+    {% else %}
+        <div class="form-group col-md-12">
+          <a class="gradient_bg_btn" href="{% url 'main:requests' print.id %}">신청하기</a>
+        </div>
+      </div>
+    {% endif %}
+    <br><br><br><br><br><br>
+  </div></center>
+        </div></div></section>
   <div class = "box" style = "width: 500px; height: 500px;">
     <table class = "box" style = "text-align:left">
 
@@ -9,7 +170,8 @@
     <p>양면 인쇄: {{print.side}}</p><br>
     <p>용지당 페이지 수: {{print.gather}}</p><br>
     <p>페이지 방향: {{print.direction}}</p><br>
-    <p>배송비: {{print.price}}</p><br>
+    <p>배송비: {{print.delivery_price}}원</p><br>
+    <p>인쇄비: {{print.print_price}}원</p><br>
     <p>종료일시: {{print.date}}</p><br>
     <p>인쇄 파일 업로드: {{print.file}}}</p><br>
 

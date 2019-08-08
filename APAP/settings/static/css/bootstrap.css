@@ -4919,14 +4919,14 @@ a.label:focus {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #6b6d6f;
   line-height: 1;
   vertical-align: middle;
   white-space: nowrap;
   text-align: center;
-  background-color: #777777;
+  background-color: #d7d7d7;
   border-radius: 10px;
 }
 .badge:empty {
