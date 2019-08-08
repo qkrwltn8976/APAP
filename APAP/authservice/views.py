@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import auth
 from main import views as m_views
 
-
+from models.models import *
 
 User = get_user_model()
 
@@ -29,7 +29,8 @@ User = get_user_model()
 #     return _get_backends(return_tuples=False)
 
 def signin(request):
-    	return render(request, 'authservice/signin.html')
+    return render(request, 'authservice/signin.html')
+
 
 def login(request):
 	if request.method == "POST":
@@ -41,14 +42,17 @@ def login(request):
 				return redirect('main:home' )
 			else:
 				return render(request, 'authservice/signin.html', {'error' : 'username or password is incorrect.'})
+
 	else:
 		return render(request, 'authservice/signin.html')
 
 # def gotosignup(request):
 #     	return render(requst, 'authservice/signup.html')
 
+
 def register(request):
     	return render(request, 'authservice/signup.html')
+
 
 def signup(request):
 	if request.method == "POST":
@@ -78,6 +82,7 @@ def signup(request):
 	# return render(request, 'authservice/signup.html')
 
 
+
 def index(request):
 	return render(request, 'index.html')
 
@@ -88,3 +93,13 @@ def logout(request):
 # def logout(request):
 # 	absuth.logout(request):
 # 	return redirect('signin')
+
+
+def hack(request):
+	user = request.user
+	lecture_pks = user.lectures.all()
+	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	)
+	return render(request, 'hack.html')

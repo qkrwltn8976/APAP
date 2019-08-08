@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
+from settings.pdf_page_counter import *
 import time, math
 
 def home(request):
+
    user = request.user #로그인 구현 전 임시 설정
    id = user.pk
    username = user.username
@@ -20,6 +22,10 @@ def home(request):
       schedule__lecture__in=[l for l in lecture_list]
    )
 
+   schedule = Schedule.objects.filter(
+      user = user
+   )
+
    timer = ""
    while timer:
       mins, secs = divmod(t, 60)
@@ -27,7 +33,9 @@ def home(request):
       print(timeformat, end='\r')
       timer.sleep(1)
       timer -= 1
-   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+
+   return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer, 'schedule' : schedule})
+
 # def home(request, id):
 #    user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
 #    username = user.username
@@ -39,6 +47,7 @@ def home(request):
    #    # email = 'original@here.com'
    #    # user = User.objects.create_user(email, email=email)
    #    # user.is_confirmed # False
+
 
    #    # send_mail(email, 'Use %s to confirm your email' % user.password, email, [email])
    #    # # User gets email, passes the confirmation_key back to your server
@@ -58,47 +67,48 @@ def upload(request, username):
       if form.is_valid():
          form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
          form.uploader = request.user
-         
-         # 인쇄비 계산 
+
+         # 인쇄비 계산
          pages = 20
          if(form.color=="colorful"):
          	color_price = 200
          else:
          	color_price = 40
          form.print_price = math.ceil(pages/form.gather)*color_price
-        
+
          form.save()
-        
+
          return redirect('main:home')
    else:
       form = Printform(request.user, request.POST)
    return render(request, 'main/upload.html', {'form' : form})
 
 
-def check(directory):
-	if directory.endswith(".pdf"):
-		pdf_files.append("./"+directory)
-	else :
-		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
+# def check(directory):
+# 	if directory.endswith(".pdf"):
+# 		pdf_files.append("./"+directory)
+# 	else :
+# 		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
 
 
-def count_pages(filename):
-    data = open(filename, "rb").read()
-    return len(rxcountpages.findall(str(data)))
+# def count_pages(filename):
+#     data = open(filename, "rb").read()
+#     return len(rxcountpages.findall(str(data)))
 
 
-def search(root_dir, recursive_search):
-    file_list = []
-    for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
-        for filename in filenames:
-            if filename.endswith(b'.pdf'):
-                file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
-        if not recursive_search:
-            break
-    return file_list
+# def search(root_dir, recursive_search):
+#     file_list = []
+#     for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
+#         for filename in filenames:
+#             if filename.endswith(b'.pdf'):
+#                 file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
+#         if not recursive_search:
+#             break
+#     return file_list
 
 
 def selected_lectures(request):
+
 
    user = request.user #로그인 구현 전 임시 설정
 
@@ -111,7 +121,9 @@ def selected_lectures(request):
    return redirect('main:mypage', username = user)
 
 
+
 def mypage(request, username):
+
 
    user = request.user #로그인 구현 전 임시 설정
 
@@ -130,6 +142,7 @@ def mypage(request, username):
    #print("====="+str(schedule.count()))
    return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints})
 
+
 def detail(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	user = request.user #로그인 구현 전 임시 설정
@@ -144,6 +157,7 @@ def detail(request, id):
 
 	username = user.username
 	lectures = Lecture.objects.all()
+
 	cnt = pprint.requests.count()
 	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt})
 
@@ -167,6 +181,7 @@ def update(request, id):
       pprint.save()
       return redirect('main:home')
    return render(request, 'main/update.html', {"pprint": pprint, "form":form})
+
 
 
 def delete(request, id):
@@ -226,6 +241,3 @@ def filter(request):
             schedule__lecture__in=[l for l in lecture_list]
             # schedule__lecture__in=l
          )
-
-      return render(request, 'main/home.html', {'prints': prints})
-
