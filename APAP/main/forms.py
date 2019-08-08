@@ -11,35 +11,38 @@ class MyModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class Printform(forms.ModelForm):	
-    class Meta:
-        model = Print
-        user = get_object_or_404(User, pk=2)
-        schedule_set = Schedule.objects.filter(user=user).values('lecture')
-        schedule = MyModelMultipleChoiceField(queryset= Schedule.objects.filter(user=user).values('lecture'))
-        # lecture = schedule_set.values('name')
-        fields = {
-           	'schedule',
-            'color',
-            'side',
-            'gather',
-            'direction',
-            'price',
-            'date',
-            'file',
+	def __init__(self, user, *args, **kwargs):
+		super (Printform,self ).__init__(*args,**kwargs) # populates the post
+		self.fields['schedule'].queryset = Schedule.objects.filter(user=user).distinct()
+	class Meta:
+		model = Print
+		fields = {
+			'schedule',
+			'color',
+			'side',
+			'gather',
+			'direction',
+			'delivery_price',
+			
+			'date',
+			'file',
+		}
+		labels = {
+			'schedule' : "강의",
+			'color': "색상",
+			'side': "양면 인쇄",
+			'gather': "용지당 페이지 수",
+			'direction': "페이지 방향",
+			'delivery_price': "배송비",
+			'date': "종료일시",
+			'file': "인쇄 파일 업로드",            
         }
-        labels = {
-        	'schedule' : "강의",
-            'color': "색상",
-            'side': "양면 인쇄",
-            'gather': "용지당 페이지 수",
-            'direction': "페이지 방향",
-            'price': "배송비",
-            'date': "종료일시",
-            'file': "인쇄 파일 업로드",            
-        }
-        widgets = {
-        	'date' : DateTimePickerInput(format='%m/%d/%Y %H:%M:%S')
-        }
+		widgets = {
+			'date' : DateTimePickerInput(format='%m/%d/%Y %H:%M:%S'),
+
+		}
+
+	
         # date = forms.DateTimeField(
         # 	widget=DateTimePickerInput(format='%m/%d/%Y %H:%M:%S')
         # )

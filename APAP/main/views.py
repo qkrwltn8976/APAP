@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
-import time
+import time, math
 
 def home(request):
    user = request.user #로그인 구현 전 임시 설정
@@ -27,14 +27,6 @@ def home(request):
       print(timeformat, end='\r')
       timer.sleep(1)
       timer -= 1
-   # prints.update(valid=False)
-   # print('Goodbye!\n\n\n\n\n')
-
-   # if 'value' in request.POST:
-   #    time = request.POST['value']
-
-
-
    return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 # def home(request, id):
 #    user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
@@ -61,20 +53,49 @@ def upload(request, username):
    user = request.user #로그인 구현 전 임시 설정
    username = user.username
 
-   schedule = Schedule.objects.filter(
-      user = user
-   )
-
-   form = Printform(request.POST, request.FILES or None)
+   form = Printform(request.user, request.POST, request.FILES or None)
    if request.method == "POST":
       if form.is_valid():
          form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
          form.uploader = request.user
+         
+         # 인쇄비 계산 
+         pages = 20
+         if(form.color=="colorful"):
+         	color_price = 200
+         else:
+         	color_price = 40
+         form.print_price = math.ceil(pages/form.gather)*color_price
+        
          form.save()
+        
          return redirect('main:home')
    else:
-      form = Printform()
-   return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
+      form = Printform(request.user, request.POST)
+   return render(request, 'main/upload.html', {'form' : form})
+
+
+def check(directory):
+	if directory.endswith(".pdf"):
+		pdf_files.append("./"+directory)
+	else :
+		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
+
+
+def count_pages(filename):
+    data = open(filename, "rb").read()
+    return len(rxcountpages.findall(str(data)))
+
+
+def search(root_dir, recursive_search):
+    file_list = []
+    for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
+        for filename in filenames:
+            if filename.endswith(b'.pdf'):
+                file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
+        if not recursive_search:
+            break
+    return file_list
 
 
 def selected_lectures(request):
@@ -116,13 +137,18 @@ def detail(request, id):
 
 	if user == pprint.uploader:
 		valid = True
+		print("일치")
 	else:
 		valid = False
+		print("불일치")
 
 	username = user.username
 	lectures = Lecture.objects.all()
 	cnt = pprint.requests.count()
 	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt})
+
+
+
 
 def update(request, id):
    form = Printform()
@@ -150,20 +176,22 @@ def delete(request, id):
 
 
 def requests(request, id):
-
    if request.user.is_active:
       user = request.user
       pprint = get_object_or_404(Print, pk=id)
 
       request_print = user.requests.filter(pk=id)
-      if request_print.exists():
+      request_print_model = PrintRequest.objects.filter(from_user=user, req_p=pprint)
+      if request_print_model.exists():
          user.requests.remove(pprint)
+         request_print_model.delete()
          print("=======취소=======")
 
       else:
          user.requests.add(pprint)
+         request = PrintRequest.objects.create(from_user=user, to_user=pprint.uploader, req_p=pprint)
          print("=======추가=======")
-      print("+++++++++"+str(pprint.requests.count()))
+      print("+++++++++"+str(request_print_model.count()))
       return redirect('main:detail', id)
    else:
       return redirect('main:home', username = user.username)
@@ -200,3 +228,4 @@ def filter(request):
          )
 
       return render(request, 'main/home.html', {'prints': prints})
+
