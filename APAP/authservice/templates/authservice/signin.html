@@ -6,17 +6,26 @@
         <div class="container">
             <div class="row">
                 <div class="hero-text">
-                    <h1>APAP</h1>
-                    <div id="typed-strings">
-                        <h3>대리 프린트 서비스의 시작</h3>
-                        <h3>어푸어푸</h3>
-                        <h3>동국대 멋쟁이 사자처럼</h3>
+
+                    {% if user.is_active %}
+                        <h4>잘못된 접근입니다.<br>로그아웃 후<br>다시 로그인 해주세요!</h4><br><br>
+                        <a class="btn buy-now" href="{% url 'authservice:logout' %}">LogOut</a><br><br>
+                    {% else %}
+                    <div>
+                        <h1>APAP</h1>
+                        <div id="typed-strings">
+                            <h3 style="height:72px;">대리 프린트<br>서비스의 시작</h3>
+                            <h3 style="height:72px;">어푸어푸</h3>
+                            <h3 style="height:72px;">DGU<br>LIKELION</h3>
+                        </div>
+                        <h3 style="height:72px;"><span id="typed" ></span></h3>
                     </div>
-                    <h3><span id="typed"></span></h3>
-                    <h4>계정이 없으시다면, <a href="{% url 'authservice:register' %}">회원가입</a>을 먼저 해주세요 :)</h4>
+                    <br><br>
+                    <div style="position:absolute !important">
                     <form class="login" method="POST" action="{% url 'authservice:login' %}">
-                    
+
                     {% csrf_token %}
+
                         <div class="row">
                             <div class="form-group col-md-12">
                             <input
@@ -27,9 +36,10 @@
                                 autofocus="autofocus"
                                 id="username"
                                 type="text"
+                                value="dduck"
                             />
                             </div>
-                            <br>
+                            
                             <div class="form-group col-md-12">
                             <input
                                 name="password"
@@ -38,16 +48,27 @@
                                 required=""
                                 type="password"
                                 id="id_password1"
+                                value="1111"
                             />
                         </div>
-                        <br><br><br>
+                        <br>
                         <div class="form-group col-md-12">
                             <input type="submit" class="btn buy-now" value="Sign In">
                         </div>
                         </form>
+                        <div class="form-group col-md-12">
+                            {% comment %} <input type="submit" class="btn buy-now" value="Sign Up" href="{% url 'authservice:register' %}"> {% endcomment %}
+                            <a href="{% url 'authservice:register' %}"> <div class="btn buy-now">
+                            Sign up
+                            </div></a>
+                        </div>
+                        {% comment %} <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt=""> {% endcomment %}
+                    </div></div>
                 </div>
             </div>
         </div>
+    {% endif %}
     </div>
 </section>
+
 {% endblock %}

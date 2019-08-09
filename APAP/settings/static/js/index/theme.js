@@ -1007,7 +1007,7 @@
     });
     
 	$(document).ready(function() {
-		$('.select_dropdown').niceSelect();
+		$('.select_').niceSelect();
 	});
 	
     

@@ -2,10 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style type="text/css">
+ a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: black; text-decoration: underline;}
+</style>
     <style>
+        @font-face { font-family: 'BRRA_R'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/BRRA_R.woff') format('woff'); font-weight: normal; font-style: normal; }
         @font-face { font-family: 'Malssami815'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/Malssami815.woff') format('woff'); font-weight: normal; font-style: normal; }
         @font-face { font-family: 'BBTreeGL'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); font-weight: normal; font-style: normal; }
-        @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }    
+        @font-face { font-family: '777Balsamtint'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff'); font-weight: normal; font-style: normal; }
     </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +26,7 @@
     <link href="{% static 'css/index/icofont.css' %}" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link href="{% static 'css/index/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/index/bootstrap.css' %}" rel="stylesheet">
 
     <!-- Rev slider css -->
     <link href="{% static 'vendors/revolution/css/settings.css' %}" rel="stylesheet">
@@ -31,7 +37,9 @@
     <!-- Extra plugin css -->
     <link href="{% static 'vendors/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/owl-carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
     <link href="{% static 'vendors/nice-selector/nice-select.css' %}" rel="stylesheet">
+
     <link href="{% static 'css/index/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/index/responsive.css' %}" rel="stylesheet">
 
@@ -46,16 +54,17 @@
     <body>
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
         {% if user.is_active %}
-        <div style="font-color: black; text-align:center; margin-top: 30px; ">
-            <a style = "font-family: 'Malssami815'; font-size: 45px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸</a>
+        <div style="font-color: black; text-align:center; margin-top: 75px; ">
+            <a style = "font-family: 'BRRA_R'; font-size: 50px;" href = "{% url 'main:home' %}"><img src="{% static 'image/rubber-duck.png' %}">어푸어푸<img src="{% static 'image/rubber-duck.png' %}"></a>
         </div>
-        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px;">
+        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px; padding: 20px 0px;">
         <!--프로필사진을 누르면 mypage.html으로-->
-        <a href = "mypage">안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
-        <!--알림-->
-        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a>
+        <a href = "{% url 'main:mypage' user.username %}" >안녕하세요 {{ user.username }} 님!  <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="마이페이지"></a>
+        {% comment %} <!--알림-->
+        <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a> {% endcomment %}
         <!--로그아웃-->
-        <a href="{% url 'authservice:logout' %}"> 로그아웃</a><br><br>
+        <a href="{% url 'authservice:logout' %}"><img src="{% static 'image/gologout.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="로그아웃"></a><br>
+        <a href = "{% url 'main:mypage' user.username %}" ><h6 style="text-align:right; font-family: '777Balsamtint' !important; font-size:16px !important"> 포인트 : {{ user.point }}p<h6></a>
         </div>
         {% else %}
         {% endif %}

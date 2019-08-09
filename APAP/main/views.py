@@ -2,13 +2,28 @@ from django.shortcuts import render, redirect, get_object_or_404
 from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
-import time
-
+import time, math
+from media.pdf_page_counter import *
+from django.conf import settings
 
 def home(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
 	username = user.username
-	prints = Print.objects.all()
+	schedule = Schedule.objects.filter(
+		user = user
+	)
+	lecture_pks = user.lectures.all()
+	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+	prints = Print.objects.filter(
+		schedule__lecture__in=[l for l in lecture_list]
+	).filter(
+		valid=True
+	)
+
+	for l in lecture_list:
+		print("=========="+l.name)
+
 	timer = ""
 	while timer:
 		mins, secs = divmod(t, 60)
@@ -16,65 +31,84 @@ def home(request):
 		print(timeformat, end='\r')
 		timer.sleep(1)
 		timer -= 1
-	# print('Goodbye!\n\n\n\n\n')
 
-	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer, 'schedule' : schedule})
 
-# def home(request, id):
-# 	user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
-# 	username = user.username
-# 	return render(request, 'main/home.html', {'username': username})
-	
-	# if user.verified == True: #인증을 한 유저인 경우 
-	# 	return render(request, 'main/home.html')
-	# else: #인증하지 않은 유저인 경우
-	# 	# email = 'original@here.com'
-	# 	# user = User.objects.create_user(email, email=email)
-	# 	# user.is_confirmed # False
 
-	# 	# send_mail(email, 'Use %s to confirm your email' % user.password, email, [email])
-	# 	# # User gets email, passes the confirmation_key back to your server
+def endtimer(request):
+	user = request.user
+	if request.method == "POST":
+		id = request.POST.get('valid')
+		obj = get_object_or_404(Print, pk=id)
 
-	# 	# user.confirm_email(user.password)
-	# 	# user.is_confirmed # True
-	# 	return render(request, 'main/verify.html')
-
+		obj.valid = False
+		if(user.requests.count()!=0):
+			# point =  obj.print_price + obj.delivery_price / user.requests.count()
+			rprint = PrintRequest.objects.filter(
+				req_p = obj
+			).update(
+				point = obj.print_price + obj.delivery_price / user.requests.count()
+			)
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# ).update(
+			# 	from_user__point = PrintRequest.from_user.point+obj.print_price +obj.delivery_price
+			# )
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# )
+			# for item in rprint:
+			# 	item.uploader.point = obj.uploader.point-obj.print_price + obj.delivery_price / user.requests.count()
+			# 	item.save()
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# ).update(
+			# 	to_user__point = obj.uploader.point-obj.print_price + obj.delivery_price / user.requests.count()
+			# )
+		
+		obj.save()
+		print("신청이 만료되었습니다")
+	return redirect('main:home') 
 
 
 def upload(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+	user = request.user #로그인 구현 전 임시 설정
 	username = user.username
-	schedule = Schedule.objects.filter(
-		user = user
-	)
 
-	form = Printform(request.POST, request.FILES or None)
+	form = Printform(request.user, request.POST, request.FILES or None)
 	if request.method == "POST":
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
 			form.uploader = request.user
 			form.save()
+			# 인쇄비 계산 
+			form.pages = pagecounter(form.file.path)
+			if(form.color=="colorful"):
+				color_price = 200
+			else:
+				color_price = 40
+			form.print_price = math.ceil(form.pages/form.gather)*color_price
+			form.save()
+		  
 			return redirect('main:home')
 	else:
-		form = Printform()
-	return render(request, 'main/upload.html', {'schedule' : schedule, 'form' : form})
+		form = Printform(request.user, request.POST)
+	return render(request, 'main/upload.html', {'form' : form})
 
-	
-
-def popup(request, username):
-    	return render(request, 'main/popup.html')
-
-
-def detail(request, username, id):
-	pprint = get_object_or_404(Post,username,pk=id)
-	return render(request, 'main/detail.html', {'pprint': pprint})
+def test(request):
+	printobj = get_object_or_404(Print, pk=14)
+	print(printobj.file.path)
+	cnt = pagecounter(printobj.file.path)
+	print("~~~~~~~~~~"+str(cnt))
+	return redirect('main:upload', username=request.user.username)
 
 def selected_lectures(request):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
+
+	user = request.user #로그인 구현 전 임시 설정
+
 	username = user.username
 	if request.method == 'POST':
 		lectures_id = request.POST.getlist('lectures') #시간표 id 받아오는 리스트
-		print("================="+str(lectures_id))
 		for id in lectures_id:
 			lecture = get_object_or_404(Lecture, pk=id)
 			Schedule.objects.create(user=user, lecture=lecture)
@@ -82,61 +116,124 @@ def selected_lectures(request):
 
 
 def mypage(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
-	username = user.username
-	lectures = Lecture.objects.all()
-	schedule = Schedule.objects.filter(
-		user = user
-	)
-	#print("====="+str(schedule.count()))
-	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
 
-def detail(request, username):
-	user = get_object_or_404(User, pk=2) #로그인 구현 전 임시 설정
-	#user = request.user
+	user = request.user #로그인 구현 전 임시 설정
+
 	username = user.username
 	lectures = Lecture.objects.all()
 	schedule = Schedule.objects.filter(
 		user = user
 	)
+
+	prints = Print.objects.filter(
+		uploader = user,
+		valid = True
+	)
+	expired = PrintRequest.objects.filter(
+		to_user = user,
+		req_p__valid = False
+	)
+	
+	print("=========="+str(expired.count()))
+
+	pprints = Print.objects.filter(
+		requests = user
+	)
 	#print("====="+str(schedule.count()))
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule})
+	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints, 'expired' : expired})
+
+def detail(request, id):
+	pprint = get_object_or_404(Print, pk=id)
+	user = request.user #로그인 구현 전 임시 설정
+	id = user.pk
+
+	if user == pprint.uploader:
+		valid = True
+		print("일치")
+	else:
+		valid = False
+		print("불일치")
+
+	username = user.username
+	lectures = Lecture.objects.all()
+	rprint = PrintRequest.objects.filter(
+		req_p = pprint
+	)
+	cnt = pprint.requests.count()
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt, 'rprint' : rprint})
+
 
 def update(request, id):
-	pprint = get_object_or_404(Post, pk=id)
-	if request.method == "POST":
-		color = request.POST.get('color')
-		gather = request.POST.get('gather')
-		side = request.POST.get('side')
-		direction = request.POST.get('direction')
-		order = request.POST.get('order')
-		price = request.POST.get('price')
-		cnt = request.POST.get('cnt')
-		pprint.color = color
-		pprint.gather = gather
-		pprint.side = side
-		pprint.direction = direction
-		pprint.order = order
-		pprint.price = price
-		pprint.cnt = cnt
-		pprint.save()
-		return redirect('home', pprint.id)
-	return render(request, 'main/update.html', {"pprint": pprint})
+	pprint = get_object_or_404(Print, pk=id)
+	form = Printform(request.user, request.POST or None, request.FILES or None, instance=pprint)
+	
+	if form.is_valid():
+		form.save()
+		return redirect('main:home')
+	return render(request, 'main/update.html', {"pprint": pprint, "form":form})
 
 
 def delete(request, id):
 	pprint = get_object_or_404(Print, pk=id)
 	pprint.delete()
-	return redirect('home', pprint.id)
+	return redirect('main:home')
 
 
 def requests(request, id):
-	user = get_object_or_404(User, pk=2) ##
-	print = get_object_or_404(Print, pk=id)
-	if request.method == 'POST':
-		if print.requests.filter(id = user.id).exists():
-			print.requests.remove(user)
+	if request.user.is_active:
+		user = request.user
+		pprint = get_object_or_404(Print, pk=id)
+
+		request_print = user.requests.filter(pk=id)
+		request_print_model = PrintRequest.objects.filter(from_user=user, req_p=pprint)
+		if request_print_model.exists():
+			user.requests.remove(pprint)
+			request_print_model.delete()
+			print("=======취소=======")
+
 		else:
-			print.requests.add(user)
-		return redirect('home', print.id)
+			user.requests.add(pprint)
+			request = PrintRequest.objects.create(from_user=user, to_user=pprint.uploader, req_p=pprint)
+			print("=======추가=======")
+		print("+++++++++"+str(request_print_model.count()))
+		return redirect('main:detail', id)
+	else:
+		return redirect('main:home', username = user.username)
+
+
+def filter(request):
+	user = request.user
+	prints = Print.objects.all()
+	# lecture_list = Lecture.objects.all()
+	if request.method == "POST":
+		filter_type = request.POST['action']
+		if filter_type == '모두':
+			lecture_pks = user.lectures.all()
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			)
+
+			for l in lecture_list:
+				print("=========="+l.name+l.day_time)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+			).filter(
+				valid=True
+			)
+		else:
+			print("++++++"+filter_type)
+			lecture_pks = user.lectures.filter(day_time__icontains=filter_type)
+			print(lecture_pks)
+			lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
+			for l in lecture_list:
+				print("=========="+l.name+"/"+str(l.pk)+l.day_time)
+			prints = Print.objects.filter(
+				schedule__lecture__in=[l for l in lecture_list]
+				# schedule__lecture__in=l
+			).filter(
+				valid=True
+			)
+
+		return render(request, 'main/home.html', {'prints': prints})
+

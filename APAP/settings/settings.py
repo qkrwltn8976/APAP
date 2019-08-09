@@ -1,3 +1,4 @@
+
 """
 Django settings for coffee project.
 
@@ -25,7 +26,7 @@ SECRET_KEY = 's3)&usud6h)9rc5a1md-#hmggjmt41053zp7j6p)av8(%(mdy)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -48,7 +49,8 @@ INSTALLED_APPS = [
     'models',
     'django_openid_auth', #BACKEND 오류 해결
     'bootstrap_datepicker_plus',
-    'bootstrap4'
+    'bootstrap4',
+    'pusherable',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +166,9 @@ MEDIA_URL = '/media/'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+PUSHER_APP_ID = u""
+PUSHER_KEY = u""
+PUSHER_SECRET = u""
+PUSHER_CLUSTER = u""
+

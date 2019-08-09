@@ -29,62 +29,62 @@ User = get_user_model()
 #     return _get_backends(return_tuples=False)
 
 def signin(request):
-    	return render(request, 'authservice/signin.html')
+       return render(request, 'authservice/signin.html')
 
 def login(request):
-	if request.method == "POST":
-			username = request.POST["username"]
-			password = request.POST["password"]
-			user = auth.authenticate(request, username=username, password=password)
-			if user is not None:
-				auth.login(request, user)
-				return redirect('main:home')
-			else:
-				return render(request, 'authservice/signin.html', {'error' : 'username or password is incorrect.'})
-	else:
-		return render(request, 'authservice/signin.html')
+   if request.method == "POST":
+         username = request.POST["username"]
+         password = request.POST["password"]
+         user = auth.authenticate(request, username=username, password=password)
+         if user is not None:
+            auth.login(request, user)
+            return redirect('main:home' )
+         else:
+            return render(request, 'authservice/signin.html', {'error' : 'username or password is incorrect.'})
+   else:
+      return render(request, 'authservice/signin.html')
 
 # def gotosignup(request):
-#     	return render(requst, 'authservice/signup.html')
+#        return render(requst, 'authservice/signup.html')
 
 def register(request):
-    	return render(request, 'authservice/signup.html')
+       return render(request, 'authservice/signup.html')
 
 def signup(request):
-	if request.method == "POST":
-		if request.POST["password1"] == request.POST["password2"]:
-			try:
-				user = User.objects.get(username=request.POST['username'])
-				return render(request, 'authservice/signup.html', {'error': 'Username has already been taken'})
-			except User.DoesNotExist:
-				username=""
-				password1=""
-				user = User.objects.create_user(
-					request.POST['username'], password=request.POST['password1'],  email=request.POST["email"])
-				auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-				return redirect('main:home')
-		else:
-			return render(request, 'authservice/signup.html', {'error': 'Passwords must match'})
-	else:
-		# User wants to enter info
-		return render(request, 'authservice/signup.html')
+   if request.method == "POST":
+      if request.POST["password1"] == request.POST["password2"]:
+         try:
+            user = User.objects.get(username=request.POST['username'])
+            return render(request, 'authservice/signup.html', {'error': 'Username has already been taken'})
+         except User.DoesNotExist:
+            username=""
+            password1=""
+            user = User.objects.create_user(
+               request.POST['username'], password=request.POST['password1'],  email=request.POST["email"])
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('main:home')
+      else:
+         return render(request, 'authservice/signup.html', {'error': 'Passwords must match'})
+   else:
+      # User wants to enter info
+      return render(request, 'authservice/signup.html')
 
-	# 		username=""
-	# 		password1=""
-	# 		user = User.objects.create_user(username = request.POST["username"], password=request.POST["password1"], email=request.POST["email"])
-	# 		user = auth.authenticate(username=username, password=password1)
-	# 		auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-	# 		return redirect('main:home', {'username' : username})
-	# return render(request, 'authservice/signup.html')
+   #       username=""
+   #       password1=""
+   #       user = User.objects.create_user(username = request.POST["username"], password=request.POST["password1"], email=request.POST["email"])
+   #       user = auth.authenticate(username=username, password=password1)
+   #       auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+   #       return redirect('main:home', {'username' : username})
+   # return render(request, 'authservice/signup.html')
 
 
 def index(request):
-	return render(request, 'index.html')
+   return render(request, 'index.html')
 
 def logout(request):
-	auth.logout(request)
-	return redirect('authservice:signin')
+   auth.logout(request)
+   return redirect('authservice:signin')
 
 # def logout(request):
-# 	absuth.logout(request):
-# 	return redirect('signin')
+#    absuth.logout(request):
+#    return redirect('signin')

@@ -3,72 +3,70 @@
 {% block content %}
 
 <section class="hero-area-fix">
-<div class="hero-area" id="water">
-    <div class="container">
-        
-        <div class="hero-text">
-            {% comment %} <div class="col-md-8 col-xs-12"> {% endcomment %}
-                <aside class="f_widget contact_widget">
-                    <div class="f_title">
-                        <h1>Sign Up</h1>
-                    </div>
-                    <form class="row contact_widget_form" action="{% url 'authservice:signup' %}" method="POST" id="contactForm"
-                        novalidate="novalidate">
+    <div class="hero-area" id="water">
+        <div class="container">
+            <div class="row">
+                <div class="hero-text">
+                    {% comment %} <div class="col-md-8 col-xs-12"> {% endcomment %}
+                        
+                    <h1>Sign Up</h1><br>
+                    <h4>이미 계정이 있다면,<br><a href="{% url 'authservice:signin' %}">로그인하세요</a>.</h4>
+                    <form class="login" action="{% url 'authservice:signup' %}" method="POST">
                         {% csrf_token %}
-                        <h4><br>아래 정보를 입력해 회원 가입을 진행해주세요.<br>계정이 있다면, <a href="{% url 'authservice:signin' %}">로그인하세요</a>.</h4>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <input
-                                        name="username"
-                                        class="form-control"
-                                        placeholder="Your Name"
-                                        required=""
-                                        autofocus="autofocus"
-                                        id="username"
-                                        type="text"
-                                    />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <input
-                                        name="email"
-                                        class="form-control"
-                                        placeholder="E-mail"
-                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
-                                        required=""
-                                        id="email"
-                                        type="email"
-                                    />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <input
-                                        name="password1"
-                                        class="form-control"
-                                        placeholder="Password"
-                                        required=""
-                                        type="password"
-                                        id="password1"
-                                    />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <input
-                                        name="password2"
-                                        class="form-control"
-                                        placeholder="Password Confirm"
-                                        required=""
-                                        type="password"
-                                        id="password2"
-                                    />
-                                </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input
+                                    name="username"
+                                    class="form-control"
+                                    placeholder="Your Name"
+                                    required=""
+                                    autofocus="autofocus"
+                                    id="username"
+                                    type="text"
+                                />
                             </div>
                             <div class="form-group col-md-12">
-                                <input type="submit" class="btn buy-now" value="Sign Up">
+                                <input
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="E-mail"
+                                    pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                                    required=""
+                                    id="email"
+                                    type="email"
+                                />
                             </div>
-                        </form>
-                    
-                </aside>
-             </div>
+                            <div class="form-group col-md-12">
+                                <input
+                                    name="password1"
+                                    class="form-control"
+                                    placeholder="Password"
+                                    required=""
+                                    type="password"
+                                    id="password1"
+                                />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input
+                                    name="password2"
+                                    class="form-control"
+                                    placeholder="Password Confirm"
+                                    required=""
+                                    type="password"
+                                    id="password2"
+                                />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group col-md-12">
+                            <input type="submit" class="btn buy-now" value="Sign Up">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-{% endblock %}  
+{% endblock %}
