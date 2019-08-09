@@ -10,7 +10,7 @@
                     {% comment %} <div class="col-md-8 col-xs-12"> {% endcomment %}
                         
                     <h1>Sign Up</h1><br>
-                    <h4>아래 정보를 입력해 회원 가입을 진행해주세요.<br>계정이 있다면, <a href="{% url 'authservice:signin' %}">로그인하세요</a>.</h4>
+                    <h4>이미 계정이 있다면,<br><a href="{% url 'authservice:signin' %}">로그인하세요</a>.</h4>
                     <form class="login" action="{% url 'authservice:signup' %}" method="POST">
                         {% csrf_token %}
                         
@@ -58,6 +58,7 @@
                                 />
                             </div>
                         </div>
+                        <br>
                         <div class="form-group col-md-12">
                             <input type="submit" class="btn buy-now" value="Sign Up">
                         </div>
