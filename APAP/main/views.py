@@ -10,6 +10,9 @@ def home(request):
 	user = request.user #로그인 구현 전 임시 설정
 	id = user.pk
 	username = user.username
+	schedule = Schedule.objects.filter(
+		user = user
+	)
 	lecture_pks = user.lectures.all()
 	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
 	prints = Print.objects.filter(
@@ -29,7 +32,7 @@ def home(request):
 		timer.sleep(1)
 		timer -= 1
 
-	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
+	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer, 'schedule' : schedule})
 
 
 def endtimer(request):
