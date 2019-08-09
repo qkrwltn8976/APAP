@@ -22,8 +22,7 @@ class Printform(forms.ModelForm):
 			'side',
 			'gather',
 			'direction',
-			'delivery_price',
-			
+			'delivery_price',		
 			'date',
 			'file',
 		}

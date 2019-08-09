@@ -3,6 +3,8 @@ from models.models import *
 from django.core.mail import send_mail
 from .forms import Printform
 import time, math
+from media.pdf_page_counter import *
+from django.conf import settings
 
 def home(request):
 	user = request.user #로그인 구현 전 임시 설정
@@ -45,26 +47,6 @@ def endtimer(request):
 		print("신청이 만료되었습니다")
 	return redirect('main:home') 
 
-# def home(request, id):
-#	 user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
-#	 username = user.username
-#	 return render(request, 'main/home.html', {'username': username})
-
-	# if user.verified == True: #인증을 한 유저인 경우
-	#	 return render(request, 'main/home.html')
-	# else: #인증하지 않은 유저인 경우
-	#	 # email = 'original@here.com'
-	#	 # user = User.objects.create_user(email, email=email)
-	#	 # user.is_confirmed # False
-
-	#	 # send_mail(email, 'Use %s to confirm your email' % user.password, email, [email])
-	# 	# # User gets email, passes the confirmation_key back to your server
-
-	#	 # user.confirm_email(user.password)
-	#	 # user.is_confirmed # True
-	#	 return render(request, 'main/verify.html')
-
-
 
 def upload(request, username):
 	user = request.user #로그인 구현 전 임시 설정
@@ -75,15 +57,14 @@ def upload(request, username):
 		if form.is_valid():
 			form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
 			form.uploader = request.user
-			
+			form.save()
 			# 인쇄비 계산 
-			pages = 20
+			form.pages = pagecounter(form.file.path)
 			if(form.color=="colorful"):
 				color_price = 200
 			else:
 				color_price = 40
-			form.print_price = math.ceil(pages/form.gather)*color_price
-		  
+			form.print_price = math.ceil(form.pages/form.gather)*color_price
 			form.save()
 		  
 			return redirect('main:home')
@@ -91,29 +72,12 @@ def upload(request, username):
 		form = Printform(request.user, request.POST)
 	return render(request, 'main/upload.html', {'form' : form})
 
-
-def check(directory):
-	if directory.endswith(".pdf"):
-		pdf_files.append("./"+directory)
-	else :
-		pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
-
-
-def count_pages(filename):
-	data = open(filename, "rb").read()
-	return len(rxcountpages.findall(str(data)))
-
-
-def search(root_dir, recursive_search):
-	file_list = []
-	for (dirpath, dirnames, filenames) in os.walk(settings.MEDIA_ROOT):
-		for filename in filenames:
-				if filename.endswith(b'.pdf'):
-					file_list.append(dirpath.decode('utf-8') + '/' + filename.decode('utf-8'))
-		if not recursive_search:
-				break
-	return file_list
-
+def test(request):
+	printobj = get_object_or_404(Print, pk=14)
+	print(printobj.file.path)
+	cnt = pagecounter(printobj.file.path)
+	print("~~~~~~~~~~"+str(cnt))
+	return redirect('main:upload', username=request.user.username)
 
 def selected_lectures(request):
 

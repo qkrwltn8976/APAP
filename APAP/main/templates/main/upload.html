@@ -7,7 +7,7 @@
 {% bootstrap_javascript jquery='full' %}
 <style>
     input[type=submit] { background-color:white !important; class="btn buy-now" !important; border:none !important; box-shadow:none !important; width:120px !important;
-    height:50px !important; text-align="center" !important; border: 1px solid grey !important;}
+    height:50px !important; text-align="center" !important; border: 1px solid grey `!important;}
 </style>
 
 <section class="question_area">
@@ -29,12 +29,11 @@
             </div>
             </center>
             <!-- <input type="submit" class="btn buy-now" align="center"value=" UPLOAD "> -->
-            <button type="submit" class="btn buy-now"> UPLOAD </button> 
+            
             </div> 
-        </form>
-        
+        </form>      
     </div>
-
+ <a class="price_btn" href ="{% url 'main:test' %}">test^^</a>
 </section>
 <style>
     input.transparent-input{

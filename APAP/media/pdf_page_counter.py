@@ -3,12 +3,10 @@ from __future__ import division, print_function
 import argparse
 import os
 import re
-
+import pdb
 from terminaltables import AsciiTable
 
-
 rxcountpages = re.compile(r"/Type\s*/Page([^s]|$)", re.MULTILINE | re.DOTALL)
-
 
 def print_table(table_data):
     table_data = [["File Name", "Page count"]] + table_data
@@ -18,7 +16,6 @@ def print_table(table_data):
 
 
 def count_pages(filename):
-
     data = open(filename, "rb").read()
     return len(rxcountpages.findall(str(data)))
 
@@ -44,28 +41,18 @@ def display_page_sum(file_list):
         page_sum += int(page_count)
     result.append(["Total", page_sum])
     print_table(result)
+    return page_sum
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description="Calculate sum of pages of all pdf files in a given folder"
-    )
-
-    parser.add_argument("-r", "--recursive",
-                        const=True, default=False, type=bool, nargs='?',
-                        help="Recursively search subdirectories as well")
-
-    parser.add_argument("dir", default=".", type=str, nargs='*',
-                        help="Directory containing pdf files")
-
-    args = parser.parse_args()
-    
+def pagecounter(filedir):
     pdf_files = []
-    for directory in args.dir:
-        if directory.endswith(".pdf"):
-            pdf_files.append("./"+directory)
-        else :
-            pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
+    # for directory in args.dir:
+    directory = filedir
+    
+    if directory.endswith(".pdf"):
+        pdf_files.append(""+directory)
+    else :
+        pdf_files.extend(search(directory.rstrip("/").encode('utf-8'), bool(args.recursive)))
 
         
-    display_page_sum(pdf_files)
+    return display_page_sum(pdf_files)

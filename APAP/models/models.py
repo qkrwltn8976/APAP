@@ -79,7 +79,8 @@ class Print(models.Model):
 	vertical="vertical"
 	direction_choices = (horizontal, '가로'), (vertical, '세로')
 	direction = models.CharField(max_length=10, choices=direction_choices)
-
+	pages = models.IntegerField(default=1)
+	
 	delivery_price = models.IntegerField(default=2500) #배송비
 	print_price = models.IntegerField(default=0) #인쇄비
 

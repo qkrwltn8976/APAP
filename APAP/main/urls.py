@@ -18,5 +18,6 @@ urlpatterns = [
    path('endtimer/', views.endtimer, name="endtimer"),
    path('filter/', views.filter, name="filter"),
    path('requests/<int:id>', views.requests, name="requests"),
+   path('test/', views.test, name="test"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
