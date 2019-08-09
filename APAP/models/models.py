@@ -74,7 +74,8 @@ class Print(models.Model):
 	side = models.CharField(max_length=10, choices=side_choices, blank=True)
 
 	gather = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(8)], blank=True)
-
+	pages = models.IntegerField(default=1, blank=True)
+	
 	horizontal="horizontal"
 	vertical="vertical"
 	direction_choices = (horizontal, '가로'), (vertical, '세로')

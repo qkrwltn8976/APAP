@@ -40,12 +40,32 @@ def endtimer(request):
 	if request.method == "POST":
 		id = request.POST.get('valid')
 		obj = get_object_or_404(Print, pk=id)
+
 		obj.valid = False
-		rprint = PrintRequest.objects.filter(
-			req_p = obj
-		).update(
-			point =  obj.print_price + obj.delivery_price / user.requests.count()
-		)
+		if(user.requests.count()!=0):
+			# point =  obj.print_price + obj.delivery_price / user.requests.count()
+			rprint = PrintRequest.objects.filter(
+				req_p = obj
+			).update(
+				point = obj.print_price + obj.delivery_price / user.requests.count()
+			)
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# ).update(
+			# 	from_user__point = PrintRequest.from_user.point+obj.print_price +obj.delivery_price
+			# )
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# )
+			# for item in rprint:
+			# 	item.uploader.point = obj.uploader.point-obj.print_price + obj.delivery_price / user.requests.count()
+			# 	item.save()
+			# rprint = PrintRequest.objects.filter(
+			# 	req_p = obj
+			# ).update(
+			# 	to_user__point = obj.uploader.point-obj.print_price + obj.delivery_price / user.requests.count()
+			# )
+		
 		obj.save()
 		print("신청이 만료되었습니다")
 	return redirect('main:home') 
