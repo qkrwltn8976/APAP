@@ -51,7 +51,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-1">
       <div class="container">
         <div class="main_title color_white">
-        <h2><center>시간표 선택</center></h2>
+        <h2><center>시간표 추가</center></h2>
         </div>
         <div class="domain_inner">
           <form action="{% url 'main:selected_lectures' %}" method="POST">
@@ -71,7 +71,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-2">
       <div class="container">
         <div class="main_title color_white">
-          <h2><center>선택한 시간표</center></h2>
+          <h2><center>나의 시간표</center></h2>
         </div>
 
         <div class="domain_price_list">
@@ -79,7 +79,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
           <ul>
             {% for item in schedule %}
 
-            <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
+            <li><a class="#" href="#"> <span style="font-family:'BRRA_R' !important; color: #333 !important;">{{item.lecture.name}}</span></a></li>
 
             {% endfor %}
           </ul>
@@ -90,7 +90,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-3">
       <div class="container">
         <div class="main_title color_white">
-          <h2>등록 목록</h2>
+          <h2>내가 등록한 프린트</h2>
         </div>
 
         <div class="price_table_inner">
@@ -115,7 +115,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-4">
       <div class="container">
         <div class="main_title color_white">
-          <h2>요청 목록</h2>
+          <h2>내가 요청한 프린트</h2>
         </div>
         <div class="price_table_inner">
           {% for pprint in pprints %}
