@@ -94,7 +94,11 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>배송비</h4>
+                                        {% if print.valid == True %}
                                         <p>{{print.delivery_price}} / n 원</p>
+                                        {% else %}
+                                        <p>{{print.delivery_price}} / {{rprint.count}} 원</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +138,19 @@
                                     <div class="media-body">
                                         <h4>프린트 파일</h4>
                                         <p>{{print.file}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-md-6 col-xs-6">
+                            <div class="choose_item">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#"><i class="icofont icofont-star"></i></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>총금액 </h4>
+                                        <p>{{rprint.0.point}}원</p>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +202,7 @@
 
     </div>
     {% if valid == True %}
-      <p> {{ cnt }}</p>
+      <p>{{rprint.count}}</p>
       <a href = "{% url 'main:update' print.id %}">수정하기</a>
       <a href = "{% url 'main:delete' print.id %}" data-method="POST">삭제하기</a>
     {% else %}

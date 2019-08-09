@@ -11,31 +11,28 @@
 </style>
 
 <section class="question_area">
-
-    <div class="container">
+    <div class="container" style="padding-right:300px; padding-left:300px">
+        
             <div class="main_title">
                 <h2>인쇄 설정</h2>
             </div>
-
-        <div class="box" style="width: 50%; margin: auto;">
-          <form action="#" method="POST" enctype="multipart/form-data" novalidate>
-              <div class="control-group">
-              {% bootstrap_form form %}
-              {% csrf_token %}
-              {{form.media}}
-              <center>
-              <br>
-              <div class="form-group col-md-12 btn-lg">
-                  <input type="submit" class="btn buy-now" value=" UPLOAD " style="font-size:20px;">
-              </div>
-              </center>
-              {% comment %} <input type="submit" class="btn buy-now" align="center"value=" UPLOAD ">
-              {% comment %} <button type="submit" class="btn buy-now"> UPLOAD </button> {% endcomment %}
-              </div>
-          </form>
-        </div>
-
-
+        
+        <form action="#" method="POST" enctype="multipart/form-data" novalidate>
+            <div class="control-group">
+            {% bootstrap_form form %}
+            {% csrf_token %}
+            {{form.media}}
+            <center>
+            <br>
+            <div class="form-group col-md-12 btn-lg">
+                <input type="submit" class="btn buy-now" value=" UPLOAD " style="font-size:20px;">
+            </div>
+            </center>
+            <!-- <input type="submit" class="btn buy-now" align="center"value=" UPLOAD "> -->
+            <button type="submit" class="btn buy-now"> UPLOAD </button> 
+            </div> 
+        </form>
+        
     </div>
 
 </section>
@@ -45,6 +42,5 @@
        border:none !important;
        box-shadow:none !important;
     }
-
-</style>
-{% endblock %} 
+</style> 
+{% endblock %}   

@@ -6,16 +6,15 @@
         padding-bottom: 55px;
     }
 }
-// .app_feature_inner{
+.app_feature_inner{
     
-// }
+}
 .app_round_image{
     position: relative;
     padding-top: 80px;
     text-align: center;
     .round_c{
-        animation: 3s round_image infinite linear;
-        transform: rotate( -270deg );
+        animation: 10s round_image infinite linear;
     }
     .app_mobile{
         position: absolute;

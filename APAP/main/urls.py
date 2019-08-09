@@ -15,6 +15,7 @@ urlpatterns = [
    path('update/<int:id>', views.update, name="update"),
    path('delete/<int:id>', views.delete, name = "delete"),
    path('selected_lectures/', views.selected_lectures, name="selected_lectures"),
+   path('endtimer/', views.endtimer, name="endtimer"),
    path('filter/', views.filter, name="filter"),
    path('requests/<int:id>', views.requests, name="requests"),
 
