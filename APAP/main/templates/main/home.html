@@ -8,21 +8,22 @@
 {% if schedule.count == 0 %}
 <section class="price_table_area" id="price" style="margin: 0px;">
     <div class="container">
-
+        <center><h2> 수강중인 강의가 없어요 ㅠ_ㅠ<br>시간표를 추가해주세요!<h2></center>
         <div class="app_round_image">
             <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
-            
-            <a href="{% url 'main:mypage' user.username %}" class="app_mobile"><h1 style="font-family: 'BRRA_R';
+            <a href="{% url 'main:mypage' user.username %}" class="app_mobile">
+            <h4 style="font-family: 'BRRA_R';
     font-weight: 500;
     line-height: 1.1;
-    color: inherit;"> 수강중인<br>강의가<br>없어요!! </h1></a>
+    color: inherit;"> 추가하기 </h4></a>
             
         </div>          
     </div>
 </section>
 {% else %}
         <section class="price_table_area" id="price">
-			<div class = "container" style = "position: relative; width: 300px; height: 200px;">
+			<div class = "container" style = "position: relative; width: 300px; height: 200px; font-family:'BRRA_R' !important">
+            <center>
 					<form action="{% url 'main:filter' %}" method="POST">
 					{% csrf_token %}
 						<input type="submit" name="action" value="모두" class="transparent-input">
@@ -36,6 +37,7 @@
 					<div class="main_title">
                     	<h2>대리프린트 목록</h2>
 					</div>
+            </center>
 			</div>	
             <div class="container">
                 <div class="price_table_inner">
@@ -56,15 +58,16 @@
                             <div id="class"></div>
                             </form>
                         </ul>
-                        <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
+                        <a class="price_btn" href ="{% url 'main:detail' item.id %}" style="font-family:'BRRA_R' !important;">상세보기</a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-        </section>
-{% endif %}
+        
+        {% endif %}
+</section>
     </body>
-}
+
 <script type="text/javascript">
 	var getDate = document.getElementsByClassName("date");
 	var startDateTime = new Array();

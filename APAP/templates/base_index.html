@@ -54,17 +54,17 @@
     <body>
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
         {% if user.is_active %}
-        <div style="font-color: black; text-align:center; margin-top: 70px; ">
-            <a style = "font-family: 'Malssami815'; font-size: 26px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸!!!</a>
+        <div style="font-color: black; text-align:center; margin-top: 75px; ">
+            <a style = "font-family: 'BRRA_R'; font-size: 50px;" href = "{% url 'main:home' %}"><img src="{% static 'image/rubber-duck.png' %}">어푸어푸<img src="{% static 'image/rubber-duck.png' %}"></a>
         </div>
-        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px; padding-top: 30px;">
+        <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px; padding: 20px 0px;">
         <!--프로필사진을 누르면 mypage.html으로-->
-        <a href = "{% url 'main:mypage' user.username %}" >안녕하세요 {{ user.username }} 님! <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="마이페이지"></a>
+        <a href = "{% url 'main:mypage' user.username %}" >안녕하세요 {{ user.username }} 님!  <img src="{% static 'image/duck2.png'  %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="마이페이지"></a>
         {% comment %} <!--알림-->
         <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a> {% endcomment %}
         <!--로그아웃-->
         <a href="{% url 'authservice:logout' %}"><img src="{% static 'image/gologout.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="로그아웃"></a><br>
-        <h6> 포인트: {{user.point}}<h6>
+        <a href = "{% url 'main:mypage' user.username %}" ><h6 style="text-align:right; font-family: '777Balsamtint' !important; font-size:16px !important"> 포인트 : {{ user.point }}p<h6></a>
         </div>
         {% else %}
         {% endif %}

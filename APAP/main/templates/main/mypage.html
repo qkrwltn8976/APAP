@@ -8,6 +8,22 @@
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 <style>
+.dropdown-menu{
+position: absolute;
+transform: translate3d(199px, 288px, 0px); 
+top: 0px;
+left: 0px;
+will-change: transform;
+overflow: scroll; 
+padding: 10px; 
+background-color: white; 
+margin-left: 20px;
+height:300px;
+display: flex; 
+flex-wrap: wrap; 
+align-items: center;
+max-width:500px;
+}
 body { min-height: 100vh;  font-family: 'Roboto'; }
 .container { margin: 150px auto; max-width: 640px; }
 .domain_search_area {
@@ -51,18 +67,18 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-1">
       <div class="container">
         <div class="main_title color_white">
-        <h2><center>시간표 선택</center></h2>
+        <h2><center>시간표 추가</center></h2>
         </div>
         <div class="domain_inner">
           <form action="{% url 'main:selected_lectures' %}" method="POST">
             {% csrf_token %}
-            <select name="lectures" id="lectures_id" class="form-control custom-select custom-select-sm" multiple="multiple" style="display: none;">
-              {% for lecture in lectures %}
+            <select name="lectures" id="lectures_id" class="form-control custom-select custom-select-sm" multiple="multiple">
+			  {% for lecture in lectures %}
                 <option value="{{lecture.id}}" name="lec">{{lecture.name}} : {{lecture.code}}</option>
               {% endfor %}
             </select><br><br>
 
-            <center><input type="submit" value="submit"/><center>
+            <center><input type="submit" class="btn buy-now" style="font-family:'BRRA_R' !important; color: #333 !important;" value="추가"/><center>
           </form>
         </div>
       </div>
@@ -71,7 +87,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-2">
       <div class="container">
         <div class="main_title color_white">
-          <h2><center>선택한 시간표</center></h2>
+          <h2><center>나의 시간표</center></h2>
         </div>
 
         <div class="domain_price_list">
@@ -79,7 +95,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
           <ul>
             {% for item in schedule %}
 
-            <li><a class="#" href="#"> <span>{{item.lecture.name}}</span></a></li>
+            <li><a class="#" href="#"> <span style="font-family:'BRRA_R' !important; color: #333 !important;">{{item.lecture.name}}</span></a></li>
 
             {% endfor %}
           </ul>
@@ -90,7 +106,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-3">
       <div class="container">
         <div class="main_title color_white">
-          <h2>등록 목록</h2>
+          <h2>내가 등록한 프린트</h2>
         </div>
 
         <div class="price_table_inner">
@@ -115,7 +131,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
     <div class="pt-page pt-page-4">
       <div class="container">
         <div class="main_title color_white">
-          <h2>요청 목록</h2>
+          <h2>내가 요청한 프린트</h2>
         </div>
         <div class="price_table_inner">
           {% for pprint in pprints %}
