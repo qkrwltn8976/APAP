@@ -46,7 +46,20 @@
 </header>
 
 
-<!-- 카드는 나중에 다시 넣어보자 -->	
+<!-- 카드는 나중에 다시 넣어보자 -->
+{% if schedule == null %}
+<section class="price_table_area" id="price" style="margin: 0px;">
+    <div class="container">
+
+        <div class="app_round_image">
+            <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
+
+            <a href="{% url 'main:mypage' user.username %}" class="app_mobile"><h1> 수강중인<br>강의가<br>없어요!! </h1></a>
+
+        </div>
+    </div>
+</section>
+{% else %}
         <section class="price_table_area" id="price">
             <div class="container">
                 <div class="main_title">
@@ -57,18 +70,18 @@
                     <div class="price_item">
                         <div class="price_header">
                             <h6>{{item.uploader}} </h6>
-                            <h2>{{item.schedule.lecture.name}}</h2>                   
+                            <h2>{{item.schedule.lecture.name}}</h2>
                             <h3 id="detail_price">{{item.print_price}}+?</h3>
                            <!--  <h6>{{item.id}}</h6> -->
                         </div>
                         <ul>
                             <div class="time-elapsed"></div>
-                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>  
+                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
                             <form action="{% url 'main:endtimer' %}" method='POST' class="f" id="f">
                             {% csrf_token %}
                             <div id="print_id" value="{{item.id}}"></div>
                             <div id="class"></div>
-                            </form>                
+                            </form>
                         </ul>
                         <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
                     </div>
@@ -76,7 +89,7 @@
                 </div>
             </div>
         </section>
-      
+
     </body>
 <script type="text/javascript">
 	var getDate = document.getElementsByClassName("date");
@@ -134,15 +147,15 @@
 
         		var pid = document.getElementById("print_id").value;
         		var pid = $('#print_id').attr("value");
-        		
+
         		$('#class').html("<input name = 'valid' id = 'valid' value= "+pid+">")
-        		
+
         		document.forms["f"].submit();
         		break;
-        	}	
+        	}
         	// header[i].style.backgroundColor = "gray"
    		}
-	    
+
 	}
 
 	setInterval(updateClock, 1000);
