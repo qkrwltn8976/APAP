@@ -181,7 +181,7 @@
         </div>
         <div class="form-group col-md-12">
           <a class="gradient_bg_btn" href="{% url 'main:delete' print.id %}">삭제하기</a>
-          <a class="price_btn" href="{% url 'main:update' print.id %}">수정하기</a> 
+
         </div>
     {% else %}
         <div class="form-group col-md-12">
@@ -192,33 +192,5 @@
     <br><br><br><br><br><br>
   </div></center>
         </div></div></section>
-  <div class = "box" style = "width: 500px; height: 500px;">
-    <table class = "box" style = "text-align:left">
 
-    <p>강의명: {{print.schedule.lecture.name}}</p><br>
-    <p>색상: {{print.color}}</p><br>
-    <p>양면 인쇄: {{print.side}}</p><br>
-    <p>용지당 페이지 수: {{print.gather}}</p><br>
-    <p>페이지 방향: {{print.direction}}</p><br>
-    <p>배송비: {{print.delivery_price}}원</p><br>
-    <p>인쇄비: {{print.print_price}}원</p><br>
-    <p>종료일시: {{print.date}}</p><br>
-    <p>인쇄 파일 업로드: {{print.file}}}</p><br>
-
-    </table>
-  </div>
-  <div>
-    <div>
-      <button class="btn btn-link" type="button" onclick="location.href='{% url 'main:requests' print.id %}'">신청하기</button>
-      <p id="count{{ print.requests.count }}"></p>
-
-
-    </div>
-    {% if valid == True %}
-      <p>{{rprint.count}}</p>
-      <a href = "{% url 'main:update' print.id %}">수정하기</a>
-      <a href = "{% url 'main:delete' print.id %}" data-method="POST">삭제하기</a>
-    {% else %}
-    {% endif %}
-  </div>
 {% endblock %}
