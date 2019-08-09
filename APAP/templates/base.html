@@ -54,6 +54,7 @@
         <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a> {% endcomment %}
         <!--로그아웃-->
         <a href="{% url 'authservice:logout' %}"><img src="{% static 'image/gologout.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="로그아웃"></a><br><br>
+        <h6> 포인트: <h6>
         </div>
         {% else %}
         {% endif %}

@@ -50,7 +50,7 @@
         <!--home.html으로 돌아올 수 있는 아이콘 하나 필요할 듯-->
         {% if user.is_active %}
         <div style="font-color: black; text-align:center; margin-top: 70px; ">
-            <a style = "font-family: 'Malssami815'; font-size: 26px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸</a>
+            <a style = "font-family: 'Malssami815'; font-size: 26px;" href = "{% url 'main:home' %}">Afford to Print: 어푸어푸!!!</a>
         </div>
         <div style ="text-align: right; font-family: '777Balsamtint'; font-size:20px; margin-right: 20px; padding-top: 30px;">
         <!--프로필사진을 누르면 mypage.html으로-->
@@ -59,7 +59,7 @@
         <a href="#"><img src="{% static 'image/bell2.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;"></a> {% endcomment %}
         <!--로그아웃-->
         <a href="{% url 'authservice:logout' %}"><img src="{% static 'image/gologout.png' %}" style = "width: 30px; height: 30px; border-radius: 50%;" title="로그아웃"></a><br>
-        <h5> 포인트: <h5>
+        <h6> 포인트: <h6>
         </div>
         {% else %}
         {% endif %}
