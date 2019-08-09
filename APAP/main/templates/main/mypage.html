@@ -136,6 +136,33 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
       </div>
     </div> <!-- page-4 -->
     
+     <div class="pt-page pt-page-5">
+      <div class="container">
+        <div class="main_title color_white">
+          <h2>포인트 내역</h2>
+        </div>
+        <center><h3>{{user.username}}의 포인트는 {{user.point}}</h3></center>
+       
+          {% for pprint in pprints %}
+          <div class="price_item">
+            <div class="price_header">
+              <h3>{{expired.req_p.lecture.name}}</h3>
+              <h2>{{expired.price}}</h2>
+              <h6>{{expired.from_user.username}}</h6>
+              <h6>{{expired.id}}</h6>
+              <h6>-{{expired.point}}</h6>
+            </div>
+            <ul>
+              <div class="time-elapsed"></div>
+              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
+            </ul>
+            </div>
+          {% endfor %}
+     
+      </div>
+    </div> <!-- page-4 -->
+
+
   </div> <!-- pt-main -->
 
   <div class="pt-message">

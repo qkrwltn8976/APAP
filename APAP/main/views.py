@@ -106,13 +106,21 @@ def mypage(request, username):
 	)
 
 	prints = Print.objects.filter(
-		uploader = user
+		uploader = user,
+		valid = True
 	)
+	expired = PrintRequest.objects.filter(
+		to_user = user,
+		req_p__valid = False
+	)
+	
+	print("=========="+str(expired.count()))
+
 	pprints = Print.objects.filter(
 		requests = user
 	)
 	#print("====="+str(schedule.count()))
-	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints})
+	return render(request, 'main/mypage.html', {'user' : user, 'lectures' : lectures, 'schedule' : schedule, 'prints' : prints, 'pprints' : pprints, 'expired' : expired})
 
 def detail(request, id):
 	pprint = get_object_or_404(Print, pk=id)
