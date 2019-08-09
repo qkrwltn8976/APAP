@@ -74,19 +74,19 @@ html, body { height: 100%; }
 }
 
 .pt-page-1 {
-	background: #B5B2FF;
+	background: #DCCAFC;
 }
 
 .pt-page-2 {
-	background: #FFB2D9;
+	background: #EEC9F6;
 }
 
 .pt-page-3 {
-	background: #FFC19E;
+	background: #FBC7E2;
 }
 
 .pt-page-4 {
-	background: #B2EBF4;
+	background: #FFC5CB;
 }
 
 .pt-page-5 {
@@ -103,9 +103,8 @@ html, body { height: 100%; }
 	position: absolute;
 	width: 300px;
 	z-index: 999999;
-	top: 12%;
 	left: 50%;
-	margin-top: 130px;
+	margin-top: 30px;
 	-webkit-transform: translateX(-50%);
 	-moz-transform: translateX(-50%);
 	-ms-transform: translateX(-50%); 

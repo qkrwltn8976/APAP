@@ -44,11 +44,10 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
 
 
 <body>
-  <div class="pt-triggers">
-    <button id="iterateEffects" class="pt-touch-button">next page</button>
-  </div><!-- /triggers -->
-
   <div id="pt-main" class="pt-perspective">
+    <div class="pt-triggers">
+      <button id="iterateEffects" class="pt-touch-button">next page</button>
+    </div><!-- /triggers -->
     <div class="pt-page pt-page-1">
       <div class="container">
         <div class="main_title color_white">
@@ -95,18 +94,18 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
         </div>
 
         <div class="price_table_inner">
-          {% for print in prints %}
+          {% for item in prints %}
           <div class="price_item">
-            <div class="price_header">
-              <h3>{{print.schedule.lecture.name}}</h3>
-              <h2>{{print.price}}</h2>
-              <h6>{{print.uploader}}</h6>
-            </div>
-            <ul>
-              <div class="time-elapsed"></div>
-              <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
-            </ul>
-            <a class="price_btn" href="#">신청하기</a>
+              <div class="price_header">
+                  <h3>{{item.schedule.lecture.name}}</h3>
+                  <h2>{{item.price}}</h2>
+                  <h6>{{item.uploader}}</h6>
+              </div>
+              <ul>
+                  <div class="time-elapsed"></div>
+                  <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
+              </ul>
+              <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
           </div>
           {% endfor %}
         </div>
@@ -136,6 +135,7 @@ body { min-height: 100vh;  font-family: 'Roboto'; }
         </div>
       </div>
     </div> <!-- page-4 -->
+    
   </div> <!-- pt-main -->
 
   <div class="pt-message">
