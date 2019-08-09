@@ -2516,6 +2516,7 @@ label {
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 20px;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -2530,6 +2531,7 @@ input[type="checkbox"] {
 }
 input[type="file"] {
   display: block;
+  font-size: 10px;
 }
 input[type="range"] {
   display: block;
@@ -4919,14 +4921,14 @@ a.label:focus {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
-  color: #6b6d6f;
+  color: #ffffff;
   line-height: 1;
   vertical-align: middle;
   white-space: nowrap;
   text-align: center;
-  background-color: #d7d7d7;
+  background-color: #777777;
   border-radius: 10px;
 }
 .badge:empty {
