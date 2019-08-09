@@ -43,7 +43,20 @@
 </header>
 
 
-<!-- 카드는 나중에 다시 넣어보자 -->	
+<!-- 카드는 나중에 다시 넣어보자 -->
+{% if schedule != null %}
+<section class="price_table_area" id="price" style="margin: 0px;"">
+    <div class="container">
+
+        <div class="app_round_image">
+            <img class="round_c" src="{% static 'image/index/round-circle.png' %}" alt="">
+
+            <a href="{% url 'main:mypage' user.username %}" class="app_mobile"><h1> 수강중인<br>강의가<br>없어요!! </h1></a>
+
+        </div>
+    </div>
+</section>
+{% else %}
         <section class="price_table_area" id="price">
             <div class="container">
                 <div class="main_title">
@@ -59,7 +72,7 @@
                         </div>
                         <ul>
                             <div class="time-elapsed"></div>
-                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>                  
+                            <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>
                         </ul>
                         <a class="price_btn" href ="{% url 'main:detail' item.id %}">상세보기</a>
                     </div>
@@ -67,7 +80,7 @@
                 </div>
             </div>
         </section>
-      
+
     </body>
 <script type="text/javascript">
 	var getDate = document.getElementsByClassName("date");
@@ -122,11 +135,11 @@
         		btn[i].style.backgroundColor = "gray"
         		btn[i].style.visibility = "hidden"
         	}
-        		
-        	
+
+
         	// header[i].style.backgroundColor = "gray"
    		}
-	    
+
 	}
 
 	setInterval(updateClock, 1000);
