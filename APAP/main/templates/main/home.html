@@ -56,9 +56,9 @@
                 	{% for item in prints %}
                     <div class="price_item">
                         <div class="price_header">
-                            <h3>{{item.schedule.lecture.name}}</h3>
-                            <h2>{{item.print_price}} + {{item.delivery_price}}</h2>
                             <h6>{{item.uploader}} </h6>
+                            <h2>{{item.schedule.lecture.name}}</h2>                   
+                            <h3 id="detail_price">{{item.print_price}}+?</h3>
                            <!--  <h6>{{item.id}}</h6> -->
                         </div>
                         <ul>
@@ -79,6 +79,8 @@
       
     </body>
 <script type="text/javascript">
+	var getDate = document.getElementsByClassName("date");
+	var startDateTime = new Array();
 	var startStamp = new Array();
 
 	for (var i = 0; i < getDate.length; i++) {
@@ -153,3 +155,4 @@
        box-shadow:none !important;
     }
 </style>
+    {% endblock %}
