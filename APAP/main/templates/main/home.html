@@ -57,8 +57,8 @@
                     <div class="price_item">
                         <div class="price_header">
                             <h3>{{item.schedule.lecture.name}}</h3>
-                            <h2>{{item.price}}</h2>
-                            <h6>{{item.uploader}}</h6>
+                            <h2>{{item.print_price}} + {{item.delivery_price}}</h2>
+                            <h6>{{item.uploader}} </h6>
                            <!--  <h6>{{item.id}}</h6> -->
                         </div>
                         <ul>
@@ -66,7 +66,7 @@
                             <li class="date"><a href="#">{{ item.date|date:'Y-m-d H:m:s' }}</a></li>  
                             <form action="{% url 'main:endtimer' %}" method='POST' class="f" id="f">
                             {% csrf_token %}
-                            <div id="print_id" value="{{item.id}}">{{item.id}}</div>
+                            <div id="print_id" value="{{item.id}}"></div>
                             <div id="class"></div>
                             </form>                
                         </ul>
@@ -128,18 +128,17 @@
         		elements[i].innerHTML = d[i]+" 일 "+h[i]+" 시간 "+m[i]+" 분 "+s[i]+" 초";
         	else{
         		elements[i].innerHTML = "--";
-        		header[i].style.backgroundColor = "gray"
-        		btn[i].style.backgroundColor = "gray"
-        		btn[i].style.visibility = "hidden"
+        		// header[i].style.backgroundColor = "gray"
+        		// btn[i].style.backgroundColor = "gray"
+        		// btn[i].style.visibility = "hidden"
 
         		var pid = document.getElementById("print_id").value;
         		var pid = $('#print_id').attr("value");
         		
         		$('#class').html("<input name = 'valid' id = 'valid' value= "+pid+">")
         		
-
         		document.forms["f"].submit();
-        		
+        		break;
         	}	
         	// header[i].style.backgroundColor = "gray"
    		}

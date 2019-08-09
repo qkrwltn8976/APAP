@@ -12,13 +12,12 @@ def home(request):
 	lecture_list = Lecture.objects.filter(pk__in=lecture_pks)
 	prints = Print.objects.filter(
 		schedule__lecture__in=[l for l in lecture_list]
+	).filter(
+		valid=True
 	)
 
 	for l in lecture_list:
 		print("=========="+l.name)
-	prints = Print.objects.filter(
-		schedule__lecture__in=[l for l in lecture_list]
-	)
 
 	timer = ""
 	while timer:
@@ -28,22 +27,24 @@ def home(request):
 		timer.sleep(1)
 		timer -= 1
 
-	# if request.method == "POST":
-	#	 value = request.POST['value']
-	#	 print(value+"*********")
 	return render(request, 'main/home.html', {'prints' : prints, 'timer' : timer})
 
 
 def endtimer(request):
 	user = request.user
 	if request.method == "POST":
-		value = request.POST.get('valid')
-		print(str(value)+"*********")
+		id = request.POST.get('valid')
+		obj = get_object_or_404(Print, pk=id)
+		obj.valid = False
+		rprint = PrintRequest.objects.filter(
+			req_p = obj
+		).update(
+			point =  obj.print_price + obj.delivery_price / user.requests.count()
+		)
+		obj.save()
+		print("신청이 만료되었습니다")
 	return redirect('main:home') 
 
-
-def __getitem__(self, key):
-	 return self.var.get(key, key)
 # def home(request, id):
 #	 user = get_object_or_404(User, pk=id) #로그인 구현 전 임시 설정
 #	 username = user.username
@@ -160,27 +161,19 @@ def detail(request, id):
 
 	username = user.username
 	lectures = Lecture.objects.all()
+	rprint = PrintRequest.objects.filter(
+		req_p = pprint
+	)
 	cnt = pprint.requests.count()
-	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt})
-
-
+	return render(request, 'main/detail.html', {'user' : user, 'lectures' : lectures, 'print': pprint, 'valid': valid, 'cnt':cnt, 'rprint' : rprint})
 
 
 def update(request, id):
-	form = Printform()
 	pprint = get_object_or_404(Print, pk=id)
-	if request.method == "POST":
-		color = request.POST.get('color')
-		gather = request.POST.get('gather')
-		side = request.POST.get('side')
-		direction = request.POST.get('direction')
-		price = request.POST.get('price')
-		pprint.color = color
-		pprint.gather = gather
-		pprint.side = side
-		pprint.direction = direction
-		pprint.price = price
-		pprint.save()
+	form = Printform(request.user, request.POST or None, request.FILES or None, instance=pprint)
+	
+	if form.is_valid():
+		form.save()
 		return redirect('main:home')
 	return render(request, 'main/update.html', {"pprint": pprint, "form":form})
 
@@ -230,6 +223,8 @@ def filter(request):
 				print("=========="+l.name+l.day_time)
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
+			).filter(
+				valid=True
 			)
 		else:
 			print("++++++"+filter_type)
@@ -241,6 +236,8 @@ def filter(request):
 			prints = Print.objects.filter(
 				schedule__lecture__in=[l for l in lecture_list]
 				# schedule__lecture__in=l
+			).filter(
+				valid=True
 			)
 
 		return render(request, 'main/home.html', {'prints': prints})
